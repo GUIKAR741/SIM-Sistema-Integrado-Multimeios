@@ -1,0 +1,14 @@
+{
+  "autoload":{
+    "psr-4":{
+      "App\\Classes\\":"App/Classes",
+      "App\\Models\\":"App/Models",
+      "App\\Interfaces\\":"App/Interfaces",
+      "App\\Traits\\":"App/Traits",
+      "Database\\":"Database"
+    }
+  },
+  "require":{
+  "symfony/var-dumper":"^3.1"
+  }
+}
