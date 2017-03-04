@@ -1,0 +1,12 @@
+<script src="../assets/plugins/waypoints/jquery.waypoints.min.js"></script>
+<script src="../assets/plugins/counter-up-master/jquery.counterup.min.js"></script>
+<script src="../assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="../assets/plugins/chart.js/chart.min.js"></script>
+<script src="../assets/plugins/flot/jquery.flot.min.js"></script>
+<script src="../assets/plugins/flot/jquery.flot.time.min.js"></script>
+<script src="../assets/plugins/flot/jquery.flot.symbol.min.js"></script>
+<script src="../assets/plugins/flot/jquery.flot.resize.min.js"></script>
+<script src="../assets/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="../assets/plugins/curvedlines/curvedLines.js"></script>
+<script src="../assets/plugins/peity/jquery.peity.min.js"></script>
+<script src="../assets/js/pages/dashboard.js"></script>

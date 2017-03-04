@@ -83,8 +83,12 @@ class QueryBuilder{
      * @param string $operation
      * @return $this
      */
-    public function where($field, $value, $operation="="){
-        $this->where=$field." ".$operation." '".$value."'";
+    public function where($field, $value, $operation="=",$aspas=true){
+        if ($aspas==false):
+            $this->where=$field." ".$operation.$value;
+        else:
+            $this->where=$field." ".$operation." '".$value."'";
+        endif;
         return $this;
     }
     /**
@@ -216,6 +220,16 @@ class QueryBuilder{
         if(!is_null($this->limite)):
             $query.=" LIMIT ".$this->limite;
         endif;
+        $this->select=null;
+        $this->from=null;
+        $this->where=null;
+        $this->join=null;
+        $this->order=null;
+        $this->and=null;
+        $this->or=null;
+        $this->between=null;
+        $this->like=null;
+        $this->limite=null;
         return $query;
     }
 }

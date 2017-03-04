@@ -1,0 +1,1 @@
+<link href="../assets/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet">

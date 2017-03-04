@@ -1,0 +1,9 @@
+/*CSS Sobrescrito*/
+.pattern-lock-screen{background:url(../images/search_images/2.jpg) no-repeat;background-size:cover;}
+.signin-page{background:url(../images/bibliotecaelfica.jpg) no-repeat;background-size:cover}
+/*Style Custom*/
+.modAcervo{top:2% !important;max-height: 100% !important;height: 95% !important;width: 80%}
+.modReserva{top:2% !important;max-height: 100% !important;height: 95% !important;width: 80%}
+.border-login{border-radius:5px;}
+.btn-no-shadow{box-shadow: none}
+/*.btn-no-shadow:hover{box-shadow: none;cursor: auto}*/

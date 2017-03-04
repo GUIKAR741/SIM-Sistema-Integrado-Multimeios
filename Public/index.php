@@ -1,78 +1,73 @@
 <?php
-include_once '../Config/config.php';
-include_once 'includes/header.php';
-use App\Models\User;
-use App\Classes\Login;
-if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['logado']==true))):
-	header("Location:home.php?acao=home");
-	exit;
-endif;
-if (isset($_POST['logar'])):
-	$user=new App\Models\User();
-	$login=new App\Classes\Login($user);
+include_once ('../Config/config.php');
+include_once('includes/header-front.php'); ?>
+<!-- Stylesheets -->
+<!--<link rel="stylesheet" href="assets/css/normalize.css">-->
+<link rel="stylesheet" href="assets/font/font-awesome/css/font-awesome.min.css"><!--Ícones-->
+<link rel="stylesheet" href="assets/libs/materialize/css/materialize.min.css" media="screen,projection"/>
+<link rel="stylesheet" href="assets/css/bootstrap.css" media="screen,projection"/>
 
-	$email =trim(strip_tags(filter_input(INPUT_POST,'email',FILTER_SANITIZE_STRING)));
-	$password =trim(strip_tags(filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING)));
-	if (!$email == '' || !$password == ''){
-		$login->setEmail($email);
-		$login->setPassword($password);
-		$logado = @$login->logar();//?true:false;
-	}else{
-		$logado=false;
-	}
-endif;
+<link rel="stylesheet" href="assets/css/animate.min.css" media="screen,projection"/>
+<!--<link rel="stylesheet" href="assets/libs/sweetalert/sweet-alert.css" media="screen,projection"/> Ñ SEI-->
+
+<link rel="stylesheet" href="assets/libs/owl-carousel/owl.carousel.css" media="screen,projection"/>
+<link rel="stylesheet" href="assets/libs/owl-carousel/owl.transitions.css" media="screen,projection"/>
+<!--<link rel="stylesheet" href="assets/libs/owl-carousel/owl.theme.css" media="screen,projection"/> Ñ SEI-->
+
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+
+<!-- Choose your default colors -->
+<link rel="stylesheet" href="assets/css/colors/color1.css">
+<link rel="stylesheet" href="assets/css/estilo.css">
+<!-- Stylesheets END-->
+<?php include_once('includes/preloader-front.php'); ?>
+<?php include_once('includes/menu-front.php'); ?>
+<!-- ConteudoSite -->
+
+<?php
+
+if (isset($_GET['p'])) {
+    $p = $_GET['p'];
+    //Pagina inicial do sistema
+    if ($p == 'home') {
+        include_once('pages/home.php');
+
+    }  elseif ($p == 'about') {
+        include_once('pages/about.php');
+
+    } elseif ($p == 'contact') {
+        include_once('pages/contact.php');
+
+    } elseif ($p == 'collection') {
+        include_once('pages/collection.php');
+
+    } else {
+        echo "<br /><br /><br /><br /><br />Página inexistente!";
+    }
+} else {
+    include_once("pages/home.php");
+}
 ?>
-	<body>
-<div class="row">
-	<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-		<?php
-		if (isset($logado)):
-			if ($logado == true):
-				echo '<div class="alert bg-success" role="alert">
-                    <svg class="glyph stroked checkmark"><use xlink:href="#stroked-checkmark"></use></svg> <strong>Logado no sistema!</strong> <b>Você sera redirecionado!</b> <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                </div>';
-				header("Refresh:1.5 home.php?acao=home");
-			else:
-				echo '<div class="alert bg-danger" role="alert">
-                    <svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> <strong>Erro ao logar!</strong> <b>Tente Novamente!</b><a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                </div>';
-				header("Refresh:1.5 index.php");
-			endif;
-		endif;
-		if(isset($_GET['acao']) && !isset($_POST['logado']) && $_GET['acao']=='negado'):
-			echo '<div class="alert bg-danger" role="alert">
-                    <svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> <strong> Acesso Negado!</strong> <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                </div>';
-			header("Refresh:1.5 index.php");
-		endif;
-		if(isset($_GET['acao']) && !isset($_POST['logado']) && $_GET['acao']=='logout'):
-			echo '<div class="alert bg-warning" role="alert">
-                    <svg class="glyph stroked flag"><use xlink:href="#stroked-flag"></use></svg> Obrigado por usar o sistema!</strong> <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                </div>';
-			header("Refresh:1.5 index.php");
-		endif;
-		?>
-		<div class="login-panel panel panel-default">
-			<div class="panel-heading">Login</div>
-			<div class="panel-body">
-				<form role="form" method="post">
-					<fieldset>
-						<div class="form-group">
-							<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
-						</div>
-						<div class="form-group">
-							<input class="form-control" placeholder="Password" name="password" type="password" value="">
-						</div>
-<!--						<div class="checkbox">-->
-<!--							<label>-->
-<!--								<input name="remember" type="checkbox" value="Remember Me">Remember Me-->
-<!--							</label>-->
-<!--						</div>-->
-						<button type="submit" name="logar" class="btn btn-primary">Login</button>
-					</fieldset>
-				</form>
-			</div>
-		</div>
-	</div><!-- /.col-->
-</div><!-- /.row -->
-<?php include_once 'includes/footer.php';?>
+
+<!-- ConteudoSite END -->
+<?php include_once('includes/footer-front.php'); ?>
+<!-- JavaScripts -->
+<script type="text/javascript" src="assets/js/jquery-1.11.2.min.js"></script>
+<script src="assets/js/jquery.easing.1.3.js"></script>
+<script src="assets/js/detectmobilebrowser.js"></script>
+<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="assets/js/wow.min.js"></script>
+<script src="assets/js/waypoints.js"></script>
+<script src="assets/js/jquery.counterup.min.js"></script>
+<script src="assets/js/jquery.nicescroll.min.js"></script>
+<!--<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>-->
+<!--<script src="assets/js/gmaps.js"></script>-->
+<script src="assets/libs/owl-carousel/owl.carousel.min.js"></script>
+<script src="assets/libs/materialize/js/materialize.min.js"></script>
+<!--<script src="assets/libs/jwplayer/jwplayer.js"></script>-->
+<!--<script src="assets/libs/sweetalert/sweet-alert.min.js"></script> Ñ SEI-->
+<script src="assets/js/common.js"></script>
+<script src="assets/js/main.js"></script>
+<!-- JavaScripts END -->
+<?php include_once("includes/endhtml.php")?>

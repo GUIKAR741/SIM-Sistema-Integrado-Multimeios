@@ -1,0 +1,73 @@
+/*
+====================================================
+* [Master Stylesheet]
+
+  Theme Name : MaterialX
+  Version    :  1.1
+  Author     :  Bdinfosys
+  Author URI :  http://themeforest.net/user/bdinfosys
+====================================================
+
+   Topics:
+  =======
+
+  1. Home
+  2. About
+  3. Contact
+  4. Collection
+  5. Menu
+===================================================== */
+.azulEscuro{
+    background-color: #0c2426 !important;
+}
+.brancoIn{
+    color: #fff !important;
+}
+.branco{
+    background-color: #fff !important;
+}
+.contCollection{
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+/* --------------------------------- */
+/* 2. About
+ ----------------------------------- */
+#about{
+    background-color: #00bcd4 !important;
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
+/* --------------------------------- */
+/* 3. Contact
+ ----------------------------------- */
+.comentRecentes{
+    text-align: center;
+}
+.coment{
+      color: #727272;
+}
+.contactCard{
+    padding-bottom: 18px;
+}
+.contactHeader{
+    padding-top: 20px;
+}
+/* --------------------------------- */
+/* 4. Collection
+ ----------------------------------- */
+#collection{
+    background-color: #00bcd4 !important;
+}
+
+.margin-b-0{
+    margin-bottom: 0;
+}
+/* --------------------------------- */
+/* 5. Menu
+ ----------------------------------- */
+img.logo{
+    width: 150px;
+    height: 65px;
+    margin-top: 4px;
+}
