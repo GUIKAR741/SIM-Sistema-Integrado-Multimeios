@@ -6,31 +6,27 @@ $pagina=isset($_GET['pag'])?intval($_GET['pag'])*$itens:0;
 
 if (isset($procura) && $procura!=''):
     $livros=$tb_acervo->select()->from()->like(
-        "tipo_acervo = 'livro' and titulo LIKE '%$procura%' or autor LIKE '%$procura%' ".
-        " or local LIKE '%$procura%' or editora LIKE '%$procura%' ".
+        "tipo_acervo = 'jmf' and titulo LIKE '%$procura%' ".
         " or observacao LIKE '%$procura%' or data LIKE '%$procura%' ".
-        " or volume LIKE '%$procura%' or exemplares LIKE '%$procura%' ".
-        " or ano_publicacao LIKE '%$procura%' or estante LIKE '%$procura%' or forma_de_aquisicao ","%$procura%"
+        " or exemplares ","%$procura%"
     )->limite("$pagina,$itens")->all();
     $livroRow=$tb_acervo->select()->from()->like(
-        "tipo_acervo = 'livro' and (titulo LIKE '%$procura%' or autor LIKE '%$procura%' ".
-        " or local LIKE '%$procura%' or editora LIKE '%$procura%' ".
+        "tipo_acervo = 'jmf' and (titulo LIKE '%$procura%' or autor LIKE '%$procura%' ".
         " or observacao LIKE '%$procura%' or data LIKE '%$procura%' ".
-        " or volume LIKE '%$procura%' or exemplares LIKE '%$procura%' ".
-        " or ano_publicacao LIKE '%$procura%' or estante LIKE '%$procura%' or forma_de_aquisicao ","$procura","'%","%')",false
+        " or exemplares ","$procura","'%","%')",false
     )->count();
     $total=$livroRow;
 else:
-    $livros=$tb_acervo->select()->from()->limite("$pagina,$itens")->where('tipo_acervo','livro')->all();
+    $livros=$tb_acervo->select()->from()->limite("$pagina,$itens")->where('tipo_acervo','jmf')->all();
     $livroRow=$tb_acervo->count();
-    $total=$tb_acervo->select()->from()->where('tipo_acervo','livro')->count();
+    $total=$tb_acervo->select()->from()->where('tipo_acervo','jmf')->count();
 endif;
 
 
 $num_pag=ceil($total/$itens);
 
 if (isset($_GET['pag'])) if((intval($_GET['pag']) < 0) || ((intval($_GET['pag'])>=$num_pag))):
-    echo "<script> location='?p=acervo'</script>";
+    echo "<script> location='?p=jmf'</script>";
 endif;
 ?>
 <main class="mn-inner p-h-xs pad-title">
@@ -112,7 +108,7 @@ endif;
                     <div class="row no-m">
                         <form method="post">
                             <div class="input-field col s12 m1">
-                                <select name="itens" id="itens" onchange="window.location='?p=acervo&itens='+ $('#itens').val()">
+                                <select name="itens" id="itens" onchange="window.location='?p=jmf&itens='+ $('#itens').val()">
                                     <option value="10" selected>10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
@@ -136,16 +132,9 @@ endif;
                         <tr>
                             <th class="center">#</th>
                             <th class="center">Titulo</th>
-                            <th class="center">Autor</th>
-                            <th class="center">Local</th>
-                            <th class="center">Editora</th>
                             <th class="center">Observações</th>
                             <th class="center">Data</th>
-                            <th class="center">Volume</th>
                             <th class="center">Exemplares</th>
-                            <th class="center">Ano de Publicação</th>
-                            <th  class="center" style="padding-right: 0;padding-left: 0">Forma de Aquisição</th>
-                            <th class="center">Estante</th>
                             <th colspan="3"  class="center">Ações</th>
                         </tr>
                         </thead>
@@ -160,11 +149,11 @@ endif;
 
                         if (isset($_POST['env'])):
                             $_SESSION['procura']=strip_tags($_POST['procura']);
-                            echo "<script>window.location='?p=acervo';</script>";
+                            echo "<script>window.location='?p=jmf';</script>";
                         endif;
                         if (isset($_GET['itens'])):
                             $_SESSION['itens']=$_GET['itens'];
-                            echo "<script>window.location='?p=acervo';</script>";
+                            echo "<script>window.location='?p=jmf';</script>";
                         endif;
 
 
@@ -177,16 +166,9 @@ endif;
                             <tr>
                                 <td class="no-m center no-p-h"><?= ($pagina++)+1;$iten++?></td>
                                 <td class="no-m center no-p-h"><?= $value->titulo?></td>
-                                <td class="no-m center no-p-h"><?= $value->autor?></td>
-                                <td class="no-m center no-p-h"><?= $value->local?></td>
-                                <td class="no-m center no-p-h"><?= $value->editora?></td>
                                 <td class="no-m center no-p-h"><?= $value->observacao?></td>
                                 <td class="no-m center no-p-h"><?= date('d/m/Y',strtotime($value->data))?></td>
-                                <td class="no-m center no-p-h"><?= $value->volume?></td>
                                 <td class="no-m center no-p-h"><?= $value->exemplares?></td>
-                                <td class="no-m center no-p-h"><?= $value->ano_publicacao?></td>
-                                <td class="no-m center no-p-h"><?= $value->forma_de_aquisicao?></td>
-                                <td class="no-m center no-p-h"><?= $value->estante?></td>
                                 <td class="no-m center no-p-h">
                                     <a class="btn-floating btn waves-effect waves-light green" onclick="$('#modal1<?= $value->idtb_acervo?>').openModal()"><i class="material-icons">mode_edit</i></a>
                                 </td>
@@ -325,14 +307,14 @@ endif;
                                     <?php
                                 else:?>
                                     <li class="waves-effect">
-                                        <a href="?p=acervo&pag=<?= $pag-1?>"><i class="material-icons">chevron_left</i></a>
+                                        <a href="?p=jmf&pag=<?= $pag-1?>"><i class="material-icons">chevron_left</i></a>
                                     </li>
                                     <?php
                                 endif;
                                 if ($pag>=4):
                                     ?>
                                     <li class="waves-effect">
-                                        <a href="?p=acervo&pag=0">1</a>
+                                        <a href="?p=jmf&pag=0">1</a>
                                     </li>
                                     <li class="disabled" style="padding:0;">
                                         <a href="" style="color: #333;">...</a>
@@ -371,7 +353,7 @@ endif;
                                     if ($i>=0 && $i<$num_pag):
                                         ?>
                                         <li <?php if ($i == $pag): echo "class='active'"; else: echo "class=\"waves-effect\""; endif;?>>
-                                            <a href="?p=acervo&pag=<?= $i?>"><b><?= $i+1?></b></a>
+                                            <a href="?p=jmf&pag=<?= $i?>"><b><?= $i+1?></b></a>
                                         </li>
                                         <?php
                                     endif;
@@ -382,13 +364,13 @@ endif;
                                         <a href="" style="color: #333;">...</a>
                                     </li>
                                     <li class="waves-effect">
-                                        <a href="?p=acervo&pag=<?= $num_pag-1?>"><?= $num_pag?></a>
+                                        <a href="?p=jmf&pag=<?= $num_pag-1?>"><?= $num_pag?></a>
                                     </li>
                                     <?php
                                 endif;
                                 if ($pag<$num_pag-1):?>
                                     <li class="waves-effect">
-                                        <a href="?p=acervo&pag=<?= $pag+1?>"><i class="material-icons">chevron_right</i></a>
+                                        <a href="?p=jmf&pag=<?= $pag+1?>"><i class="material-icons">chevron_right</i></a>
                                     </li>
                                     <?php
                                 else:?>

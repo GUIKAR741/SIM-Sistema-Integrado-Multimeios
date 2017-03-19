@@ -6,8 +6,8 @@
             </div>
             <div class="sidebar-profile-info">
                 <a href="javascript:void(0);" class="account-settings-link">
-                    <p>Nome do Usuario</p>
-                    <span>Email@gmail.com<i class="material-icons right">arrow_drop_down</i></span>
+                    <p><?= $_SESSION['nome']?></p>
+                    <span><?= $_SESSION['email']?><i class="material-icons right">arrow_drop_down</i></span>
                 </a>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 </li>
                 <li class="divider"></li>
                 <li class="no-padding">
-                    <a class="waves-effect waves-grey"><i class="material-icons">exit_to_app</i>Sair</a>
+                    <a class="waves-effect waves-grey" href="?sair"><i class="material-icons">exit_to_app</i>Sair</a>
                 </li>
             </ul>
         </div>

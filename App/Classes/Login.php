@@ -57,29 +57,43 @@ class Login{
     public function setPassword($password){
         $this->password = $password;
     }
+
     /**
      * Verifica se a senha esta correta
+     * @param bool $criptografia
      * @return bool
      */
-    private function verificarPassword(){
-        $this->dadosUsuario=$this->usuario->wheres("email",$this->email);
-        return $this->classePassword->verificarPassword($this->password,$this->dadosUsuario->senha);
+    private function verificarPassword($criptografia=true){
+        $this->dadosUsuario=$this->usuario->wheres("email_usuario",$this->email);
+        if ($criptografia==true):
+            return $this->classePassword->verificarPassword($this->password,$this->dadosUsuario->senha_usuario);
+        elseif ($criptografia==false):
+            if ($this->dadosUsuario->senha_usuario==$this->password):
+                return true;
+            else:
+                return false;
+            endif;
+        endif;
     }
+
     /**
      * Loga o usuario No sistema
+     * @param bool $criptografia
      * @return bool
      */
-    public function logar(){
-        if($this->verificarPassword()):
-            $logado=$this->usuario->logar($this->email,$this->dadosUsuario->senha);
+    public function logar($criptografia=true){
+        if($this->verificarPassword($criptografia)):
+            $logado=$this->usuario->logar($this->email,$this->dadosUsuario->senha_usuario);
             if($logado):
                 $_SESSION['logado']=true;
-                $_SESSION['nome']=$this->dadosUsuario->nome;
-                $_SESSION['email']=$this->dadosUsuario->email;
+                $_SESSION['id_usuario']=$this->dadosUsuario->idtb_usuario;
+                $_SESSION['nome']=$this->dadosUsuario->nome_usuario;
+                $_SESSION['email']=$this->dadosUsuario->email_usuario;
+                $_SESSION['nivel']=$this->dadosUsuario->tipo_usuario;
                 session_regenerate_id();
                 return true;
             endif;
-            else:
+        else:
             return false;
         endif;
     }

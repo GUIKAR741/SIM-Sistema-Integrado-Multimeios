@@ -148,7 +148,8 @@ $(document).ready(function($){
 
 	var tmSlider = $("#teamSlider");
 	tmSlider.owlCarousel({
-		slideSpeed : 600,
+		slideSpeed : 100,
+		loop: true,
 		items : 3,
 		itemsDesktop : [1000,3],
 		itemsDesktopSmall : [900,3],

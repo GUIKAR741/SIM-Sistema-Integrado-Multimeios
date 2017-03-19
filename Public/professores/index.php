@@ -1,5 +1,14 @@
 <?php
 include_once ('../../Config/config.php');
+//dump($_SESSION);
+if (isset($_GET['sair']) || isset($_REQUEST['sair']) ):
+    session_destroy();
+    header('Location:../login.php?p=logout');
+    exit;
+elseif ((!isset($_SESSION['logado']))||(!isset($_SESSION['nome'])||(!isset($_SESSION['email']))||($_SESSION['nivel']!='Professor'))):
+    header("Location:../login.php?p=negado");
+    exit;
+endif;
 $require=(!is_null(filter_input(INPUT_GET, 'p', FILTER_SANITIZE_STRING)))?filter_input(INPUT_GET, 'p', FILTER_SANITIZE_STRING):"home";
 require_once("../includes/header-back.php");
 //alterarCss($require);

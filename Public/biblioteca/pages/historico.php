@@ -1,28 +1,38 @@
-<main class="mn-inner">
+<?php
+$tb_aluno=new \App\Models\SiscoTbAluno();
+$id = strip_tags($_GET['idAluno']);
+$aluno= $tb_aluno->select()->
+                   from('sisco.tb_aluno,sisco.tb_turma')->
+                   where('sisco.tb_aluno.tb_turma_idtb_turma','idtb_turma','=',false)->
+                   e('idtb_aluno',$id)->
+                   first();
+$curso=$tb_aluno->select()->from('sisco.tb_cursos')->where('idtb_cursos',$aluno->tb_cursos_idtb_cursos,'=',false)->first();
+?>
+<main class="mn-inner pad-title p-h-xs">
     <div class="row">
         <div class="col s12">
-            <div class="page-title">Nome do Aluno</div>
+            <div class="page-title"><?= $aluno->nome_aluno?></div>
         </div>
-        <div class="col s12 m12 l12">
+        <div class="col s12 m12 l12 no-p-h">
             <div class="card">
                 <div class="card-content">
-                    <p>Turma</p>
+                    <p><?= $aluno->serie."º ".$curso->nome_curso?></p>
                     <table class="responsive-table striped bordered">
                         <thead>
                         <tr>
-                            <th data-field="id">Livro</th>
-                            <th data-field="id">Data da Locacão</th>
-                            <th data-field="id">Data da Devolução</th>
-                            <th data-field="price" class="right-align">Consultar</th>
+                            <th class="center">Livro</th>
+                            <th class="center">Data da Locacão</th>
+                            <th class="center">Data da Devolução</th>
+                            <th class="center">Consultar</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php for ($i=1;$i<=10;$i++): ?>
                             <tr>
-                                <td>Nome do Livro</td>
-                                <th data-field="id">Data da Locacão</th>
-                                <th data-field="id">Data da Devolução</th>
-                                <td class="right-align">
+                                <td class="center no-m no-p-h">Nome do Livro</td>
+                                <th class="center no-m no-p-h">Data da Locacão</th>
+                                <th class="center no-m no-p-h">Data da Devolução</th>
+                                <td class="center no-m no-p-h">
                                     <a class="btn-floating btn waves-effect waves-light green" onclick="$('#modal1<?= $i?>').openModal()"><i class="material-icons">mode_edit</i></a>
                                     <a class="btn-floating btn waves-effect waves-light red" href="?p=historico&del=<?= $i?>"><i class="material-icons">delete_forever</i></a>
                                 </td>

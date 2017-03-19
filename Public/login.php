@@ -1,5 +1,54 @@
 <?php
 include_once ('../Config/config.php');
+if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Biblioteca'))):
+    header("Location:biblioteca/index.php?p=home");
+    exit;
+endif;
+if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Agendamento'))):
+    header("Location:agendamentos/index.php?p=home");
+    exit;
+endif;
+if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Professor'))):
+    header("Location:professores/index.php?p=home");
+    exit;
+endif;
+$sisco_tb_usuario=new \App\Models\SiscoTbUsuario();
+$tb_usuario=new \App\Models\Tb_usuario();
+if (isset($_POST['login'])):
+    $login=new App\Classes\Login($tb_usuario);
+    if ($_POST['email']!='' && $_POST['password']!=''):
+        $email=trim(strip_tags(filter_input(INPUT_POST,'email',FILTER_SANITIZE_STRING)));
+        $senha=trim(strip_tags(filter_input(INPUT_POST,'password',FILTER_SANITIZE_STRING)));
+        $login->setEmail($email);
+        $login->setPassword($senha);
+        $logado = @$login->logar();//?true:false;
+        if ($logado==false):
+            $login=new App\Classes\Login($sisco_tb_usuario);
+            $login->setEmail($email);
+            $login->setPassword($senha);
+            $logado = @$login->logar(false);//?true:false;
+        endif;
+        //dump($senha);
+        header("Location:login.php");
+    else:
+        $logado=false;
+    endif;
+endif;
+if (isset($_GET['p']) && $_GET['p'] == 'negado'):
+    $retorno="<script>
+    swal({title: \"Acesso Negado!\",
+     type: \"error\",timer: 3000,showConfirmButton:false},function() {
+       setTimeout(document.location='login.php',3000);
+     });
+</script>";
+elseif (isset($_GET['p']) && $_GET['p'] == 'logout'):
+    $retorno="<script>
+    swal({title: \"Obrigado por Usar o Sistema!\",
+            type: \"warning\",timer: 3000,showConfirmButton:false},function() {
+       setTimeout(document.location='login.php',3000);
+       });
+    </script>";
+endif;
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -18,6 +67,7 @@ include_once ('../Config/config.php');
     <link type="text/css" rel="stylesheet" href="assets/plugins/materialize/css/materialize.min.css"/>
     <link href="assets/css/icons.css" rel="stylesheet">
     <link href="assets/plugins/material-preloader/css/materialPreloader.min.css" rel="stylesheet">
+    <link href="assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
 
 
     <!-- Theme Styles -->
@@ -75,9 +125,9 @@ include_once ('../Config/config.php');
         </div>
     </div>
 </div>
-<a class="btn-floating btn-large waves-effect waves-light red" href="biblioteca/"><i class="material-icons">add</i></a>
+<!--<a class="btn-floating btn-large waves-effect waves-light red" href="biblioteca/"><i class="material-icons">add</i></a>
 <a class="btn-floating btn-large waves-effect waves-light blue" href="professores/"><i class="material-icons">send</i></a>
-<a class="btn-floating btn-large waves-effect waves-light green" href="agendamentos/"><i class="material-icons">call</i></a>
+<a class="btn-floating btn-large waves-effect waves-light green" href="agendamentos/"><i class="material-icons">call</i></a>-->
 <div class="mn-content valign-wrapper">
     <?php require_once("includes/login.php");?>
 </div>
@@ -87,7 +137,14 @@ include_once ('../Config/config.php');
 <script src="assets/plugins/materialize/js/materialize.min.js"></script>
 <script src="assets/plugins/material-preloader/js/materialPreloader.min.js"></script>
 <script src="assets/plugins/jquery-blockui/jquery.blockui.js"></script>
+<script src="assets/plugins/sweetalert/sweetalert.min.js"></script>
 <script src="assets/js/alpha.min.js"></script>
+<!--<script src="assets/js/pages/miscellaneous-sweetalert.js"></script>>
 
+    //$(document).ready(function() {
+    //text: "You will not be able to recover this imaginary file!",
+    //text: "You will not be able to recover this imaginary file!",
+    //});-->
+<?php if (isset($retorno)): echo $retorno;endif;?>
 </body>
 </html>

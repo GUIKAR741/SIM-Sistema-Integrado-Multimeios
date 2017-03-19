@@ -14,7 +14,7 @@
             clear: 'limpar',
             close: 'fechar',
             format: 'dddd, d !de mmmm !de yyyy',
-            formatSubmit: 'yyyy/mm/dd',
+            formatSubmit: 'yyyy-mm-dd',
             closeOnSelect: true
         });
     });

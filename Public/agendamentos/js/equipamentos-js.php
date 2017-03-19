@@ -1,14 +1,6 @@
-<script src="../assets/plugins/clockpicker/js/materialize.clockpicker.js"></script>
 <script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.timepicker').pickatime({
-            default: 'now',
-            autoclose: true,
-            twelvehour: false,
-            donetext:'Pronto',
-            vibrate: true
-        });
         <?php foreach($id as $value): ?>
         document.querySelector('.excluir-swal-<?= $value?>').onclick = function(){
             swal({
@@ -24,10 +16,10 @@
             }, function(isConfirm){
                 if (isConfirm) {
                     swal("Deletado!", "", "success");
-                    setTimeout(document.location='?p=horarios&excluir=true&idHorario=<?= $value?>',5000);
+                    setTimeout(document.location='?p=equipamentos&excluir=true&idEquipamento=<?= $value?>',5000);
                 } else {
                     swal("Cancelado", "", "error");
-                    setTimeout(document.location='?p=horarios',5000);
+                    setTimeout(document.location='?p=equipamentos',5000);
                 }
             });
         };

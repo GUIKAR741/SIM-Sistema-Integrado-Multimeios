@@ -1,3 +1,8 @@
 V1.0
 Estrutura das Pastas Organizada
 Template Inicial
+
+V1.5
+Construção de cadastros
+Construção dos acervos
+Melhorias nos Layouts

@@ -35,6 +35,7 @@ class ModelQueryBuilder extends QueryBuilder{
      * @return mixed
      */
     public function first(){
+        //dump($this->queryBuilder());
         $pdo = $this->conexao->prepare($this->queryBuilder());
         if(!$pdo->execute()):
             dump('Erro ao executar o sql '.$this->queryBuilder());

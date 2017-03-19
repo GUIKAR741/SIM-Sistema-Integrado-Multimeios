@@ -17,7 +17,7 @@
                                         <label for="password">Senha</label>
                                     </div>
                                     <div class="col s12 right-align m-t-sm">
-                                        <input type="submit" class="waves-effect waves-light btn teal" value="Entrar">
+                                        <input type="submit" class="waves-effect waves-light btn teal" name="login" value="Entrar">
                                     </div>
                                 </form>
                             </div>

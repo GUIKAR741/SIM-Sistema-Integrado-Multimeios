@@ -76,41 +76,55 @@ class QueryBuilder{
         $this->from=$from;
         return $this;
     }
+
     /**
      * Adiciona a Clausula Where na Query
      * @param $field
      * @param $value
      * @param string $operation
+     * @param bool $aspas
      * @return $this
      */
     public function where($field, $value, $operation="=",$aspas=true){
         if ($aspas==false):
-            $this->where=$field." ".$operation.$value;
+            $this->where=$field." ".$operation.' '.$value;
         else:
             $this->where=$field." ".$operation." '".$value."'";
         endif;
         return $this;
     }
+
     /**
-     * Pode ser usado como Complemento para o Metodo Where
+     * Pode Complemento para o Metodo Where
      * @param $field
      * @param $value
      * @param string $operation
+     * @param bool $aspas
      * @return $this
      */
-    public function e($field, $value, $operation="="){
-        $this->and=$field." ".$operation." '".$value."'";
+    public function e($field, $value, $operation="=",$aspas=true){
+        if ($aspas==false):
+            $this->and=$field." ".$operation.' '.$value;
+        else:
+            $this->and=$field." ".$operation." '".$value."'";
+        endif;
         return $this;
     }
+
     /**
-     * Pode ser usado como Complemento para o Metodo Where
+     * Pode Complemento para o Metodo Where
      * @param $field
      * @param $value
      * @param string $operation
+     * @param bool $aspas
      * @return $this
      */
-    public function ou($field, $value, $operation="="){
-        $this->or=$field." ".$operation." '".$value."'";
+    public function ou($field, $value, $operation="=",$aspas=true){
+        if ($aspas==false):
+            $this->or=$field." ".$operation.' '.$value;
+        else:
+            $this->or=$field." ".$operation." '".$value."'";
+        endif;
         return $this;
     }
     /**
@@ -132,7 +146,7 @@ class QueryBuilder{
      * @param $order
      * @return $this
      */
-    public function order($field, $order){
+    public function order($field, $order='asc'){
         $this->order=$field." ".$order;
         return $this;
     }
@@ -155,8 +169,13 @@ class QueryBuilder{
      * @param null $end
      * @return $this
      */
-    public function like($field, $string, $start=null, $end=null){
+    public function like($field, $string, $start=null, $end=null, $aspas=true){
         $this->like=" WHERE ".$field." LIKE '".$start.$string.$end."'";
+        if ($aspas==false):
+            $this->like=" WHERE ".$field." LIKE ".$start.$string.$end;
+        else:
+            $this->like=" WHERE ".$field." LIKE '".$start.$string.$end."'";
+        endif;
         return $this;
     }
     /**

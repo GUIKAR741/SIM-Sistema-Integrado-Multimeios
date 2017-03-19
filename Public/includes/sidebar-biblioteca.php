@@ -6,8 +6,8 @@
             </div>
             <div class="sidebar-profile-info">
                 <a href="javascript:void(0);" class="account-settings-link">
-                    <p>Nome do Usuario</p>
-                    <span>Email@gmail.com<i class="material-icons right">arrow_drop_down</i></span>
+                    <p><?= $_SESSION['nome']?></p>
+                    <span><?= $_SESSION['email']?><i class="material-icons right">arrow_drop_down</i></span>
                 </a>
             </div>
         </div>
@@ -26,13 +26,18 @@
                 </li>
                 <li class="divider"></li>
                 <li class="no-padding">
-                    <a class="waves-effect waves-grey"><i class="material-icons">exit_to_app</i>Sair</a>
+                    <a class="waves-effect waves-grey" href="?sair"><i class="material-icons">exit_to_app</i>Sair</a>
                 </li>
             </ul>
         </div>
         <ul class="sidebar-menu collapsible collapsible-accordion" data-collapsible="accordion">
             <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=home"><i class="material-icons">dashboard</i>Painel</a></li>
             <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=acervo"><i class="material-icons">library_books</i>Acervo</a></li>
+            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=circulo"><i class="material-icons">library_books</i>Circulo</a></li>
+            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=cd-dvd"><i class="material-icons">library_books</i>CD e DVD</a></li>
+            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=tves"><i class="material-icons">library_books</i>TV Escola</a></li>
+            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=materiais"><i class="material-icons">library_books</i>Materiais</a></li>
+            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=jmf"><i class="material-icons">library_books</i>JMF</a></li>
         </ul>
         <div class="footer">
             <p class="copyright">© 2017 - Informatica 2015</p>
