@@ -9,6 +9,7 @@ if (isset($_POST['adicionar'])):
     $tb_horario->fim_horario = $fim_horario;
     //$tb_equipe->nivel="USER";
     $id = $tb_horario->save();
+    echo '<script>window.location=\'?p=horarios\'</script>';
 endif;
 if (isset($_POST['editar'])):
     $id = ($_POST['idtb_horario']);
@@ -19,6 +20,7 @@ if (isset($_POST['editar'])):
     $tb_horario->inicio_horario = $inicio_horario;
     $tb_horario->fim_horario = $fim_horario;
     $row = $tb_horario->update('idtb_horario', $id);
+    echo '<script>window.location=\'?p=horarios\'</script>';
 endif;
 
 if (isset($_GET['excluir']) && $_GET['excluir']==true):

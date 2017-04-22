@@ -3,7 +3,6 @@
 <script>
     $(document).ready(function() {
         $('.timepicker').pickatime({
-            default: 'now',
             autoclose: true,
             twelvehour: false,
             donetext:'Pronto',
@@ -23,10 +22,10 @@
                 closeOnCancel: false
             }, function(isConfirm){
                 if (isConfirm) {
-                    swal("Deletado!", "", "success");
+                    swal({title:"Deletado!", type:"success",showConfirmButton:false});
                     setTimeout(document.location='?p=horarios&excluir=true&idHorario=<?= $value?>',5000);
                 } else {
-                    swal("Cancelado", "", "error");
+                    swal({title:"Cancelado", type:"error",showConfirmButton:false});
                     setTimeout(document.location='?p=horarios',5000);
                 }
             });

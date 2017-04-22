@@ -16,10 +16,15 @@ class ComposerStaticInit611bf34965bd36da52631b165f375c44
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\VarDumper\\' => 28,
+            'Symfony\\Component\\Translation\\' => 30,
         ),
         'D' => 
         array (
             'Database\\' => 9,
+        ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
         ),
         'A' => 
         array (
@@ -39,9 +44,17 @@ class ComposerStaticInit611bf34965bd36da52631b165f375c44
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
         'Database\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Database',
+        ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
         'App\\Traits\\' => 
         array (
@@ -61,11 +74,22 @@ class ComposerStaticInit611bf34965bd36da52631b165f375c44
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'W' => 
+        array (
+            'WideImage' => 
+            array (
+                0 => __DIR__ . '/..' . '/smottt/wideimage/lib',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit611bf34965bd36da52631b165f375c44::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit611bf34965bd36da52631b165f375c44::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit611bf34965bd36da52631b165f375c44::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

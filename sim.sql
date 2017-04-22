@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 19-Mar-2017 às 13:56
+-- Generation Time: 22-Abr-2017 às 12:56
 -- Versão do servidor: 5.7.9
 -- PHP Version: 5.6.16
 
@@ -45,15 +45,15 @@ CREATE TABLE IF NOT EXISTS `tb_acervo` (
   `capa` varchar(255) DEFAULT NULL,
   `sinopse` longtext,
   PRIMARY KEY (`idtb_acervo`)
-) ENGINE=MyISAM AUTO_INCREMENT=3348 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3355 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_acervo`
 --
 
 INSERT INTO `tb_acervo` (`idtb_acervo`, `data`, `titulo`, `autor`, `volume`, `exemplares`, `disponiveis`, `local`, `editora`, `ano_publicacao`, `forma_de_aquisicao`, `observacao`, `estante`, `tipo_acervo`, `capa`, `sinopse`) VALUES
-(1, '2010-03-30', '100 Jogos dramáticos (teatro)', 'Maria Clara Machado, Marta Rosman', NULL, '2', '2', 'R. de Janeiro', 'Agir', '2001', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
-(2, '2010-03-30', ' Camões - Coleção conhecendo os nossos clássicos', 'Amélia Lacombe', NULL, '1', '1', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
+(1, '2010-03-30', '100 Jogos dramáticos (teatro)', 'Maria Clara Machado, Marta Rosman', '26', '2', '2', 'R. de Janeiro', 'Agir', '2001', 'D', 'P. Alvorada', '', 'livro', 'imagem_nao_cadastrada.png', ''),
+(2, '2010-03-30', ' Camões - Coleção conhecendo os nossos clássicos', 'Amélia Lacombe', '26', '1', '2', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', '', 'livro', NULL, ''),
 (3, '2010-03-30', 'O Jardim Perdido', 'Edgar da Rocha Miranda', NULL, '1', '1', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (4, '2010-03-30', 'Alfabetização de Adultos', 'Marta Durante', NULL, '2', '2', 'Porto Alegre', 'Artmed', '1998', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (5, '2010-03-30', 'Inteligências Múltiplas na sala de aula.', 'Thomas Armstrong ', NULL, '2', '2', 'São Paulo', 'Artmed', '2001', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
@@ -2585,7 +2585,7 @@ INSERT INTO `tb_acervo` (`idtb_acervo`, `data`, `titulo`, `autor`, `volume`, `ex
 (2523, '2014-10-30', 'Percy Jackson a Maldição de Titã', 'Rick Riordan', NULL, '1', '1', 'Rio de Janeiro', 'IntrÍnseca', '2014', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2524, '2014-10-30', 'Harry Potter e o prisioneiro de Azkaban', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2000', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2525, '2014-10-30', 'Harry Potter e o cálice de fogo', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2001', 'C', NULL, NULL, 'livro', NULL, NULL),
-(2526, '2014-10-30', 'Harry Potter e ordem da Fênix', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2003', 'C', NULL, NULL, 'livro', NULL, NULL),
+(2526, '2014-10-30', 'Harry Potter e ordem da Fênix', 'J. K. Rowling', NULL, '1', '0', 'Rio de Janeiro', 'Rocco', '2003', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2527, '2014-10-30', 'Harry Potter e o enigma do príncipe', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2005', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2528, '2014-10-30', 'Harry Potter e as relíquias da morte', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2007', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2529, '2014-11-12', 'Querido John', 'Nicholas Sparks', NULL, '1', '1', 'São Paulo', 'Conceito', '2011', 'D', NULL, NULL, 'livro', NULL, NULL),
@@ -3421,12 +3421,28 @@ DROP TABLE IF EXISTS `tb_agendamento`;
 CREATE TABLE IF NOT EXISTS `tb_agendamento` (
   `idtb_agendamento` int(11) NOT NULL AUTO_INCREMENT,
   `tb_usuario_idtb_usuario` int(11) NOT NULL,
-  `tb_turma_idtb_turma` int(11) NOT NULL,
-  `tb_recurso_idtb_recurso` int(11) NOT NULL,
-  `tb_horario_idtb_horario` int(11) NOT NULL,
+  `tb_turma_idtb_turma` varchar(30) NOT NULL,
+  `tb_recurso_idtb_recurso` varchar(30) NOT NULL,
+  `tb_horario_idtb_horario` varchar(30) NOT NULL,
   `data` date NOT NULL,
   PRIMARY KEY (`idtb_agendamento`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_agendamento`
+--
+
+INSERT INTO `tb_agendamento` (`idtb_agendamento`, `tb_usuario_idtb_usuario`, `tb_turma_idtb_turma`, `tb_recurso_idtb_recurso`, `tb_horario_idtb_horario`, `data`) VALUES
+(1, 29, '24, 16, 22', '1, 2', '1, 3, 4, 5, 6, 7, 8, 9, 10, 11', '2017-03-23'),
+(2, 29, '14, 22, 23', '2', '3, 5, 7', '2017-03-22'),
+(3, 13, '23', '2', '1, 3, 4, 7', '2017-03-23'),
+(4, 27, '19, 15, 23', '2', '1, 3, 4, 5, 6, 7, 8, 9, 10, 11', '2017-03-23'),
+(5, 27, '14, 12', '2, 3', '7', '2017-03-24'),
+(6, 29, '14, 12, 15', '2', '1, 3, 9', '2017-03-24'),
+(7, 29, '14, 22, 23', '1', '1, 3, 7, 10', '2017-03-27'),
+(8, 29, '18', '1', '8', '2017-03-27'),
+(9, 29, '16, 22, 15', '2', '1, 3, 4', '2017-04-03'),
+(10, 29, '19, 16, 15', '1, 2', '1, 3, 4, 6, 7, 8, 10, 11', '2017-04-20');
 
 -- --------------------------------------------------------
 
@@ -3472,8 +3488,27 @@ CREATE TABLE IF NOT EXISTS `tb_locacao` (
   `tb_acervo_idtb_acervo` int(11) NOT NULL,
   `data_locacao` date NOT NULL,
   `data_devolucao` date NOT NULL,
+  `qtd_renovacao` int(11) NOT NULL DEFAULT '0',
+  `status_devolucao` int(11) NOT NULL DEFAULT '1' COMMENT '0 Devolvido e 1 Locado',
+  `status_lido` int(11) NOT NULL DEFAULT '1' COMMENT '0 lido e 1 não leu',
   PRIMARY KEY (`idtb_locacao`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `tb_locacao`
+--
+
+INSERT INTO `tb_locacao` (`idtb_locacao`, `tb_aluno_idtb_aluno`, `tb_acervo_idtb_acervo`, `data_locacao`, `data_devolucao`, `qtd_renovacao`, `status_devolucao`, `status_lido`) VALUES
+(1, 430, 2, '2017-04-17', '2017-04-24', 0, 0, 0),
+(2, 430, 3, '2017-04-17', '2017-04-24', 0, 0, 0),
+(3, 430, 1, '2017-04-17', '2017-04-24', 0, 0, 0),
+(4, 430, 1, '2017-04-16', '2017-04-23', 0, 0, 0),
+(5, 430, 1, '2017-04-18', '2017-04-25', 0, 0, 0),
+(6, 430, 4, '2017-04-17', '2017-06-05', 3, 0, 1),
+(7, 430, 6, '2017-04-20', '2017-05-25', 3, 0, 0),
+(8, 430, 9, '2017-04-17', '2017-04-24', 0, 0, 0),
+(9, 441, 1, '2017-04-25', '2017-05-23', 3, 0, 0),
+(10, 396, 2526, '2017-04-20', '2017-04-27', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3487,7 +3522,7 @@ CREATE TABLE IF NOT EXISTS `tb_recursos` (
   `nome_recurso` varchar(20) NOT NULL,
   `status_recurso` int(11) NOT NULL,
   PRIMARY KEY (`idtb_recurso`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_recursos`

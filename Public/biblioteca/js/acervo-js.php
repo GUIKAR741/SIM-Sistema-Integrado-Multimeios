@@ -1,6 +1,5 @@
 <script>
     $(document).ready(function() {
-
         $('.datepicker').pickadate({
             selectMonths: false, // Creates a dropdown to control month
             selectYears: false, // Creates a dropdown of 15 years to control year
@@ -34,7 +33,7 @@
                     $('#alunoSelect<?= $value?>').material_select();
                 }
             });
-        <?php endforeach ?>
+        <?php endforeach; ?>
         });
 
     });

@@ -1,6 +1,34 @@
 <?php
 $tb_cursos = new App\Models\SiscoTbCursos();
 $tb_recursos = new App\Models\Tb_recursos();
+$tb_agendamento= new App\Models\Tb_agendamento();
+//dump($_POST);
+if (isset($_POST['action']  )):
+    $turma='';$recurso='';$horario='';
+    foreach ($_POST['turmas'] as $turmas):
+        $turma.=$turmas.', ';
+    endforeach;
+    foreach ($_POST['recurso'] as $recursos):
+        $recurso.=$recursos.', ';
+    endforeach;
+    foreach ($_POST['horario'] as $horarios):
+        $horario.=$horarios.', ';
+    endforeach;
+
+    $turma=rtrim($turma,', ');
+    $recurso=rtrim($recurso,', ');
+    $horario=rtrim($horario,', ');
+    $data=$_POST['_submit'];
+    $id_user=$_SESSION['id_usuario'];
+
+    $tb_agendamento->tb_usuario_idtb_usuario=$id_user;
+    $tb_agendamento->tb_turma_idtb_turma=$turma;
+    $tb_agendamento->tb_recurso_idtb_recurso=$recurso;
+    $tb_agendamento->tb_horario_idtb_horario=$horario;
+    $tb_agendamento->data=$data;
+    $id=$tb_agendamento->save();
+    echo '<script>window.location=\'?p=home\'</script>';
+endif;
 ?>
 <main class="mn-inner">
     <div class="row">
@@ -24,7 +52,7 @@ $tb_recursos = new App\Models\Tb_recursos();
                             $cursos = $tb_cursos->select()->from('sisco.tb_turma,sisco.tb_cursos')->where('sisco.tb_turma.tb_cursos_idtb_cursos','sisco.tb_cursos.idtb_cursos','=',false)->order('ano', 'desc')->all();
                             //dump($cursos);
                             ?>
-                            <select name="select[]" multiple>
+                            <select name="turmas[]" multiple>
                                 <option value="" disabled selected>Selecione uma Turma</option>
                                 <?php
                                 foreach ($cursos as $value) {

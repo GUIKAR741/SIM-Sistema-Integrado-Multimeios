@@ -15,10 +15,10 @@
                 closeOnCancel: false
             }, function(isConfirm){
                 if (isConfirm) {
-                    swal("Deletado!", "", "success");
+                    swal({title:"Deletado!", type:"success",showConfirmButton:false});
                     setTimeout(document.location='?p=equipamentos&excluir=true&idEquipamento=<?= $value?>',5000);
                 } else {
-                    swal("Cancelado", "", "error");
+                    swal({title:"Cancelado", type:"error",showConfirmButton:false});
                     setTimeout(document.location='?p=equipamentos',5000);
                 }
             });

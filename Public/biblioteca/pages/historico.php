@@ -1,12 +1,63 @@
 <?php
+use Carbon\Carbon;
 $tb_aluno=new \App\Models\SiscoTbAluno();
+$tb_locacao=new \App\Models\Tb_locacao();
+$tb_acervo=new \App\Models\Tb_acervo();
 $id = strip_tags($_GET['idAluno']);
 $aluno= $tb_aluno->select()->
-                   from('sisco.tb_aluno,sisco.tb_turma')->
-                   where('sisco.tb_aluno.tb_turma_idtb_turma','idtb_turma','=',false)->
-                   e('idtb_aluno',$id)->
-                   first();
+from('sisco.tb_aluno,sisco.tb_turma')->
+where('sisco.tb_aluno.tb_turma_idtb_turma','idtb_turma','=',false)->
+e('idtb_aluno',$id)->
+first();
 $curso=$tb_aluno->select()->from('sisco.tb_cursos')->where('idtb_cursos',$aluno->tb_cursos_idtb_cursos,'=',false)->first();
+$locacoes=$tb_locacao->select()->from()->where("tb_aluno_idtb_aluno",$aluno->idtb_aluno)->order("data_locacao",'desc')->all();
+if (isset($_POST['devolver'])):
+    if (isset($_POST['lido']) && $_POST['lido']=='yes'):
+        $tb_locacao->status_lido=0;
+    else:
+        $tb_locacao->status_lido=1;
+    endif;
+    $livro=$tb_acervo->select()->from()->where("idtb_acervo",$_POST['devolver'])->first();
+    $locacao=$tb_locacao->select()->from()->where("idtb_locacao",$_POST['idLocacao'])->first();
+    if ($locacao->status_devolucao!=0):
+        $tb_acervo->disponiveis=intval($livro->disponiveis)+1;
+        $tb_locacao->status_devolucao=0;
+        $tb_acervo->update('idtb_acervo',$_POST['devolver']);
+    endif;
+    $tb_locacao->update('idtb_locacao',$_POST['idLocacao']);
+    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."'</script>";
+endif;
+if (isset($_POST['renovar'])):
+    $locacao=$tb_locacao->select()->from()->where("idtb_locacao",$_POST['idLocacao'])->first();
+    if ($locacao->qtd_renovacao<3):
+        $data7=Carbon::parse(strip_tags($locacao->data_devolucao))->addDays(7);
+        $tb_locacao->data_devolucao=$data7;
+        $tb_locacao->qtd_renovacao=$locacao->qtd_renovacao+1;
+        $tb_locacao->update('idtb_locacao',$_POST['idLocacao']);
+    endif;
+    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."'</script>";
+endif;
+if (isset($_POST['edit'])):
+    $id=strip_tags($_POST['idLocacao']);
+    $tb_locacao->tb_aluno_idtb_aluno=strip_tags($_POST['idAluno']);
+    if (isset($_POST['acervoSelect']) && $_POST['acervoSelect']!=''):
+        $tb_locacao->tb_acervo_idtb_acervo=strip_tags($_POST['acervoSelect']);
+    else:
+        $locacaoATT=$tb_locacao->select()->from()->where('idtb_locacao',$id)->first();
+        $tb_locacao->tb_acervo_idtb_acervo=$locacaoATT->tb_acervo_idtb_acervo;
+    endif;
+    $tb_locacao->data_locacao=strip_tags($_POST['locacao_submit']);
+    $tb_locacao->data_devolucao=strip_tags($_POST['devolucao_submit']);
+    $tb_locacao->update("idtb_locacao",$id);
+    if (isset($_POST['lido']) && $_POST['lido']=='yes'):
+        $tb_locacao->status_lido=0;
+    else:
+        $tb_locacao->status_lido=1;
+    endif;
+    $tb_locacao->update('idtb_locacao',$_POST['idLocacao']);
+    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."'</script>";
+    //dump($_POST);
+endif;
 ?>
 <main class="mn-inner pad-title p-h-xs">
     <div class="row">
@@ -27,93 +78,81 @@ $curso=$tb_aluno->select()->from('sisco.tb_cursos')->where('idtb_cursos',$aluno-
                         </tr>
                         </thead>
                         <tbody>
-                        <?php for ($i=1;$i<=10;$i++): ?>
+                        <?php foreach ($locacoes as $value):
+                            $acervo=$tb_locacao->select()->from('tb_acervo')->where('idtb_acervo',$value->tb_acervo_idtb_acervo)->first();
+                            ?>
                             <tr>
-                                <td class="center no-m no-p-h">Nome do Livro</td>
-                                <th class="center no-m no-p-h">Data da Locacão</th>
-                                <th class="center no-m no-p-h">Data da Devolução</th>
+                                <td class="center no-m no-p-h"><?= $acervo->titulo?></td>
+                                <th class="center no-m no-p-h"><?= date("d/m/Y",strtotime($value->data_locacao))?></th>
+                                <th class="center no-m no-p-h"><?= date("d/m/Y",strtotime($value->data_devolucao))?></th>
                                 <td class="center no-m no-p-h">
-                                    <a class="btn-floating btn waves-effect waves-light green" onclick="$('#modal1<?= $i?>').openModal()"><i class="material-icons">mode_edit</i></a>
-                                    <a class="btn-floating btn waves-effect waves-light red" href="?p=historico&del=<?= $i?>"><i class="material-icons">delete_forever</i></a>
+                                    <a class="btn-floating btn waves-effect waves-light green" onclick="$('#modal1<?= $value->idtb_locacao?>').openModal()"><i class="material-icons">mode_edit</i></a>
+                                    <a class="btn-floating btn waves-effect waves-light red" href="?p=historico&del=<?= $value->idtb_locacao?>"><i class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
-                            <div id="modal1<?= $i?>" class="modal modal-fixed-footer modReserva" >
-                                <form method="post">
-                                    <div class="modal-content">
-                                        <h4 class="no-m-b">Locar Livro</h4>
-
-                                        <div class="input-field">
-                                            <label class="active" for="basic">Selecionar Livro</label>
-                                            <select class="js-states browser-default" tabindex="-1" style="width: 100%" id="basic">
-                                                <option value="AK">Alaska</option>
-                                                <option value="HI">Hawaii</option>
-                                                <option value="CA">California</option>
-                                                <option value="NV" selected>Nevada</option>
-                                                <option value="OR">Oregon</option>
-                                                <option value="WA">Washington</option>
-                                                <option value="AZ">Arizona</option>
-                                                <option value="CO">Colorado</option>
-                                                <option value="ID">Idaho</option>
-                                                <option value="MT">Montana</option>
-                                                <option value="NE">Nebraska</option>
-                                                <option value="NM">New Mexico</option>
-                                                <option value="ND">North Dakota</option>
-                                                <option value="UT">Utah</option>
-                                                <option value="WY">Wyoming</option>
-                                                <option value="AL">Alabama</option>
-                                                <option value="AR">Arkansas</option>
-                                                <option value="IL">Illinois</option>
-                                                <option value="IA">Iowa</option>
-                                                <option value="KS">Kansas</option>
-                                                <option value="KY">Kentucky</option>
-                                                <option value="LA">Louisiana</option>
-                                                <option value="MN">Minnesota</option>
-                                                <option value="MS">Mississippi</option>
-                                                <option value="MO">Missouri</option>
-                                                <option value="OK">Oklahoma</option>
-                                                <option value="SD">South Dakota</option>
-                                                <option value="TX">Texas</option>
-                                                <option value="TN">Tennessee</option>
-                                                <option value="WI">Wisconsin</option>
-                                                <option value="CT">Connecticut</option>
-                                                <option value="DE">Delaware</option>
-                                                <option value="FL">Florida</option>
-                                                <option value="GA">Georgia</option>
-                                                <option value="IN">Indiana</option>
-                                                <option value="ME">Maine</option>
-                                                <option value="MD">Maryland</option>
-                                                <option value="MA">Massachusetts</option>
-                                                <option value="MI">Michigan</option>
-                                                <option value="NH">New Hampshire</option>
-                                                <option value="NJ">New Jersey</option>
-                                                <option value="NY">New York</option>
-                                                <option value="NC">North Carolina</option>
-                                                <option value="OH">Ohio</option>
-                                                <option value="PA">Pennsylvania</option>
-                                                <option value="RI">Rhode Island</option>
-                                                <option value="SC">South Carolina</option>
-                                                <option value="VT">Vermont</option>
-                                                <option value="VA">Virginia</option>
-                                                <option value="WV">West Virginia</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-field">
-                                            <label class="active" for="data">Data da Locação</label>
-                                            <input id="data" placeholder="Escolha a Data Desejada" type="date" class="datepicker">
-                                        </div>
-                                        <div class="input-field">
-                                            <label class="active" for="data">Data da Devolução</label>
-                                            <input id="data" placeholder="Escolha a Data Desejada" type="date" class="datepicker">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
-                                    </div>
-                                </form>
-                            </div>
-                        <?php endfor ?>
+                        <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <?php
+                    $i=0;
+                    foreach ($locacoes as $value):
+                        ?>
+                        <div id="modal1<?= $value->idtb_locacao?>" class="modal modal-fixed-footer modReserva" >
+                            <form method="post">
+                                <div class="modal-content">
+                                    <h4 class="no-m-b">Editar Locação</h4>
+                                    <input type="hidden" value="<?= $value->idtb_locacao?>" name="idLocacao">
+                                    <input type="hidden" value="<?= $value->tb_aluno_idtb_aluno?>" name="idAluno">
+                                    <div class="input-field">
+                                        <select name="tipoSelect" id="tipoSelect<?= $i?>">
+                                            <option value="" disabled selected>Selecione um Acervo</option>
+                                            <option value="livro">Livros</option>
+                                            <option value="circulo">Circulo de leitura</option>
+                                            <option value="cd-dvd">CDs e DVDs</option>
+                                            <option value="tves">TV Escola</option>
+                                            <option value="materiais">Materiais</option>
+                                            <option value="jmf">JMF</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field" style="margin-bottom: 20px">
+                                        <select class="js-states browser-default" tabindex="-1" style="width: 100%;" name="acervoSelect" id="acervoSelect<?= $i++?>" disabled>
+                                            <option value="">Selecione um Livro</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-field">
+                                        <label class="active" for="data">Data  kjndw
+
+                                            Locação</label>
+                                        <input id="data" placeholder="Escolha a Data Desejada" type="date" name="locacao" data-value="<?= $value->data_locacao?>" class="datepicker">
+                                    </div>
+                                    <div class="input-field">
+                                        <label class="active" for="data">Data da Devolução</label>
+                                        <input id="data" placeholder="Escolha a Data Desejada" type="date" name="devolucao" data-value="<?= $value->data_devolucao?>" class="datepicker">
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="lido" id="lido<?= $i?>" value="yes" <?php
+                                        if ($value->status_lido==0) echo "checked"
+                                        ?>>
+                                        <label for="lido<?= $i?>">Marcar Livro como Lido</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button name="edit" type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</button>
+                                    <?php
+                                    $locacao=$tb_locacao->select()->from()->where("idtb_locacao",$value->idtb_locacao)->first();
+                                    if ($locacao->status_devolucao!=0):
+                                        ?>
+                                        <button name="devolver" type="submit" value="<?= $value->tb_acervo_idtb_acervo?>" class="modal-action modal-close waves-effect waves-green btn-flat">Devolver</button>
+                                        <?php
+                                        if ($locacao->qtd_renovacao<3):
+                                        ?>
+                                        <button name="renovar" type="submit" value="<?= $value->tb_acervo_idtb_acervo?>" class="modal-action modal-close waves-effect waves-green btn-flat">Renovar</button>
+                                    <?php endif;endif; ?>
+                                </div>
+                            </form>
+                        </div>
+                        <?php
+                    endforeach;?>
                 </div>
             </div>
         </div>

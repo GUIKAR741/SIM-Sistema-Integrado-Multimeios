@@ -1,5 +1,6 @@
 <?php
 $tb_equipamento = new \App\Models\Tb_recursos();
+$equip=$tb_equipamento->select()->from()->all();
 if (isset($_POST['btnSave'])):
 //  Receber as variaveis
     $equipamento = strip_tags($_POST['equipamento']);

@@ -17,6 +17,11 @@ class Upload{
      */
     private $result;
     /**
+     * Retorna o nome do arquivo
+     * @var
+     */
+    private $name;
+    /**
      * Retorna uma Mensagem sobre o Upload
      * @var
      */
@@ -72,6 +77,14 @@ class Upload{
      */
     public function getMsg(){
         return $this->msg;
+    }
+    /**
+     * Pega o nome do arquivo
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
     }
     /**
      * Faz Upload Multiplo de Imagens
@@ -240,10 +253,12 @@ class Upload{
      */
     private function moveArquivo(array $upload){
         if (move_uploaded_file($upload["tmp_name"], self::$diretorio.$upload["name"])):
-            $this->result=$upload["name"];
+            $this->result=true;
+            $this->name=$upload["name"];
             $this->msg="upload realizado com sucesso";
         else:
             $this->result=false;
+            $this->name=$this->pathRoot.'imagem_nao_cadastrada.png';
             $this->msg="upload não foi realizado com sucesso";
         endif;
         self::$diretorio=$this->pathRoot;

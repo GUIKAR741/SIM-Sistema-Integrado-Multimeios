@@ -6,3 +6,8 @@ V1.5
 Construção de cadastros
 Construção dos acervos
 Melhorias nos Layouts
+
+V2.0
+Acervo comentado
+Feito as locações
+Agendamento faltando apenas condições

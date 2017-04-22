@@ -8,3 +8,13 @@
 .btn-no-shadow{box-shadow: none}
 .pad-title{padding-bottom: 0;padding-top: 15px}
 /*.btn-no-shadow:hover{box-shadow: none;cursor: auto}*/
+.fc-content{
+     padding: 2px;
+     border-radius: 1px;
+     background-color: rgba(0,0,0,0);
+     font-weight: 500;
+     border: 0 !important;
+ }
+.fc-borda{
+     border: solid black !important;
+}
