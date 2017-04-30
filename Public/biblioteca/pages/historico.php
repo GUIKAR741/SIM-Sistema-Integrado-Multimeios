@@ -120,9 +120,7 @@ endif;
                                         </select>
                                     </div>
                                     <div class="input-field">
-                                        <label class="active" for="data">Data  kjndw
-
-                                            Locação</label>
+                                        <label class="active" for="data">Data da Locação</label>
                                         <input id="data" placeholder="Escolha a Data Desejada" type="date" name="locacao" data-value="<?= $value->data_locacao?>" class="datepicker">
                                     </div>
                                     <div class="input-field">

@@ -146,7 +146,7 @@ class QueryBuilder{
      * @param $order
      * @return $this
      */
-    public function order($field, $order='asc'){
+    public function order($field, $order='ASC'){
         $this->order=$field." ".$order;
         return $this;
     }
@@ -158,7 +158,7 @@ class QueryBuilder{
      * @return $this
      */
     public function between($field, $value1, $value2){
-        $this->between=" WHERE ".$field." BETWEEN ".$value1." AND ".$value2;
+        $this->between=" WHERE ".$field." BETWEEN '".$value1."' AND '".$value2."'";
         return $this;
     }
     /**

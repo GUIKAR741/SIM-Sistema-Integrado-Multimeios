@@ -1,31 +1,44 @@
 <?php
+use Carbon\Carbon;
 $tb_cursos = new App\Models\SiscoTbCursos();
 $tb_recursos = new App\Models\Tb_recursos();
 $tb_agendamento= new App\Models\Tb_agendamento();
-//dump($_POST);
-if (isset($_POST['action']  )):
-    $turma='';$recurso='';$horario='';
-    foreach ($_POST['turmas'] as $turmas):
-        $turma.=$turmas.', ';
-    endforeach;
-    foreach ($_POST['recurso'] as $recursos):
-        $recurso.=$recursos.', ';
-    endforeach;
-    foreach ($_POST['horario'] as $horarios):
-        $horario.=$horarios.', ';
-    endforeach;
+$datasub7=Carbon::now()->subWeek(1)->startOfWeek()->toDateString();
+$dataadd7=Carbon::now()->addWeek(1)->endOfWeek()->toDateString();
 
-    $turma=rtrim($turma,', ');
-    $recurso=rtrim($recurso,', ');
-    $horario=rtrim($horario,', ');
-    $data=$_POST['_submit'];
+if (isset($_POST['action'])):
+    $tb_agendamento->data=$data=$_POST['_submit'];
     $id_user=$_SESSION['id_usuario'];
-
     $tb_agendamento->tb_usuario_idtb_usuario=$id_user;
+    $escolhido=$tb_agendamento->select()->from()->where('data',$data)->all();
+    foreach ($escolhido as $value):
+        $usuarioJaCad=$value->tb_usuario_idtb_usuario;
+        $horarioJaCad=explode(", ",$value->tb_horario_idtb_horario);
+        $recursoJaCad=explode(", ",$value->tb_recurso_idtb_recurso);
+        foreach ($horarioJaCad as $horarioCad):
+            foreach ($_POST['horario'] as $index1=>$hora):
+                if ($horarioCad==$hora):
+                    foreach ($recursoJaCad as $recursoCad):
+                        foreach ($_POST['recurso'] as $index2=>$recur):
+                            if ($recursoCad==$recur):
+                                unset($_POST['horario'][$index1]);
+                                echo $recur;
+                            endif;
+                        endforeach;
+                    endforeach;
+                endif;
+            endforeach;
+        endforeach;
+    endforeach;
+
+    $recurso=isset($_POST['recurso'])?implode(", ",$_POST['recurso']):"";
+    $horario=isset($_POST['horario'])?implode(", ",$_POST['horario']):"";
+    $turma=isset($_POST['turmas'])?implode(", ",$_POST['turmas']):"";
     $tb_agendamento->tb_turma_idtb_turma=$turma;
+
     $tb_agendamento->tb_recurso_idtb_recurso=$recurso;
     $tb_agendamento->tb_horario_idtb_horario=$horario;
-    $tb_agendamento->data=$data;
+
     $id=$tb_agendamento->save();
     echo '<script>window.location=\'?p=home\'</script>';
 endif;
@@ -88,6 +101,10 @@ endif;
                                         <label for="<?= $value->idtb_recurso ?>Recursos"><?= $value->nome_recurso ?></label>
                                     </p>
                                 <?php endforeach ?>
+                                <p>
+                                    OBS: O sistema apenas ira cadastrar sua locação no horario
+                                    em que os equipamentos desejados não estiver em uso
+                                </p>
                             </div>
                         </div>
                     </div>

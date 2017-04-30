@@ -11,3 +11,9 @@ V2.0
 Acervo comentado
 Feito as locações
 Agendamento faltando apenas condições
+
+V2.25
+Notificações funcionais
+Alterações no banco do sim para atender as necessidades da locacao
+Condições do agendamento iniciadas(necessitando melhorias)
+Arquivo "contagem.php" para teste e gerar informações sobre como fazer os graficos

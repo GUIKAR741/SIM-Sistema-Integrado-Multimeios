@@ -36,17 +36,15 @@ if (isset($_POST['login'])):
 endif;
 if (isset($_GET['p']) && $_GET['p'] == 'negado'):
     $retorno="<script>
-    swal({title: \"Acesso Negado!\",
-     type: \"error\",timer: 3000,showConfirmButton:false},function() {
-       setTimeout(document.location='login.php',3000);
-     });
+    swal(
+        {title: \"Acesso Negado!\",type: \"error\",timer: 1500,showConfirmButton:false}//,function() {setTimeout(document.location='login.php',3000);}
+     );
 </script>";
 elseif (isset($_GET['p']) && $_GET['p'] == 'logout'):
     $retorno="<script>
-    swal({title: \"Obrigado por Usar o Sistema!\",
-            type: \"warning\",timer: 3000,showConfirmButton:false},function() {
-       setTimeout(document.location='login.php',3000);
-       });
+    swal(
+        {title: \"Obrigado por Usar o Sistema!\",type: \"warning\",timer: 1500,showConfirmButton:false}//,function(){setTimeout(document.location='login.php',3000);}
+        );
     </script>";
 endif;
 ?>
