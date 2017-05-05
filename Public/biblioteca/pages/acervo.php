@@ -1,6 +1,7 @@
 <?php
 #Biblioteca para data
 use Carbon\Carbon;
+
 #instancias das tabelas
 $tb_acervo=new \App\Models\Tb_acervo();
 $tb_locacao=new \App\Models\Tb_locacao();
@@ -76,7 +77,7 @@ if (isset($_POST['enviarCAD'])):
     endif;
     #salva o novo registro
     $tb_acervo->save();
-    echo '<script>window.location=\'?p=acervo\'</script>';
+    echo '<script>window.location=\'?p=acervo&livro=cadastrado\'</script>';
 endif;
 #editar livros
 if (isset($_POST['enviarEDIT'])):
@@ -116,7 +117,7 @@ if (isset($_POST['enviarEDIT'])):
     endif;
     #atualiza as informações do livro
     $tb_acervo->update('idtb_acervo',$id);
-    echo '<script>window.location=\'?p=acervo\'</script>';
+    echo '<script>window.location=\'?p=acervo&livro=atualizado\'</script>';
 endif;
 #deletar livro
 if (isset($_GET['delete']) && $_GET['delete']==true):
@@ -130,7 +131,8 @@ if (isset($_GET['delete']) && $_GET['delete']==true):
     endif;
     #apaga o registro
     $tb_acervo->delete('idtb_acervo', $id);
-    echo "<script>document.location='?p=acervo'</script>";
+    $tb_locacao->delete("tb_acervo_idtb_acervo",$id);
+    echo "<script>document.location='?p=acervo&livro=deletado'</script>";
 endif;
 #cadastra a locação
 if (isset($_POST['locacao'])):
@@ -151,12 +153,49 @@ if (isset($_POST['locacao'])):
         $tb_locacao->data_devolucao=$data7;
         #salva o registro do livro
         $tb_locacao->save();
-        echo "<script>document.location='?p=historico&idAluno=".$_POST['alunoSelect']."'</script>";
+        //dump($_GET);
+        //dump($_POST);
+        //dump("?p=acervo&livro=locado&idaluno=".strip_tags($_POST['alunoSelect'])."&disponivel=true");
+        //$link="?p=acervo&livro=locado&idaluno=".strip_tags($_POST['alunoSelect'])."&disponivel=true";
+        echo "<script>document.location='?p=acervo&livro=locado&idaluno=".strip_tags($_POST['alunoSelect'])."&disponivel=true'</script>";
     endif;
-    echo "<script>document.location='?p=acervo'</script>";
+    echo "<script>document.location='?p=acervo&livro=locado&idaluno=".strip_tags($_POST['alunoSelect'])."&disponivel=false'</script>";
+endif;
+if (isset($_GET['livro']) && $_GET['livro'] == 'cadastrado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Livro Cadastrado Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},2000);";
+elseif (isset($_GET['livro']) && $_GET['livro'] == 'atualizado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Livro Atualizado Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},2000);";
+elseif (isset($_GET['livro']) && $_GET['livro'] == 'deletado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Livro Deletado Com Sucesso!\",type: \"error\",timer: 2000,showConfirmButton:false}
+     )},2000);";
+elseif (isset($_GET['livro']) && $_GET['livro'] == 'locado' && isset($_GET['idaluno'])):
+    $idaluno=$_GET['idaluno'];
+    $aluno=$tb_acervo->select()->from('sisco.tb_aluno')->where('idtb_aluno',$idaluno)->first();
+    if ($aluno!=false):
+        if (isset($_GET['disponivel'])):
+            if ($_GET['disponivel']=="true"):
+                $retorno="setTimeout(function (){swal(
+        {title: \"Livro Locado Para o Aluno: ".$aluno->nome_aluno."!\",type: \"success\",timer: 3000,showConfirmButton:false}
+     )},2000);";
+            elseif ($_GET['disponivel']=="false"):
+                $retorno="setTimeout(function (){swal(
+        {title: \"Erro ao Locar:<br>Quantidade de Livros Disponiveis Insuficiente\",type: \"error\",timer: 3000,showConfirmButton:false,html:true}
+     )},2000);";
+            endif;
+        endif;
+    else:
+        $retorno="setTimeout(function (){swal(
+        {title: \"Erro ao Locar:<br>Aluno Não Existe\",type: \"error\",timer: 2000,showConfirmButton:false,html:true}
+        )},2000);";
+    endif;
 endif;
 ?>
-<main class="mn-inner p-h-xs pad-title">
+<main class="mn-inner p-h-xs pad-title" xmlns:swal>
     <div class="row">
         <div class="col s12">
             <div class="page-title">Acervo de Livros</div>
@@ -331,11 +370,30 @@ endif;
                                     <a class="btn-floating btn waves-effect waves-light green" onclick="$('#modal1<?= $value->idtb_acervo?>').openModal()"><i class="material-icons">mode_edit</i></a>
                                 </td>
                                 <td class="no-m center no-p-h">
-                                    <a class="btn-floating btn waves-effect waves-light red" href="?p=acervo&delete=true&del=<?= $value->idtb_acervo?>"><i class="material-icons">delete_forever</i></a>
+                                    <a class="btn-floating btn waves-effect waves-light red" onclick="swal({
+                                    title: 'Você tem Certeza?',
+                                    text: 'não sera possivel recuperar as informações do livro',
+                                    type: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#DD6B55',
+                                    confirmButtonText: 'SIM',
+                                    cancelButtonText: 'NÃO',
+                                    closeOnConfirm: false,
+                                    closeOnCancel: false
+                                    },
+                                    function(isConfirm){
+                                    if (isConfirm) {
+                                    location.href='?p=acervo&delete=true&del=<?= $value->idtb_acervo?>';
+                                    } else {
+                                    swal({title:'Cancelado', text:'Seu Livro não foi excluido', type:'success',timer: 2000,showConfirmButton:false});
+                                    }
+                                    })"><i class="material-icons">delete_forever</i></a>
                                 </td>
+                                <?php if ($value->disponiveis>0):?>
                                 <td class="no-m center no-p-h">
                                     <a class="btn-floating btn waves-effect waves-light cyan" onclick="$('#modal2<?= $value->idtb_acervo?>').openModal()"><i class="material-icons">book</i></a>
                                 </td>
+                                <?php endif;?>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
@@ -441,6 +499,7 @@ endif;
                                 </div>
                             </form>
                         </div>
+                    <?php if ($value->disponiveis>0):?>
                         <div id="modal2<?= $value->idtb_acervo?>" class="modal modal-fixed-footer modReserva" >
                             <form method="post">
                                 <div class="modal-content">
@@ -469,7 +528,7 @@ endif;
                                 </div>
                             </form>
                         </div>
-                        <?php
+                    <?php endif;
                     endforeach;?>
                     <div class="card-content" style="display: flex;box-sizing: border-box">
                         <div class="col s12 m4">

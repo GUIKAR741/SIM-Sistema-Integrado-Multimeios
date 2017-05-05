@@ -8,27 +8,15 @@
                     <div class="nav-inner">
                         <nav class="primary-nav">
                             <div class="clearfix nav-wrapper">
-                                <a href="?p=home" class="left brand-logo"><img class="logo" src="assets/images/images/sim.jpg" alt="Logo">
+                                <a href="?p=home" class="left brand-logo">
+                                    <img class="logo" src="assets/images/images/sim.jpg" alt="Logo">
                                 </a>
-                                <a href="#" data-activates="mobile-demo" class="button-collapse"><i
-                                        class="mdi-navigation-menu"></i></a>
+                                <a href="#" data-activates="mobile-demo" class="button-collapse">
+                                    <i class="mdi-navigation-menu"></i></a>
                                 <ul class="right static-menu">
-                                    <li class="search-form-li">
-                                        <a id="initSearchIcon" class=""><i class="mdi-action-search"></i> </a>
-                                        <div class="search-form-wrap hide">
-                                            <form action="#" class="">
-                                                <input type="search" class="search">
-                                                <button type="submit"><i class="mdi-action-search"></i>
-                                                </button>
-                                            </form>
-                                        </div>
+                                    <li>
+                                        <a href="login.php"><i class="fa fa-user fa-fw"></i> </a>
                                     </li>
-                                    <!--<li>
-                                        <a class="dropdown-button blog-submenu-init" href="#!"
-                                           data-activates="dropdown1">
-                                            <i class="mdi-navigation-more-vert right"></i>
-                                        </a>
-                                    </li>-->
                                 </ul>
                                 <ul class="inline-menu side-nav" id="mobile-demo">
 
@@ -73,11 +61,11 @@
                                             <i class="fa fa-paper-plane fa-fw"></i>Contato
                                         </a>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <a href="login.php">
                                             <i class="fa fa-user fa-fw"></i>Login
                                         </a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                                 <!--<ul id="dropdown1" class="inline-menu submenu-ul dropdown-content">
 

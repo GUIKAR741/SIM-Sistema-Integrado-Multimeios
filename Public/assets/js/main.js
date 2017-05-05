@@ -1,3 +1,19 @@
+/*
+ ====================================================
+ * [Master Stylesheet]
+
+ Theme Name : MaterialX
+ Version    :  1.1
+ Author     :  Jemerson
+ ====================================================
+
+ TOC:
+ =======
+
+ 1. Slide dos Livros no Front
+
+ ===================================================== */
+
 "use strict";
 var scrollDirection, $ = jQuery;
 
@@ -145,10 +161,12 @@ $(document).ready(function($){
 		}
 	});
 
-
+	/* --------------------------------- */
+	/* 1. Slide dos Livros no Front
+	 ----------------------------------- */
 	var tmSlider = $("#teamSlider");
 	tmSlider.owlCarousel({
-		slideSpeed : 100,
+		slideSpeed : 800,
 		loop: true,
 		items : 3,
 		itemsDesktop : [1000,3],

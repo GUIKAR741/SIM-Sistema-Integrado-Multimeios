@@ -1,6 +1,9 @@
 <script src="../assets/plugins/select2/js/select2.min.js"></script>
-
+<script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
 <script>
+    <?php
+    if (isset($retorno)) echo $retorno;
+    ?>
     $(document).ready(function() {
         $('.datepicker').pickadate({
             selectMonths: false, // Creates a dropdown to control month

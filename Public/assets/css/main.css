@@ -605,14 +605,15 @@ header.nav.hide-menu {
 }
 
 .home-title {
-    font-size: 72px;
+    /*Font-Syze do Tamanho do Título do Home*/
+    font-size: 90px;
     font-weight: 700;
     margin-bottom: 15px;
     text-transform: uppercase;
 }
 
 .home-subtitle {
-    font-size: 18px;
+    font-size: 23px;
     font-weight: 300;
     margin-bottom: 38px;
     text-transform: uppercase;

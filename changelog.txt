@@ -17,3 +17,10 @@ Notificações funcionais
 Alterações no banco do sim para atender as necessidades da locacao
 Condições do agendamento iniciadas(necessitando melhorias)
 Arquivo "contagem.php" para teste e gerar informações sobre como fazer os graficos
+
+V2.5
+Cadastro e atualizar no agendamento
+melhorias no layout do front
+delete de locações
+mensagens ao realizar ações no acervo
+atualizado biblioteca do grafico(chart.js)

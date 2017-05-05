@@ -4,21 +4,13 @@ $tb_recursos = new App\Models\Tb_recursos();
 $tb_agendamento = new App\Models\Tb_agendamento();
 $id=$_GET['id'];
 $agendamento=$tb_agendamento->select()->from()->where('idtb_agendamento',$id)->first();
+if($agendamento->tb_usuario_idtb_usuario!=$_SESSION['id_usuario']):
+    echo '<script>window.location=\'?p=home\'</script>';
+endif;
 if (isset($_POST['action']  )):
-    $turma='';$recurso='';$horario='';
-    foreach ($_POST['turmas'] as $turmas):
-        $turma.=$turmas.', ';
-    endforeach;
-    foreach ($_POST['recurso'] as $recursos):
-        $recurso.=$recursos.', ';
-    endforeach;
-    foreach ($_POST['horario'] as $horarios):
-        $horario.=$horarios.', ';
-    endforeach;
-
-    $turma=rtrim($turma,', ');
-    $recurso=rtrim($recurso,', ');
-    $horario=rtrim($horario,', ');
+    $turma=implode(", ",$_POST['turmas']);
+    $recurso=implode(", ",$_POST['recurso']);
+    $horario=implode(", ",$_POST['horario']);
     $data=$_POST['_submit'];
     $id_user=$_SESSION['id_usuario'];
 

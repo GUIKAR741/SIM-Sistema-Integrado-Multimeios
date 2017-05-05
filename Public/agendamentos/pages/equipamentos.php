@@ -84,7 +84,7 @@ endif;
                                     <div class="switch">
                                         <label>
                                             Desativado
-                                            <input type="checkbox" id="check" onclick="setTimeout(document.location='?p=equipamentos&status=<?=$value->idtb_recurso?>',3000);" <?php if ($value->status_recurso==1) echo 'checked';?>>
+                                            <input type="checkbox" id="check" onclick="setTimeout(function(){document.location='?p=equipamentos&status=<?=$value->idtb_recurso?>'},650);" <?php if ($value->status_recurso==1) echo 'checked';?>>
                                             <span class="lever"></span>
                                             Ativado
                                         </label>

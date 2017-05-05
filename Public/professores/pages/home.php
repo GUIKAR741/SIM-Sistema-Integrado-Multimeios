@@ -1,11 +1,7 @@
 <?php
-use Carbon\Carbon;
 $tb_cursos = new App\Models\SiscoTbCursos();
 $tb_recursos = new App\Models\Tb_recursos();
 $tb_agendamento= new App\Models\Tb_agendamento();
-$datasub7=Carbon::now()->subWeek(1)->startOfWeek()->toDateString();
-$dataadd7=Carbon::now()->addWeek(1)->endOfWeek()->toDateString();
-
 if (isset($_POST['action'])):
     $tb_agendamento->data=$data=$_POST['_submit'];
     $id_user=$_SESSION['id_usuario'];

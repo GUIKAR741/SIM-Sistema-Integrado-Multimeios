@@ -1,5 +1,6 @@
 <?php
 use Carbon\Carbon;
+
 $tb_aluno=new \App\Models\SiscoTbAluno();
 $tb_locacao=new \App\Models\Tb_locacao();
 $tb_acervo=new \App\Models\Tb_acervo();
@@ -10,7 +11,7 @@ where('sisco.tb_aluno.tb_turma_idtb_turma','idtb_turma','=',false)->
 e('idtb_aluno',$id)->
 first();
 $curso=$tb_aluno->select()->from('sisco.tb_cursos')->where('idtb_cursos',$aluno->tb_cursos_idtb_cursos,'=',false)->first();
-$locacoes=$tb_locacao->select()->from()->where("tb_aluno_idtb_aluno",$aluno->idtb_aluno)->order("data_locacao",'desc')->all();
+$locacoes=$tb_locacao->select()->from()->where("tb_aluno_idtb_aluno",$aluno->idtb_aluno)->order("idtb_locacao",'desc')->all();
 if (isset($_POST['devolver'])):
     if (isset($_POST['lido']) && $_POST['lido']=='yes'):
         $tb_locacao->status_lido=0;
@@ -25,7 +26,7 @@ if (isset($_POST['devolver'])):
         $tb_acervo->update('idtb_acervo',$_POST['devolver']);
     endif;
     $tb_locacao->update('idtb_locacao',$_POST['idLocacao']);
-    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."'</script>";
+    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."&livro=devolvido'</script>";
 endif;
 if (isset($_POST['renovar'])):
     $locacao=$tb_locacao->select()->from()->where("idtb_locacao",$_POST['idLocacao'])->first();
@@ -35,7 +36,7 @@ if (isset($_POST['renovar'])):
         $tb_locacao->qtd_renovacao=$locacao->qtd_renovacao+1;
         $tb_locacao->update('idtb_locacao',$_POST['idLocacao']);
     endif;
-    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."'</script>";
+    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."&livro=renovado'</script>";
 endif;
 if (isset($_POST['edit'])):
     $id=strip_tags($_POST['idLocacao']);
@@ -55,8 +56,38 @@ if (isset($_POST['edit'])):
         $tb_locacao->status_lido=1;
     endif;
     $tb_locacao->update('idtb_locacao',$_POST['idLocacao']);
-    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."'</script>";
+    echo "<script>document.location='?p=historico&idAluno=".strip_tags($_POST['idAluno'])."&livro=atualizado'</script>";
     //dump($_POST);
+endif;
+if (isset($_GET['del']) && $_GET['del']=="true"):
+    $idLoc = strip_tags($_GET['idloc']);
+    $loca=$tb_locacao->select()->from()->where('idtb_locacao',$idLoc)->first();
+    if ($loca->status_devolucao==0):
+        $tb_locacao->delete("idtb_locacao",$idLoc);
+    else:
+        $acervoloca=$tb_acervo->select()->from()->where("idtb_acervo",$loca->tb_acervo_idtb_acervo)->first();
+        $tb_acervo->disponiveis=intval($acervoloca->disponiveis)+1;
+        $tb_acervo->update("idtb_acervo",$acervoloca->idtb_acervo);
+        $tb_locacao->delete("idtb_locacao",$idLoc);
+    endif;
+    echo "<script>document.location='?p=historico&idAluno=".$id."&livro=deletado'</script>";
+endif;
+if (isset($_GET['livro']) && $_GET['livro'] == 'devolvido'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Livro Devolvido Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},2000);";
+elseif (isset($_GET['livro']) && $_GET['livro'] == 'renovado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Locação Renovada Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},2000);";
+elseif (isset($_GET['livro']) && $_GET['livro'] == 'atualizado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Locação Atualizada Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},2000);";
+elseif (isset($_GET['livro']) && $_GET['livro'] == 'deletado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Locação Deletada Com Sucesso!\",type: \"error\",timer: 2000,showConfirmButton:false}
+     )},2000);";
 endif;
 ?>
 <main class="mn-inner pad-title p-h-xs">
@@ -87,7 +118,24 @@ endif;
                                 <th class="center no-m no-p-h"><?= date("d/m/Y",strtotime($value->data_devolucao))?></th>
                                 <td class="center no-m no-p-h">
                                     <a class="btn-floating btn waves-effect waves-light green" onclick="$('#modal1<?= $value->idtb_locacao?>').openModal()"><i class="material-icons">mode_edit</i></a>
-                                    <a class="btn-floating btn waves-effect waves-light red" href="?p=historico&del=<?= $value->idtb_locacao?>"><i class="material-icons">delete_forever</i></a>
+                                    <a class="btn-floating btn waves-effect waves-light red" onclick="swal({
+                                            title: 'Você tem Certeza?',
+                                            text: 'não sera possivel recuperar as informações da Locação',
+                                            type: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#DD6B55',
+                                            confirmButtonText: 'SIM',
+                                            cancelButtonText: 'NÃO',
+                                            closeOnConfirm: false,
+                                            closeOnCancel: false
+                                            },
+                                            function(isConfirm){
+                                            if (isConfirm) {
+                                            location.href='?p=historico&idAluno=<?= $id?>&del=true&idloc=<?= $value->idtb_locacao?>';
+                                            } else {
+                                            swal({title:'Cancelado', text:'Sua Locação não foi excluida', type:'success',timer: 2000,showConfirmButton:false});
+                                            }
+                                            })"><i class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -128,9 +176,7 @@ endif;
                                         <input id="data" placeholder="Escolha a Data Desejada" type="date" name="devolucao" data-value="<?= $value->data_devolucao?>" class="datepicker">
                                     </div>
                                     <div>
-                                        <input type="checkbox" name="lido" id="lido<?= $i?>" value="yes" <?php
-                                        if ($value->status_lido==0) echo "checked"
-                                        ?>>
+                                        <input type="checkbox" name="lido" id="lido<?= $i?>" value="yes" <?php if ($value->status_lido==0) echo "checked" ?>>
                                         <label for="lido<?= $i?>">Marcar Livro como Lido</label>
                                     </div>
                                 </div>
@@ -143,9 +189,9 @@ endif;
                                         <button name="devolver" type="submit" value="<?= $value->tb_acervo_idtb_acervo?>" class="modal-action modal-close waves-effect waves-green btn-flat">Devolver</button>
                                         <?php
                                         if ($locacao->qtd_renovacao<3):
-                                        ?>
-                                        <button name="renovar" type="submit" value="<?= $value->tb_acervo_idtb_acervo?>" class="modal-action modal-close waves-effect waves-green btn-flat">Renovar</button>
-                                    <?php endif;endif; ?>
+                                            ?>
+                                            <button name="renovar" type="submit" value="<?= $value->tb_acervo_idtb_acervo?>" class="modal-action modal-close waves-effect waves-green btn-flat">Renovar</button>
+                                        <?php endif;endif; ?>
                                 </div>
                             </form>
                         </div>

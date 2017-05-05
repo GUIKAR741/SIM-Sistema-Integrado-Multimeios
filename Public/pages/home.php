@@ -8,10 +8,10 @@
                         <div class="center-align home-content">
                             <h1 class="home-title">Bem Vindo ao <span>SIM!</span></h1>
                             <h2 class="home-subtitle">Sistema Integrado a Multimeios</h2>
-                            <a href="index.php?p=collection"
-                               class="btn waves-effect waves-light btn-large brand-bg white-text regular-text">Pesquise
-                                Aqui <i class="mdi-content-send left"></i>
-                            </a>
+<!--                            <a href="index.php?p=collection"-->
+<!--                               class="btn waves-effect waves-light btn-large brand-bg white-text regular-text">Pesquise-->
+<!--                                Aqui <i class="mdi-content-send left"></i>-->
+<!--                            </a>-->
                         </div>
                     </div>
                 </div>

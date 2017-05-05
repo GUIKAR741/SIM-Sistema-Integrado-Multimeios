@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Abr-2017 às 12:56
+-- Generation Time: 04-Maio-2017 às 07:44
 -- Versão do servidor: 5.7.9
 -- PHP Version: 5.6.16
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `tb_acervo` (
 
 INSERT INTO `tb_acervo` (`idtb_acervo`, `data`, `titulo`, `autor`, `volume`, `exemplares`, `disponiveis`, `local`, `editora`, `ano_publicacao`, `forma_de_aquisicao`, `observacao`, `estante`, `tipo_acervo`, `capa`, `sinopse`) VALUES
 (1, '2010-03-30', '100 Jogos dramáticos (teatro)', 'Maria Clara Machado, Marta Rosman', '26', '2', '2', 'R. de Janeiro', 'Agir', '2001', 'D', 'P. Alvorada', '', 'livro', 'imagem_nao_cadastrada.png', ''),
-(2, '2010-03-30', ' Camões - Coleção conhecendo os nossos clássicos', 'Amélia Lacombe', '26', '1', '2', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', '', 'livro', NULL, ''),
+(2, '2010-03-30', ' Camões - Coleção conhecendo os nossos clássicos', 'Amélia Lacombe', '26', '1', '1', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', '', 'livro', NULL, ''),
 (3, '2010-03-30', 'O Jardim Perdido', 'Edgar da Rocha Miranda', NULL, '1', '1', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (4, '2010-03-30', 'Alfabetização de Adultos', 'Marta Durante', NULL, '2', '2', 'Porto Alegre', 'Artmed', '1998', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (5, '2010-03-30', 'Inteligências Múltiplas na sala de aula.', 'Thomas Armstrong ', NULL, '2', '2', 'São Paulo', 'Artmed', '2001', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
@@ -2585,7 +2585,7 @@ INSERT INTO `tb_acervo` (`idtb_acervo`, `data`, `titulo`, `autor`, `volume`, `ex
 (2523, '2014-10-30', 'Percy Jackson a Maldição de Titã', 'Rick Riordan', NULL, '1', '1', 'Rio de Janeiro', 'IntrÍnseca', '2014', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2524, '2014-10-30', 'Harry Potter e o prisioneiro de Azkaban', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2000', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2525, '2014-10-30', 'Harry Potter e o cálice de fogo', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2001', 'C', NULL, NULL, 'livro', NULL, NULL),
-(2526, '2014-10-30', 'Harry Potter e ordem da Fênix', 'J. K. Rowling', NULL, '1', '0', 'Rio de Janeiro', 'Rocco', '2003', 'C', NULL, NULL, 'livro', NULL, NULL),
+(2526, '2014-10-30', 'Harry Potter e ordem da Fênix', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2003', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2527, '2014-10-30', 'Harry Potter e o enigma do príncipe', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2005', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2528, '2014-10-30', 'Harry Potter e as relíquias da morte', 'J. K. Rowling', NULL, '1', '1', 'Rio de Janeiro', 'Rocco', '2007', 'C', NULL, NULL, 'livro', NULL, NULL),
 (2529, '2014-11-12', 'Querido John', 'Nicholas Sparks', NULL, '1', '1', 'São Paulo', 'Conceito', '2011', 'D', NULL, NULL, 'livro', NULL, NULL),
@@ -3426,7 +3426,7 @@ CREATE TABLE IF NOT EXISTS `tb_agendamento` (
   `tb_horario_idtb_horario` varchar(30) NOT NULL,
   `data` date NOT NULL,
   PRIMARY KEY (`idtb_agendamento`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_agendamento`
@@ -3442,7 +3442,14 @@ INSERT INTO `tb_agendamento` (`idtb_agendamento`, `tb_usuario_idtb_usuario`, `tb
 (7, 29, '14, 22, 23', '1', '1, 3, 7, 10', '2017-03-27'),
 (8, 29, '18', '1', '8', '2017-03-27'),
 (9, 29, '16, 22, 15', '2', '1, 3, 4', '2017-04-03'),
-(10, 29, '19, 16, 15', '1, 2', '1, 3, 4, 6, 7, 8, 10, 11', '2017-04-20');
+(10, 29, '19, 16, 15', '1, 2', '1, 3, 4, 6, 7, 8, 10, 11', '2017-04-20'),
+(11, 29, '18, 16, 22', '1', '1, 4, 6', '2017-04-24'),
+(12, 29, '14, 12, 25', '2', '1, 4, 7', '2017-05-04'),
+(13, 29, '18, 19', '1, 2', '5, 7, 8', '2017-05-10'),
+(14, 29, '14, 22', '1, 2', '3, 5', '2017-04-24'),
+(15, 29, '14, 12, 25', '1, 3', '1, 4, 6', '2017-05-01'),
+(16, 29, '', '2', '1, 3, 5, 6, 9, 11', '2017-05-01'),
+(17, 29, '17', '1, 2, 3', '7, 8, 10', '2017-05-01');
 
 -- --------------------------------------------------------
 
@@ -3492,23 +3499,36 @@ CREATE TABLE IF NOT EXISTS `tb_locacao` (
   `status_devolucao` int(11) NOT NULL DEFAULT '1' COMMENT '0 Devolvido e 1 Locado',
   `status_lido` int(11) NOT NULL DEFAULT '1' COMMENT '0 lido e 1 não leu',
   PRIMARY KEY (`idtb_locacao`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_locacao`
 --
 
 INSERT INTO `tb_locacao` (`idtb_locacao`, `tb_aluno_idtb_aluno`, `tb_acervo_idtb_acervo`, `data_locacao`, `data_devolucao`, `qtd_renovacao`, `status_devolucao`, `status_lido`) VALUES
-(1, 430, 2, '2017-04-17', '2017-04-24', 0, 0, 0),
+(1, 430, 2, '2017-04-17', '2017-04-28', 0, 0, 0),
 (2, 430, 3, '2017-04-17', '2017-04-24', 0, 0, 0),
 (3, 430, 1, '2017-04-17', '2017-04-24', 0, 0, 0),
-(4, 430, 1, '2017-04-16', '2017-04-23', 0, 0, 0),
+(4, 430, 1, '2017-04-16', '2017-04-28', 0, 0, 0),
 (5, 430, 1, '2017-04-18', '2017-04-25', 0, 0, 0),
-(6, 430, 4, '2017-04-17', '2017-06-05', 3, 0, 1),
+(6, 430, 4, '2017-04-17', '2017-04-29', 3, 0, 0),
 (7, 430, 6, '2017-04-20', '2017-05-25', 3, 0, 0),
-(8, 430, 9, '2017-04-17', '2017-04-24', 0, 0, 0),
+(8, 430, 9, '2017-04-17', '2017-04-30', 0, 0, 0),
 (9, 441, 1, '2017-04-25', '2017-05-23', 3, 0, 0),
-(10, 396, 2526, '2017-04-20', '2017-04-27', 0, 1, 1);
+(10, 396, 2526, '2017-04-20', '2017-04-27', 0, 0, 0),
+(11, 406, 1, '2017-04-28', '2017-05-05', 0, 0, 0),
+(12, 406, 2, '2017-04-28', '2017-05-05', 0, 0, 0),
+(13, 406, 1, '2017-04-28', '2017-05-05', 0, 0, 0),
+(14, 406, 1, '2017-04-28', '2017-05-05', 0, 0, 0),
+(15, 207, 9, '2017-04-28', '2017-05-05', 0, 0, 0),
+(16, 325, 8, '2017-04-28', '2017-05-13', 2, 1, 0),
+(17, 325, 6, '2017-04-28', '2017-05-05', 0, 0, 0),
+(18, 335, 3, '2017-04-28', '2017-05-05', 0, 0, 0),
+(19, 396, 4, '2017-04-29', '2017-05-06', 0, 0, 0),
+(20, 422, 4, '2017-04-29', '2017-05-06', 0, 0, 0),
+(21, 437, 10, '2017-04-29', '2017-05-06', 0, 0, 0),
+(22, 430, 1, '2017-04-29', '2017-04-30', 0, 0, 0),
+(23, 437, 2, '2017-04-22', '2017-04-29', 0, 0, 0);
 
 -- --------------------------------------------------------
 
