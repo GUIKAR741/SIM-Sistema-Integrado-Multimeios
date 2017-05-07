@@ -90,6 +90,7 @@ class Login{
                 $_SESSION['nome']=$this->dadosUsuario->nome_usuario;
                 $_SESSION['email']=$this->dadosUsuario->email_usuario;
                 $_SESSION['nivel']=$this->dadosUsuario->tipo_usuario;
+                $_SESSION['status']=$this->dadosUsuario->status_usuario;
                 session_regenerate_id();
                 return true;
             endif;

@@ -168,12 +168,12 @@ endif;
                                         </select>
                                     </div>
                                     <div class="input-field">
-                                        <label class="active" for="data">Data da Locação</label>
-                                        <input id="data" placeholder="Escolha a Data Desejada" type="date" name="locacao" data-value="<?= $value->data_locacao?>" class="datepicker">
+                                        <label class="active" for="dataloc<?= $value->idtb_locacao?>">Data da Locação</label>
+                                        <input id="dataloc<?= $value->idtb_locacao?>" placeholder="Escolha a Data Desejada" type="date" name="locacao" data-value="<?= $value->data_locacao?>" class="datepicker">
                                     </div>
                                     <div class="input-field">
-                                        <label class="active" for="data">Data da Devolução</label>
-                                        <input id="data" placeholder="Escolha a Data Desejada" type="date" name="devolucao" data-value="<?= $value->data_devolucao?>" class="datepicker">
+                                        <label class="active" for="datadev<?= $value->idtb_locacao?>">Data da Devolução</label>
+                                        <input id="datadev<?= $value->idtb_locacao?>" placeholder="Escolha a Data Desejada" type="date" name="devolucao" data-value="<?= $value->data_devolucao?>" class="datepicker">
                                     </div>
                                     <div>
                                         <input type="checkbox" name="lido" id="lido<?= $i?>" value="yes" <?php if ($value->status_lido==0) echo "checked" ?>>

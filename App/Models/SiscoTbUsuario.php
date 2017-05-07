@@ -18,7 +18,7 @@ class SiscoTbUsuario extends Login implements Ilogin {
      * @return mixed
      */
     public function logar($email, $password){
-        $user=$this->select()->from($this->table)->where("BINARY email_usuario",$email)->e("senha_usuario",$password)->all();
+        $user=$this->select()->from($this->table)->where("BINARY email_usuario",$email)->e("senha_usuario",$password)->e('status_usuario','1')->all();
         return (count($user)==1)?$user:false;
     }
 }

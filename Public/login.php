@@ -1,15 +1,19 @@
 <?php
 include_once ('../Config/config.php');
-if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Biblioteca'))):
+if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Biblioteca')&&($_SESSION['status']=='0'))):
     header("Location:biblioteca/index.php?p=home");
     exit;
 endif;
-if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Agendamento'))):
+if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Agendamento')&&($_SESSION['status']=='0'))):
     header("Location:agendamentos/index.php?p=home");
     exit;
 endif;
-if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Professor'))):
+if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Professor')&&($_SESSION['status']=='1'))):
     header("Location:professores/index.php?p=home");
+    exit;
+endif;
+if ((isset($_SESSION['logado']))&&(isset($_SESSION['nome'])&&(isset($_SESSION['email']))&&($_SESSION['nivel']=='Administrador')&&($_SESSION['status']=='0'))):
+    header("Location:admin/index.php?p=home");
     exit;
 endif;
 $sisco_tb_usuario=new \App\Models\SiscoTbUsuario();
@@ -29,22 +33,25 @@ if (isset($_POST['login'])):
             $logado = @$login->logar(false);//?true:false;
         endif;
         //dump($senha);
-        header("Location:login.php");
+        header("Location:login.php?p=erro");
     else:
         $logado=false;
     endif;
 endif;
 if (isset($_GET['p']) && $_GET['p'] == 'negado'):
-    $retorno="<script>
-    swal(
-        {title: \"Acesso Negado!\",type: \"error\",timer: 1500,showConfirmButton:false}//,function() {setTimeout(document.location='login.php',3000);}
-     );
+    $retorno="<script>setTimeout(function (){swal(
+        {title: \"Acesso Negado!\",type: \"error\",timer: 2000,showConfirmButton:false}//,function() {setTimeout(document.location='login.php',3000);}
+     )},1300);
 </script>";
 elseif (isset($_GET['p']) && $_GET['p'] == 'logout'):
-    $retorno="<script>
-    swal(
-        {title: \"Obrigado por Usar o Sistema!\",type: \"warning\",timer: 1500,showConfirmButton:false}//,function(){setTimeout(document.location='login.php',3000);}
-        );
+    $retorno="<script>setTimeout(function (){swal(
+        {title: \"Obrigado por Usar o Sistema!\",type: \"warning\",timer: 2000,showConfirmButton:false}//,function(){setTimeout(document.location='login.php',3000);}
+     )},1300);
+    </script>";
+elseif (isset($_GET['p']) && $_GET['p'] == 'erro'):
+    $retorno="<script>setTimeout(function (){swal(
+        {title: \"Usuario não existe ou foi desativado!\",type: \"warning\",timer: 2000,showConfirmButton:false}//,function(){setTimeout(document.location='login.php',3000);}
+     )},1300);
     </script>";
 endif;
 ?>

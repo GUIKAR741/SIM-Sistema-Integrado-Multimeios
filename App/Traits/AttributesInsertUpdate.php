@@ -16,7 +16,7 @@ trait AttributesInsertUpdate{
      * @param $object
      * @return $this
      */
-    public function getAttributes($object){
+    private function getAttributes($object){
         $this->attributes=call_user_func('get_object_vars',$object);
         return $this;
     }
@@ -38,7 +38,7 @@ trait AttributesInsertUpdate{
      * Retorna a Query de Create
      * @return string
      */
-    public function insertSql(){
+    private function insertSql(){
         return "INSERT INTO $this->table({$this->insertKeys()}) VALUES ({$this->insertValues()})";
     }
     /**
@@ -46,7 +46,7 @@ trait AttributesInsertUpdate{
      * @param $field
      * @return string
      */
-    public function updateSql($field){
+    private function updateSql($field){
         $sql="UPDATE $this->table SET ";
         foreach ($this->attributes as $key => $value):
             $sql.="$key=:$key, ";
@@ -61,7 +61,7 @@ trait AttributesInsertUpdate{
      * @return string
      * @return string
      */
-    public function deleteSql($field){
+    private function deleteSql($field){
         return "DELETE FROM $this->table WHERE $field=:$field";
     }
 }

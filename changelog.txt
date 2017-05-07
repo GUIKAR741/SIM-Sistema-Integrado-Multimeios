@@ -24,3 +24,10 @@ melhorias no layout do front
 delete de locações
 mensagens ao realizar ações no acervo
 atualizado biblioteca do grafico(chart.js)
+
+V2.75
+Criação do nivel admin
+gerenciamento dos niveis de usuario
+redimensionamento das imagens do acervo
+inicio das validações
+corrigido erros em certas paginas

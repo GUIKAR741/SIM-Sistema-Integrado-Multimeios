@@ -109,15 +109,15 @@ endif;
                             <label class="active" for="">Recursos</label>
                             <?php
                             $recurso = $tb_recursos->select()->from()->all();
-                            foreach ($recurso as $value): ?>
+                            foreach ($recurso as $value): if ($value->status_recurso==1):?>
                                 <p>
                                     <input type="checkbox" name="recurso[]" class="filled-in" id="<?= $value->idtb_recurso ?>Recursos" value="<?= $value->idtb_recurso ?>"/>
                                     <label for="<?= $value->idtb_recurso ?>Recursos"><?= $value->nome_recurso ?></label>
                                 </p>
-                            <?php endforeach ?>
+                            <?php endif; endforeach ?>
                             <p>
                                 OBS: O sistema apenas ira cadastrar sua locação no horario
-                                em que os equipamentos desejados não estiver em uso
+                                em que os equipamentos desejados não estiverem em uso
                             </p>
                         </div>
                     </div>

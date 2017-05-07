@@ -7,9 +7,8 @@ if (isset($_POST['adicionar'])):
     $tb_horario->nome_horario = $nome_horario;
     $tb_horario->inicio_horario = $inicio_horario;
     $tb_horario->fim_horario = $fim_horario;
-    //$tb_equipe->nivel="USER";
-    $id = $tb_horario->save();
-    echo '<script>window.location=\'?p=horarios\'</script>';
+    $tb_horario->save();
+    echo '<script>window.location=\'?p=horarios&hora=cadastrada\'</script>';
 endif;
 if (isset($_POST['editar'])):
     $id = ($_POST['idtb_horario']);
@@ -19,14 +18,26 @@ if (isset($_POST['editar'])):
     $tb_horario->nome_horario = $nome_horario;
     $tb_horario->inicio_horario = $inicio_horario;
     $tb_horario->fim_horario = $fim_horario;
-    $row = $tb_horario->update('idtb_horario', $id);
-    echo '<script>window.location=\'?p=horarios\'</script>';
+    $tb_horario->update('idtb_horario', $id);
+    echo '<script>window.location=\'?p=horarios&hora=atualizada\'</script>';
 endif;
-
 if (isset($_GET['excluir']) && $_GET['excluir']==true):
     $id = strip_tags($_GET['idHorario']);
-    $row = $tb_horario->delete('idtb_horario', $id);
-    echo "<script>document.location='?p=horarios'</script>";
+    $tb_horario->delete('idtb_horario', $id);
+    echo "<script>document.location='?p=horarios&hora=deletada'</script>";
+endif;
+if (isset($_GET['hora']) && $_GET['hora'] == 'cadastrada'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Hora Cadastrada Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},2100);";
+elseif (isset($_GET['hora']) && $_GET['hora'] == 'atualizada'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Hora Atualizada Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},2100);";
+elseif (isset($_GET['hora']) && $_GET['hora'] == 'deletada'):
+$retorno="setTimeout(function (){swal(
+        {title: \"Hora Deletada Com Sucesso!\",type: \"error\",timer: 2000,showConfirmButton:false}
+     )},2100);";
 endif;
 ?>
 <main class="mn-inner p-h-xs pad-title">
@@ -37,7 +48,7 @@ endif;
                 <a class="btn-floating btn-large waves-effect waves-light blue-grey modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
             </div>
             <div id="modal1" class="modal modal-fixed-footer modReserva" >
-                <form method="POST">
+                <form method="post">
                     <div class="modal-content">
                         <h4 class="no-m-b">Adicionar novo Horario</h4>
                         <div class="col m12 l12">
@@ -76,10 +87,7 @@ endif;
                         <tbody>
                         <?php
                         $horario = $tb_horario->select()->from()->all();
-
-                        foreach ($horario as $value):
-                            $id[$value->idtb_horario]=$value->idtb_horario;
-                            ?>
+                        foreach ($horario as $value):?>
                             <tr>
                                 <td class="center no-m no-p-h"><?= $value->nome_horario ?></td>
                                 <td class="center no-m no-p-h"><?= $value->inicio_horario ?></td>
@@ -89,12 +97,27 @@ endif;
                                     <a class="btn-floating btn waves-effect waves-light green" onclick="$('#editar1<?= $value->idtb_horario ?>').openModal()">
                                         <i class="material-icons">mode_edit</i>
                                     </a>
-                                    <button class="btn-floating btn waves-effect waves-light red excluir-swal-<?= $value->idtb_horario?>">
+                                    <button class="btn-floating btn waves-effect waves-light red" onclick="swal({
+                                            title: 'Você Realmente quer excluir?',
+                                            text: 'Não podera recuperar o registro!',
+                                            type: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#DD6B55',
+                                            confirmButtonText: 'Sim!',
+                                            cancelButtonText: 'Não!',
+                                            closeOnConfirm: false,
+                                            closeOnCancel: false
+                                            }, function(isConfirm){
+                                            if (isConfirm) {
+                                            document.location='?p=horarios&excluir=true&idHorario=<?= $value->idtb_horario?>';
+                                            } else {
+                                            swal({title:'Cancelado', type:'error',timer: 2000,showConfirmButton:false});
+                                            }
+                                            });">
                                         <i class="material-icons">delete_forever</i>
                                     </button>
                                 </td>
                             </tr>
-
                             <div id="editar1<?= $value->idtb_horario ?>" class="modal modal-fixed-footer modReserva" >
                                 <form method="post">
                                     <div class="modal-content">

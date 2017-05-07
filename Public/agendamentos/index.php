@@ -5,7 +5,7 @@ if (isset($_GET['sair']) || isset($_REQUEST['sair']) ):
     session_destroy();
     header('Location:../login.php?p=logout');
     exit;
-elseif ((!isset($_SESSION['logado']))||(!isset($_SESSION['nome'])||(!isset($_SESSION['email']))||($_SESSION['nivel']!='Agendamento'))):
+elseif ((!isset($_SESSION['logado']))||(!isset($_SESSION['nome'])||(!isset($_SESSION['email']))||($_SESSION['nivel']!='Agendamento')||($_SESSION['status']!='0'))):
     header("Location:../login.php?p=negado");
     exit;
 endif;

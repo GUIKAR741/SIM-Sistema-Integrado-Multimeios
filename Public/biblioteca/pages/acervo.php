@@ -1,7 +1,8 @@
 <?php
 #Biblioteca para data
 use Carbon\Carbon;
-
+#Biblioteca para Redimensionar imagem
+use WideImage\WideImage;
 #instancias das tabelas
 $tb_acervo=new \App\Models\Tb_acervo();
 $tb_locacao=new \App\Models\Tb_locacao();
@@ -69,6 +70,8 @@ if (isset($_POST['enviarCAD'])):
     if ($_FILES['arquivo']['error']==UPLOAD_ERR_OK):
         #copia a imagem para pasta do upload
         $upload->image($_FILES['arquivo'],date("d-m-Y-H-i-s"),'acervo/');
+        #redimensiona imagem para 250x350
+        WideImage::load('../uploads/acervo/'.$upload->getName())->resize(250,350,'fill')->saveToFile('../uploads/acervo/'.$upload->getName());
         #coloca valor no campo da imagem
         $tb_acervo->capa=$upload->getResult()==true?$upload->getName():'imagem_nao_cadastrada.png';
     else:
@@ -109,6 +112,8 @@ if (isset($_POST['enviarEDIT'])):
         endif;
         #copia a nova imagem
         $upload->image($_FILES['arquivo'],date("d-m-Y-H-i-s"),'acervo/');
+        #redimensiona imagem para 250x350
+        WideImage::load('../uploads/acervo/'.$upload->getName())->resize(250,350,'fill')->saveToFile('../uploads/acervo/'.$upload->getName());
         #coloca valor no campo da imagem
         $tb_acervo->capa=$upload->getResult()==true?$upload->getName():'imagem_nao_cadastrada.png';
     else:
@@ -153,8 +158,6 @@ if (isset($_POST['locacao'])):
         $tb_locacao->data_devolucao=$data7;
         #salva o registro do livro
         $tb_locacao->save();
-        //dump($_GET);
-        //dump($_POST);
         //dump("?p=acervo&livro=locado&idaluno=".strip_tags($_POST['alunoSelect'])."&disponivel=true");
         //$link="?p=acervo&livro=locado&idaluno=".strip_tags($_POST['alunoSelect'])."&disponivel=true";
         echo "<script>document.location='?p=acervo&livro=locado&idaluno=".strip_tags($_POST['alunoSelect'])."&disponivel=true'</script>";
@@ -385,7 +388,7 @@ endif;
                                     if (isConfirm) {
                                     location.href='?p=acervo&delete=true&del=<?= $value->idtb_acervo?>';
                                     } else {
-                                    swal({title:'Cancelado', text:'Seu Livro não foi excluido', type:'success',timer: 2000,showConfirmButton:false});
+                                    swal({title:'Cancelado', text:'Seu Livro não foi excluido', type:'error',timer: 2000,showConfirmButton:false});
                                     }
                                     })"><i class="material-icons">delete_forever</i></a>
                                 </td>

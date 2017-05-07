@@ -14,68 +14,37 @@ $tb_aluno = new App\Models\SiscoTbAluno();
                         echo "<div class=\"row no-m-t no-m-b\">";
                         for ($j=$k;$j<=($k+3);$j++):
                             if (isset($curso[$j])):
-                            $aluno=$tb_turma->select()->from('sisco.tb_aluno')->where('sisco.tb_aluno.tb_turma_idtb_turma',$curso[$j]->idtb_turma,'=',false)->count();
-                            echo "<div class=\"col s12 m12 l3\">
-                            <a href=\"?p=turma&id=".$curso[$j]->idtb_turma."\" ><div class=\"card stats-card\">
-                                    <div class=\"card-content\" style=\"padding: 10px;\">
-                                        <div class=\"col l5\">
-                                                <span class=\"btn-floating btn-large btn-no-shadow cyan\">
-                                                    <i class=\"large material-icons\" style=\"font-size: 2.5rem\">supervisor_account</i>
-                                                </span>
-
-                                            <span class=\"card-title text-center\" style=\"font-size: 20px;line-height: 30px\">
-                                                    ".$curso[$j]->serie."º".$curso[$j]->nome_curso."
-                                                </span>
-                                        </div>
-                                        <div class=\"col l4 push-l2\">
-                                            <p class=\"counter\" style=\"font-size: 1.64rem;text-align: center;margin-top: 10px\">
-                                                $aluno
-                                            </p>
-                                            <div style=\"text-align: center\">
-                                                Total de Alunos
+                                $aluno=$tb_turma->select()->from('sisco.tb_aluno')->where('sisco.tb_aluno.tb_turma_idtb_turma',$curso[$j]->idtb_turma,'=',false)->count();
+                                echo "<div class=\"col s12 m12 l3\">
+                                        <a href=\"?p=turma&id=".$curso[$j]->idtb_turma."\" >
+                                            <div class=\"card stats-card\">
+                                                <div class=\"card-content\" style=\"padding: 10px;\">
+                                                    <div class=\"col l5\">
+                                                        <span class=\"btn-floating btn-large btn-no-shadow cyan\">
+                                                            <i class=\"large material-icons\" style=\"font-size: 2.5rem\">supervisor_account</i>
+                                                        </span>
+                                                        <span class=\"card-title text-center\" style=\"font-size: 20px;line-height: 30px\">
+                                                            ".$curso[$j]->serie."º".$curso[$j]->nome_curso."
+                                                        </span>
+                                                    </div>
+                                                    <div class=\"col l4 push-l2\">
+                                                        <p class=\"counter\" style=\"font-size: 1.64rem;text-align: center;margin-top: 10px\">
+                                                            $aluno
+                                                        </p>
+                                                        <div style=\"text-align: center\">
+                                                            Total de Alunos
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                    </div>
-                                </div></a>
-                        </div>";
-                        endif;
+                                        </a>
+                                    </div>";
+                            endif;
                         endfor;
                         echo "</div>";
                         $k+=4;
                     endfor;
-                    /*foreach ($curso as $value):
-                        $aluno=$tb_turma->select()->from('sisco.tb_aluno')->where('sisco.tb_aluno.tb_turma_idtb_turma',$value->idtb_turma,'=',false)->count();
-
-                        ?>
-                        <div class="col s12 m12 l3">
-                            <a href="?p=turma&id=<?= $value->idtb_turma ?>" ><div class="card stats-card">
-                                    <div class="card-content" style="padding: 10px;">
-                                        <div class="col l5">
-                                                <span class="btn-floating btn-large btn-no-shadow cyan">
-                                                    <i class="large material-icons" style="font-size: 2.5rem">supervisor_account</i>
-                                                </span>
-
-                                            <span class="card-title text-center" style="font-size: 20px;line-height: 30px">
-                                                    
-                                                    <?= $value->serie."º".$value->nome_curso;?> 
-
-                                                </span>
-                                        </div>
-                                        <div class="col l4 push-l2">
-                                            <p class="counter" style="font-size: 1.64rem;text-align: center;margin-top: 10px">
-                                                <?= $aluno?>
-                                            </p>
-                                            <div style="text-align: center">
-                                                Total de Alunos
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div></a>
-                        </div>
-                        <?php
-                    endforeach;*/ ?>
+                    ?>
                 </div>
                 <div class="row no-m-t no-m-b">
                     <div class="col s12 m6 l6">

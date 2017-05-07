@@ -1,16 +1,12 @@
 <?php
 $tb_equipamento = new \App\Models\Tb_recursos();
-$equip=$tb_equipamento->select()->from()->all();
 if (isset($_POST['btnSave'])):
-//  Receber as variaveis
     $equipamento = strip_tags($_POST['equipamento']);
     $status = isset($_POST['status'])?$_POST['status']:0;
-//    if ($status != 1){$status = 0;}
-//  OBJ->CampoTabela=VariáveisCampo
     $tb_equipamento->nome_recurso=$equipamento;
     $tb_equipamento->status_recurso=$status;
     $id=$tb_equipamento->save();
-    echo '<script>window.location=\'?p=equipamentos\'</script>';
+    echo '<script>window.location=\'?p=equipamentos&equip=cadastrado\'</script>';
 endif;
 if (isset($_GET['status'])):
     $id=strip_tags($_GET['status']);
@@ -22,12 +18,25 @@ if (isset($_GET['status'])):
         $tb_equipamento->status_recurso = 0;
         $result = $tb_equipamento->update('idtb_recurso', $id);
     }
-    echo '<script>window.location=\'?p=equipamentos\'</script>';
+    echo '<script>window.location=\'?p=equipamentos&equip=status\'</script>';
 endif;
 if (isset($_GET['excluir']) && $_GET['excluir']==true):
     $id = strip_tags($_GET['idEquipamento']);
     $row = $tb_equipamento->delete('idtb_recurso', $id);
-    echo "<script>document.location='?p=equipamentos'</script>";
+    echo "<script>document.location='?p=equipamentos&equip=deletado'</script>";
+endif;
+if (isset($_GET['equip']) && $_GET['equip'] == 'cadastrado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Equipamento Cadastrado Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},1700);";
+elseif (isset($_GET['equip']) && $_GET['equip'] == 'status'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Status Atualizado Com Sucesso!\",type: \"success\",timer: 2000,showConfirmButton:false}
+     )},1700);";
+elseif (isset($_GET['equip']) && $_GET['equip'] == 'deletado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Equipamento Deletado Com Sucesso!\",type: \"error\",timer: 2000,showConfirmButton:false}
+     )},1700);";
 endif;
 ?>
 <main class="mn-inner p-h-xs pad-title">
@@ -43,7 +52,7 @@ endif;
                         <h4 class="no-m-b">Adicionar novo Equipamento</h4>
                         <div class="col m12 l12">
                             <div class="input-field">
-                                <label for="Horario">Nome do equipamento</label>
+                                <label for="Horario" class="active">Nome do equipamento</label>
                                 <input placeholder="Digite o Nome do Equipamento" id="Horario" type="text" class="validate" name="equipamento">
                             </div>
                             <label for="">Status</label>
@@ -69,7 +78,7 @@ endif;
                     <table class="table striped bordered">
                         <thead>
                         <tr>
-                            <th>Nome do Equipamento</th>
+                            <th class="center">Nome do Equipamento</th>
                             <th class="center">Status</th>
                         </tr>
                         </thead>
@@ -79,7 +88,7 @@ endif;
                         foreach ($equipamento as $value):
                             $id[$value->idtb_recurso]=$value->idtb_recurso;?>
                             <tr>
-                                <td class="no-m no-p-h"><?= $value->nome_recurso?></td>
+                                <td class="no-m no-p-h center"><?= $value->nome_recurso?></td>
                                 <td class="center no-m no-p-h">
                                     <div class="switch">
                                         <label>
@@ -91,7 +100,23 @@ endif;
                                     </div>
                                 </td>
                                 <td class="left no-m no-p-h">
-                                    <a class="btn-floating btn waves-effect waves-light red excluir-swal-<?= $value->idtb_recurso?>">
+                                    <a class="btn-floating btn waves-effect waves-light red" onclick="swal({
+                                            title: 'Você Realmente quer excluir?',
+                                            text: 'Não podera recuperar o registro!',
+                                            type: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#DD6B55',
+                                            confirmButtonText: 'Sim!',
+                                            cancelButtonText: 'Não!',
+                                            closeOnConfirm: false,
+                                            closeOnCancel: false
+                                            }, function(isConfirm){
+                                            if (isConfirm) {
+                                            setTimeout(document.location='?p=equipamentos&excluir=true&idEquipamento=<?= $value->idtb_recurso?>',5000);
+                                            } else {
+                                            swal({title:'Cancelado', type:'error',timer:2000,showConfirmButton:false});
+                                            }
+                                            });">
                                         <i class="material-icons">delete_forever</i>
                                     </a>
                                 </td>
