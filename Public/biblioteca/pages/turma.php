@@ -1,7 +1,10 @@
 <?php
 $tb_aluno = new App\Models\SiscoTbAluno();
+if (!isset($_GET['id'])):
+    echo '<script>window.location=\'?p=home\'</script>';
+endif;
 $id = strip_tags($_GET['id']);
-$nome= $tb_aluno->select()->from('sisco.tb_turma,sisco.tb_cursos')->where('sisco.tb_turma.tb_cursos_idtb_cursos', 'idtb_cursos','=',false)->e('sisco.tb_turma.idtb_turma',$id)->order('ano','desc')->first();
+    $nome = $tb_aluno->select()->from('sisco.tb_turma,sisco.tb_cursos')->where('sisco.tb_turma.tb_cursos_idtb_cursos', 'idtb_cursos', '=', false)->e('sisco.tb_turma.idtb_turma', $id)->order('ano', 'desc')->first();
 ?>
 <main class="mn-inner p-h-xs pad-title">
     <div class="row">

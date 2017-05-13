@@ -36,13 +36,13 @@
                 </div>
             </li>
             <li class="no-padding">
-                <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">build</i> Manutenção<i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
-                <div class="collapsible-body">
-                    <ul>
-                        <li><a class="waves-effect waves-grey active" href="?p=manutencao-agendamento"> Agendamento</a></li>
-                        <li><a class="waves-effect waves-grey active" href="?p=manutencao-biblioteca"> Biblioteca</a></li>
-                    </ul>
-                </div>
+                <a class="collapsible-header waves-effect waves-grey" href="?p=manutencao"><i class="material-icons">build</i> Manutenção</a>
+<!--                <div class="collapsible-body">-->
+<!--                    <ul>-->
+<!--                        <li><a class="waves-effect waves-grey active" href="?p=manutencao-agendamento"> Agendamento</a></li>-->
+<!--                        <li><a class="waves-effect waves-grey active" href="?p=manutencao-biblioteca"> Biblioteca</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
             </li>
         </ul>
         <div class="footer">

@@ -1,9 +1,11 @@
 <?php
 use Carbon\Carbon;
-
 $tb_aluno=new \App\Models\SiscoTbAluno();
 $tb_locacao=new \App\Models\Tb_locacao();
 $tb_acervo=new \App\Models\Tb_acervo();
+if (!isset($_GET['idAluno'])):
+    echo '<script>window.location=\'?p=home\'</script>';
+endif;
 $id = strip_tags($_GET['idAluno']);
 $aluno= $tb_aluno->select()->
 from('sisco.tb_aluno,sisco.tb_turma')->

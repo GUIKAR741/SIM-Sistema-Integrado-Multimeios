@@ -27,9 +27,6 @@
                     minlength:8,
                     equalTo:"#senha"
                 }
-                /*confirm: {
-                 equalTo: "#password"
-                 }*/
             },
             messages: {
                 nome_usuario:{
@@ -52,10 +49,9 @@
             submitHandler: function(form) {
                 form.submit();
             }});
-        <?php foreach ($ids as $value):?>
-        $("#edit<?= $value?>").validate({
+        var valida=function (texto){
+            $("#edit"+texto).validate({
             errorPlacement: function (error, element) {
-//                element.after(error);
                 element.addClass('invalid');
                 $(element)
                     .closest("form")
@@ -72,16 +68,16 @@
                 },
                 senha:{
                     required:function () {
-                        return $("#senha-troca<?= $value?>").val()==="yes";
+                        return $("#senha-troca"+texto).val()==="yes";
                     },
                     minlength:8
                 },
                 re_senha:{
                     required:function () {
-                        return $("#senha-troca<?= $value?>").val()==="yes";
+                        return $("#senha-troca"+texto).val()==="yes";
                     },
                     minlength:8,
-                    equalTo:"#senha<?= $value?>"
+                    equalTo:"#senha"+texto
                 }
             },
             messages: {
@@ -105,7 +101,9 @@
             submitHandler: function(form) {
                 form.submit();
             }
-        });
+        });};
+        <?php foreach ($ids as $value):?>
+        valida(<?= $value?>);
         <?php endforeach;?>
     });
 </script>

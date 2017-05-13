@@ -6,9 +6,9 @@ if (isset($_POST['Save'])):
     $tb_usuario->nome_usuario=strip_tags($_POST['nome_usuario']);
     $tb_usuario->email_usuario=trim(strip_tags($_POST['email']));
     $tb_usuario->senha_usuario=$pass->hash(strip_tags($_POST['senha']));
-    $tb_usuario->tipo_usuario="Agendamento";
+    $tb_usuario->tipo_usuario="Biblioteca";
     $id=$tb_usuario->save();
-    echo '<script>window.location=\'?p=usuarios-agendamento&user=cadastrado\'</script>';
+    echo '<script>window.location=\'?p=usuarios-biblioteca&user=cadastrado\'</script>';
 endif;
 if (isset($_POST['atualizar'])):
     $id=strip_tags($_POST['id']);
@@ -18,7 +18,7 @@ if (isset($_POST['atualizar'])):
         $tb_usuario->senha_usuario=$pass->hash(strip_tags($_POST['senha']));
     endif;
     $id=$tb_usuario->update("idtb_usuario",$id);
-    echo '<script>window.location=\'?p=usuarios-agendamento&user=atualizado\'</script>';
+    echo '<script>window.location=\'?p=usuarios-biblioteca&user=atualizado\'</script>';
 endif;
 if (isset($_GET['status'])):
     $id=strip_tags($_GET['status']);
@@ -30,12 +30,12 @@ if (isset($_GET['status'])):
         $tb_usuario->status_usuario= 0;
         $result = $tb_usuario->update('idtb_usuario', $id);
     }
-    echo '<script>window.location=\'?p=usuarios-agendamento&user=status\'</script>';
+    echo '<script>window.location=\'?p=usuarios-biblioteca&user=status\'</script>';
 endif;
 if (isset($_GET['delete']) && $_GET['delete']==true):
     $id = strip_tags($_GET['id']);
     $tb_usuario->delete('idtb_usuario', $id);
-    echo "<script>document.location='?p=usuarios-agendamento&user=deletado'</script>";
+    echo "<script>document.location='?p=usuarios-biblioteca&user=deletado'</script>";
 endif;
 if (isset($_GET['user']) && $_GET['user'] == 'cadastrado'):
     $retorno="setTimeout(function (){swal(
@@ -80,8 +80,8 @@ endif;
                                 <input placeholder="Digite a Senha" id="senha" type="password" class="validate" name="senha">
                             </div>
                             <div class="input-field">
-                                <label for="re-senha">Digite a Senha Novamente</label>
-                                <input placeholder="Digite a Senha Novamente" id="re-senha" type="password" class="validate" name="re-senha">
+                                <label for="re_senha">Digite a Senha Novamente</label>
+                                <input placeholder="Digite a Senha Novamente" id="re_senha" type="password" class="validate" name="re_senha">
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ endif;
                         </thead>
                         <tbody>
                         <?php
-                        $usuario=$tb_usuario->where("BINARY tipo_usuario","Agendamento")->all();
+                        $usuario=$tb_usuario->where("BINARY tipo_usuario","Biblioteca")->all();
                         foreach ($usuario as $value):?>
                             <tr>
                                 <td class="no-m no-p-h center"><?= $value->nome_usuario?></td>
@@ -179,7 +179,7 @@ endif;
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat" name="atualizar">Salvar</button>
+                                    <button type="submit" class="modal-action waves-effect waves-green btn-flat" name="atualizar">Salvar</button>
                                 </div>
                             </form>
                         </div>

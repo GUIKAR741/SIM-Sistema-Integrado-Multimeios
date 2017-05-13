@@ -51,7 +51,7 @@ endif;
 #cadastro de livro
 if (isset($_POST['enviarCAD'])):
     #campos
-    $tb_acervo->data=trim(strip_tags($_POST['_submit']));
+    $tb_acervo->data=trim(strip_tags($_POST['data_submit']));
     $tb_acervo->titulo=(strip_tags($_POST['titulo']));
     $tb_acervo->autor=(strip_tags($_POST['autor']));
     $tb_acervo->local=(strip_tags($_POST['local']));
@@ -89,7 +89,7 @@ if (isset($_POST['enviarEDIT'])):
     #seleciona as informações do livro q ira ser alterado
     $value=$tb_acervo->select()->from()->where('idtb_acervo',$id)->first();
     #campos
-    $tb_acervo->data=trim(strip_tags($_POST['_submit']));
+    $tb_acervo->data=trim(strip_tags($_POST['data_submit']));
     $tb_acervo->titulo=(strip_tags($_POST['titulo']));
     $tb_acervo->autor=(strip_tags($_POST['autor']));
     $tb_acervo->local=(strip_tags($_POST['local']));
@@ -144,17 +144,20 @@ if (isset($_POST['locacao'])):
     #seleciona o livro
     $attLivro=$tb_acervo->select()->from()->where("idtb_acervo",$_POST['idAcervo'])->first();
     #se a quantidade disponivel for maior que 0
-    if (intval($attLivro->disponiveis)>0):
+    $alunoSel=strip_tags($_POST['alunoSelect']);
+    $aluno=$tb_acervo->select()->from('sisco.tb_aluno')->where('idtb_aluno',$alunoSel)->count();
+    dump($aluno);
+    if (intval($attLivro->disponiveis)>0 && $aluno>0):
         #reduz 1 na quantidade disponivel
         $tb_acervo->disponiveis=intval($attLivro->disponiveis)-1;
         #atualiza o registro do livro
         $tb_acervo->update('idtb_acervo',$_POST['idAcervo']);
         #campos da tabela locacao
-        $tb_locacao->tb_aluno_idtb_aluno=strip_tags($_POST['alunoSelect']);
+        $tb_locacao->tb_aluno_idtb_aluno=$alunoSel;
         $tb_locacao->tb_acervo_idtb_acervo=strip_tags($_POST['idAcervo']);
-        $tb_locacao->data_locacao=strip_tags($_POST['_submit']);
+        $tb_locacao->data_locacao=strip_tags($_POST['data_submit']);
         #adiciona 7 dias na data de devolução do livro
-        $data7=Carbon::parse(strip_tags($_POST['_submit']))->addDays(7);
+        $data7=Carbon::parse(strip_tags($_POST['data_submit']))->addDays(7);
         $tb_locacao->data_devolucao=$data7;
         #salva o registro do livro
         $tb_locacao->save();
@@ -206,7 +209,7 @@ endif;
                 <a class="btn-floating btn-large waves-effect waves-light blue-grey modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
             </div>
             <div id="modal1" class="modal modal-fixed-footer modAcervo" >
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" id="form-0">
                     <div class="modal-content">
                         <h4 class="no-m-b">Adicionar novo livro</h4>
                         <div class="col m12 l6">
@@ -228,7 +231,7 @@ endif;
                             </div>
                             <div class="input-field">
                                 <label class="active" for="data">Data</label>
-                                <input id="data" placeholder="Escolha a Data Desejada" data-value="<?= date('Y-m-d')?>" type="date" class="datepicker">
+                                <input id="data" placeholder="Escolha a Data Desejada" data-value="<?= date('Y-m-d')?>" type="date" name="data" class="datepicker">
                             </div>
                             <div class="file-field input-field">
                                 <div class="btn">
@@ -283,7 +286,7 @@ endif;
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" name="enviarCAD" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</button>
+                        <button type="submit" name="enviarCAD" class="modal-action waves-effect waves-green btn-flat">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -325,6 +328,7 @@ endif;
                             <th class="center">Data</th>
                             <th class="center">Volume</th>
                             <th class="center">Exemplares</th>
+                            <th class="center">Disponiveis</th>
                             <th class="center">Ano de Publicação</th>
                             <th  class="center" style="padding-right: 0;padding-left: 0">Forma de Aquisição</th>
                             <th class="center">Estante</th>
@@ -366,6 +370,7 @@ endif;
                                 <td class="no-m center no-p-h"><?= date('d/m/Y',strtotime($value->data))?></td>
                                 <td class="no-m center no-p-h"><?= $value->volume?></td>
                                 <td class="no-m center no-p-h"><?= $value->exemplares?></td>
+                                <td class="no-m center no-p-h"><?= $value->disponiveis?></td>
                                 <td class="no-m center no-p-h"><?= $value->ano_publicacao?></td>
                                 <td class="no-m center no-p-h"><?= $value->forma_de_aquisicao?></td>
                                 <td class="no-m center no-p-h"><?= $value->estante?></td>
@@ -406,30 +411,30 @@ endif;
                     foreach ($livros as $value):
                         ?>
                         <div id="modal1<?= $value->idtb_acervo?>" class="modal modal-fixed-footer modAcervo" >
-                            <form method="post" enctype="multipart/form-data">
+                            <form method="post" enctype="multipart/form-data" id="form-1-<?= $value->idtb_acervo?>">
                                 <div class="modal-content">
                                     <h4 class="no-m-b">Adicionar novo livro</h4>
                                     <div class="col m12 l6">
                                         <input type="hidden" name="idAcervo" value="<?= $value->idtb_acervo?>">
                                         <div class="input-field">
-                                            <label for="titulo">Titulo</label>
+                                            <label class="active" for="titulo">Titulo</label>
                                             <input placeholder="Digite o Titulo do Livro" id="titulo" name="titulo" value="<?= $value->titulo?>" type="text" class="validate">
                                         </div>
                                         <div class="input-field">
-                                            <label for="autor">Autor</label>
+                                            <label class="active" for="autor">Autor</label>
                                             <input placeholder="Digite Nome do Autor" id="autor" name="autor" value="<?= $value->autor?>" type="text" class="validate">
                                         </div>
                                         <div class="input-field">
-                                            <label for="local">Local</label>
+                                            <label class="active" for="local">Local</label>
                                             <input placeholder="Digite o Local" id="local" name="local" value="<?= $value->local?>" type="text" class="validate">
                                         </div>
                                         <div class="input-field">
-                                            <label for="editora">Editora</label>
+                                            <label class="active" for="editora">Editora</label>
                                             <input placeholder="Digite o Nome da Editora" id="editora" value="<?= $value->editora?>" name="editora" type="text" class="validate">
                                         </div>
-                                        <div class="input-field">
+                                        <div class="input-field dt-#form-1-<?= $value->idtb_acervo?>">
                                             <label class="active" for="data">Data</label>
-                                            <input id="data" placeholder="Escolha a Data Desejada" data-value="<?= $value->data?>" type="date" class="datepicker">
+                                            <input id="data<?= $value->idtb_acervo?>" placeholder="Escolha a Data Desejada" data-value="<?= $value->data?>" type="date" class="datepicker" name="data">
                                         </div>
                                         <div>
                                             <?php
@@ -449,10 +454,6 @@ endif;
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--<div class="input-field">
-                                            <label for="Sinopse">Sinopse</label>
-                                            <input placeholder="Digite a Sinopse do Livro" id="Sinopse" type="text" class="validate">
-                                        </div>-->
                                     </div>
                                     <div class="col m12 l6">
                                         <div>
@@ -480,54 +481,57 @@ endif;
                                             </div>
                                         </div>
                                         <div class="input-field">
-                                            <label for="formadeaq">Forma de Aquisição</label>
+                                            <label class="active" for="formadeaq">Forma de Aquisição</label>
                                             <input placeholder="Digite a Forma de Aquisição" id="formadeaq" name="formadeaq" value="<?= $value->forma_de_aquisicao?>" type="text" class="validate">
                                         </div>
                                         <div class="input-field">
-                                            <label for="OBS">OBS.</label>
+                                            <label class="active" for="OBS">OBS.</label>
                                             <input placeholder="Digite Alguma Observação sobre o Livro" id="OBS" name="OBS" value="<?= $value->observacao?>" type="text" class="validate">
                                         </div>
                                         <div class="input-field">
-                                            <label for="estante">Estante</label>
+                                            <label class="active" for="estante">Estante</label>
                                             <input placeholder="Digite" id="estante" name="estante" type="text" value="<?= $value->estante?>" class="validate">
                                         </div>
                                         <div class="input-field">
-                                            <label for="sinopse">Sinopse.</label>
+                                            <label class="active" for="sinopse">Sinopse.</label>
                                             <textarea placeholder="Digite a Sinopse do Livro" id="sinopse" name="sinopse" type="text" class="materialize-textarea"><?= $value->sinopse?></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" name="enviarEDIT" class="modal-action modal-close waves-effect waves-green btn-flat">Atualizar</button>
+                                    <button type="submit" name="enviarEDIT" class="modal-action waves-effect waves-green btn-flat">Atualizar</button>
                                 </div>
                             </form>
                         </div>
                     <?php if ($value->disponiveis>0):?>
                         <div id="modal2<?= $value->idtb_acervo?>" class="modal modal-fixed-footer modReserva" >
-                            <form method="post">
+                            <form method="post" id="form-2-<?= $value->idtb_acervo?>">
                                 <div class="modal-content">
                                     <h4 class="no-m-b">Locar Livro</h4>
                                     <input type="hidden" name="idAcervo" value="<?= $value->idtb_acervo?>">
                                     <div class="input-field">
-                                        <select name="turmaSelect" id="turmaSelect<?= $value->idtb_acervo?>">
-                                            <option value="" disabled selected>Selecione uma Turma</option>
+                                        <label for="turmaSelect<?= $value->idtb_acervo?>" class="active">Turmas:</label>
+                                        <select name="turmaSelect" id="turmaSelect<?= $value->idtb_acervo?>" class="validate" required>
+                                            <option value="0" disabled selected>Selecione uma Turma</option>
                                             <?php foreach ($turma as $val): ?>
                                                 <option value="<?= $val->idtb_turma?>"><?= $val->serie?>° <?= $val->nome_curso?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
                                     <div class="input-field">
-                                        <select name="alunoSelect" id="alunoSelect<?= $value->idtb_acervo?>" disabled>
-                                            <option value="" disabled selected>Selecione um Aluno</option>
+                                        <label for="alunoSelect<?= $value->idtb_acervo?>" class="active">Alunos:</label>
+                                        <select name="alunoSelect" id="alunoSelect<?= $value->idtb_acervo?>" class="validate" disabled required>
+                                            <option value="0" disabled selected>Selecione um Aluno</option>
                                         </select>
                                     </div>
                                     <div class="input-field">
                                         <label class="active" for="data">Data</label>
-                                        <input id="data" placeholder="Escolha a Data Desejada" type="date" class="datepicker" data-value="<?= date("Y-m-d")?>">
+                                        <input id="data" placeholder="Escolha a Data Desejada" type="date" class="datepicker" name="data" data-value="<?= date("Y-m-d")?>" required>
                                     </div>
+                                    <input type="hidden" name="locacao">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" name="locacao" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</button>
+                                    <button type="button" id="valida-but-<?= $value->idtb_acervo?>" class="modal-action waves-effect waves-green btn-flat">Salvar</button>
                                 </div>
                             </form>
                         </div>

@@ -52,8 +52,8 @@
             submitHandler: function(form) {
                 form.submit();
             }});
-        <?php foreach ($ids as $value):?>
-        $("#edit<?= $value?>").validate({
+        var valida=function (texto){
+            $("#edit"+texto).validate({
             errorPlacement: function (error, element) {
 //                element.after(error);
                 element.addClass('invalid');
@@ -72,16 +72,16 @@
                 },
                 senha:{
                     required:function () {
-                        return $("#senha-troca<?= $value?>").val()==="yes";
+                        return $("#senha-troca"+texto).val()==="yes";
                     },
                     minlength:8
                 },
                 re_senha:{
                     required:function () {
-                        return $("#senha-troca<?= $value?>").val()==="yes";
+                        return $("#senha-troca"+texto).val()==="yes";
                     },
                     minlength:8,
-                    equalTo:"#senha<?= $value?>"
+                    equalTo:"#senha"+texto
                 }
             },
             messages: {
@@ -92,7 +92,7 @@
                     required: " * Digite o seu Email!",
                     email: " * Digite um E-mail válido!"
                 },
-                senha:{
+//                senha:{
                     required: " * Digite sua Senha!",
                     minlength:" * Deve Ter no Minimo 8 Caracteres!"
                 },
@@ -105,7 +105,9 @@
             submitHandler: function(form) {
                 form.submit();
             }
-        });
+        });};
+        <?php foreach ($ids as $value):?>
+        valida(<?= $value?>);
         <?php endforeach;?>
     });
 </script>

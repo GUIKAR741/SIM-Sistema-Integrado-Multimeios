@@ -31,3 +31,10 @@ gerenciamento dos niveis de usuario
 redimensionamento das imagens do acervo
 inicio das validações
 corrigido erros em certas paginas
+
+V2.85
+Limpeza das tabelas no admin
+Replicação dos acervos
+validação no form da locação
+Geração dos jsons para os graficos
+Exportar tabelas para excel

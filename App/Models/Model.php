@@ -66,4 +66,16 @@ class Model extends ModelQueryBuilder {
         $this->result=$delete->rowCount();
         return $this->result;
     }
+
+    /**
+     * Limpa e Reseta a Tabela
+     * @return int
+     */
+    public function truncate(){
+        $truncateSql = "TRUNCATE TABLE ".$this->table;
+        $truncate = $this->conexao->prepare($truncateSql);
+        $truncate->execute();
+        $this->result = $truncate->rowCount();
+        return $this->result;
+    }
 }
