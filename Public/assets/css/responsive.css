@@ -124,7 +124,8 @@ TOC :
         /*
         * imagem menu
         */
-        background: url('../../assets/images/images/logo2.jpg') no-repeat scroll center center / cover ;
+        background: url('../../assets/images/images/logo_front.jpg') no-repeat center;
+        /*background: url('../../assets/images/images/logo.jpg') no-repeat scroll center center / cover ;*/
         display: block;
         min-height: 160px;
         position: relative;

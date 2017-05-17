@@ -1,6 +1,5 @@
 <?php
 use Carbon\Carbon;
-
 $tb_acervo=new \App\Models\Tb_acervo();
 $tb_locacao=new \App\Models\Tb_locacao();
 $noti=$tb_locacao->select()->from()->where("data_devolucao BETWEEN '".Carbon::now()->subDay(1)->toDateString()."' AND '".Carbon::now()->addDay(1)->toDateString()."' AND (status_devolucao","1)","=",false)->order("data_devolucao")->all();

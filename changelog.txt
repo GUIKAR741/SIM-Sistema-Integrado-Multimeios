@@ -38,3 +38,8 @@ Replicação dos acervos
 validação no form da locação
 Geração dos jsons para os graficos
 Exportar tabelas para excel
+
+V2.9
+Correção de erros no agendamento com implementação de ajax para
+tornar sistema mais dinamico e com menos chance de erro
+Melhorias no layout do front

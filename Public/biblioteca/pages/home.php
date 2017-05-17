@@ -46,27 +46,27 @@ $tb_aluno = new App\Models\SiscoTbAluno();
                     endfor;
                     ?>
                 </div>
-                <div class="row no-m-t no-m-b">
-                    <div class="col s12 m6 l6">
+                <div class="row no-m-t no-m-b" id="div-graf">
+                    <!--<div class="col s12 m12 l6">
                         <div class="card">
                             <div class="card-content">
                                 <span class="card-title">Livros Mais Lidos</span>
                                 <div>
-                                    <canvas id="chart2" width="400" height="270"></canvas>
+                                    <canvas id="lidos" width="600" height="400"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col s12 m6 l6">
+                    <div class="col s12 m12 l6">
                         <div class="card">
                             <div class="card-content">
                                 <span class="card-title">Alunos Mais Leitores</span>
                                 <div>
-                                    <canvas id="chart4" width="400" height="200"></canvas>
+                                    <canvas id="leitores" width="600" height="400"></canvas>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

@@ -10,7 +10,6 @@ foreach ($tipo as $tipo_acervo):
         <html lang="pt-br">
         <head>
             <meta charset="utf-8">
-            <title>Contato</title>
         <body>
         <?php
         $tipo=[

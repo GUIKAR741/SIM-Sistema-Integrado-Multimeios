@@ -1,7 +1,73 @@
+<script src="../assets/plugins/sweetalert/sweetalert.min.js"></script>
 <script src="../assets/plugins/fullcalendar/moment.min.js"></script>
 <script src="../assets/plugins/fullcalendar/fullcalendar.min.js"></script>
 <script>
+    <?php
+    if (isset($retorno)) echo $retorno;
+    ?>
     $(document).ready(function() {
+        $('#abc').click(function () {
+            let horario=document.getElementsByName('horario[]');
+            let recurso=document.getElementsByName('recurso[]');
+            let turmas=document.getElementsByName('turmas[]');
+            let prof=document.getElementsByName('professor');
+            let data=$('input[name=data_submit]').val();
+            let hora=[];
+            let recur=[];
+            let turma = [], professor;
+//            let professor=[];
+            j=0;
+            for (i=0;i<horario.length;i++) {
+                if (horario[i].checked === true) {
+                    hora[j++] = horario[i].value;
+                }
+            }
+            j=0;
+            for (i=0;i<recurso.length;i++) {
+                if (recurso[i].checked === true) {
+                    recur[j++] = recurso[i].value;
+                }
+            }
+            j=0;
+            for (i=1;i<turmas[0].length;i++) {
+                if (turmas[0][i].selected === true) {
+                    turma[j++] = turmas[0][i].value;
+                }
+            }
+            j=0;
+            for (i=1;i<prof[0].length;i++) {
+                if (prof[0][i].selected === true) {
+                    professor = prof[0][i].value;
+                }
+            }
+//            console.log(hora);
+//            console.log(recur);
+//            console.log(turma);
+//            console.log(professor);
+//            console.log(data);
+//            console.log(data+'\n'+hora+'\n'+recur+'\n'+turma+'\n'+professor);
+            envia(data,hora,recur,turma,professor);
+        });
+        let envia=function (data,horario,recurso,turmas,professor){$.ajax({
+            url:"ajax/cadastro.php",
+            type: "POST",
+            async: true,
+            dataType: "JSON",
+            data:{action:"true",data_submit:data,horario:horario,recurso:recurso,turmas:turmas,professor:professor},
+            success:function(data) {
+                if (data.yes === 'yes'){
+                    swal("Tabela Limpa!", "Todos os Dados Foram Excluidos", "success");
+                }
+                console.log(data);
+            },
+            error: function(data){
+                if (data.error === 'error') {
+                    swal("Ocorreu um erro ao execução a Limpeza!", "", "error");
+                }
+                console.log(data);
+            }
+        })
+        };
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next,today',

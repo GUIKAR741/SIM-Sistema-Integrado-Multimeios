@@ -2,41 +2,15 @@
 $tb_cursos = new App\Models\SiscoTbCursos();
 $tb_recursos = new App\Models\Tb_recursos();
 $tb_agendamento= new App\Models\Tb_agendamento();
-if (isset($_POST['action'])):
-    $tb_agendamento->data=$data=$_POST['_submit'];
-    $id_user=$_SESSION['id_usuario'];
-    $tb_agendamento->tb_usuario_idtb_usuario=$id_user;
-    $escolhido=$tb_agendamento->select()->from()->where('data',$data)->all();
-    foreach ($escolhido as $value):
-        $usuarioJaCad=$value->tb_usuario_idtb_usuario;
-        $horarioJaCad=explode(", ",$value->tb_horario_idtb_horario);
-        $recursoJaCad=explode(", ",$value->tb_recurso_idtb_recurso);
-        foreach ($horarioJaCad as $horarioCad):
-            foreach ($_POST['horario'] as $index1=>$hora):
-                if ($horarioCad==$hora):
-                    foreach ($recursoJaCad as $recursoCad):
-                        foreach ($_POST['recurso'] as $index2=>$recur):
-                            if ($recursoCad==$recur):
-                                unset($_POST['horario'][$index1]);
-                                echo $recur;
-                            endif;
-                        endforeach;
-                    endforeach;
-                endif;
-            endforeach;
-        endforeach;
-    endforeach;
 
-    $recurso=isset($_POST['recurso'])?implode(", ",$_POST['recurso']):"";
-    $horario=isset($_POST['horario'])?implode(", ",$_POST['horario']):"";
-    $turma=isset($_POST['turmas'])?implode(", ",$_POST['turmas']):"";
-    $tb_agendamento->tb_turma_idtb_turma=$turma;
-    $tb_agendamento->tb_recurso_idtb_recurso=$recurso;
-    $tb_agendamento->tb_horario_idtb_horario=$horario;
-    $tb_agendamento->tb_usuario_idtb_usuario=strip_tags($_POST['professor']);
-
-    $id=$tb_agendamento->save();
-    echo '<script>window.location=\'?p=home\'</script>';
+if (isset($_GET['agendamento']) && $_GET['agendamento'] == 'cadastrado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Equipamentos Agendados com Su!<br>para os Equipamentos Desejados!\",type: \"error\",html:true,timer: 3000,showConfirmButton:false}
+     )},2000);";
+elseif (isset($_GET['agendamento']) && $_GET['agendamento'] == 'negado'):
+    $retorno="setTimeout(function (){swal(
+        {title: \"Nenhum Horario Disponivel!<br>para os Equipamentos Desejados!\",type: \"error\",html:true,timer: 3000,showConfirmButton:false}
+     )},2000);";
 endif;
 ?>
 <main class="mn-inner">
@@ -53,7 +27,7 @@ endif;
         <a class="btn-floating btn-large waves-effect waves-light blue-grey modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
     </div>
     <div id="modal1" class="modal modal-fixed-footer modReserva" >
-        <form method="post">
+        <form method="post" id="form">
             <div class="modal-content">
                 <h4 class="no-m-b">Fazer Reserva</h4>
                 <div class="col m12 l12">
@@ -91,7 +65,7 @@ endif;
                     </div>
                     <div class="input-field">
                         <label class="active" for="data">Data</label>
-                        <input id="data" placeholder="Escolha a Data Desejada" type="date" data-value="<?= date('Y-m-d')?>" class="datepicker">
+                        <input id="data" placeholder="Escolha a Data Desejada" type="date" name="data" data-value="<?= date('Y-m-d')?>" class="datepicker">
                     </div>
                     <div class="row no-m-b">
                         <div class="col m12 l6">
@@ -117,13 +91,14 @@ endif;
                             <?php endif; endforeach ?>
                             <p>
                                 OBS: O sistema apenas ira cadastrar sua locação no horario
-                                em que os equipamentos desejados não estiverem em uso
+                                em que todos os equipamentos desejados estiverem disponiveis
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
+                <button name="action" type="button" id="abc" class="modal-action waves-effect waves-green btn-flat">Sal</button>
                 <button name="action" type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Salvar</button>
             </div>
         </form>

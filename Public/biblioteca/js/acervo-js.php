@@ -96,6 +96,7 @@
                         $('label[for=alunoSelect'+id+']').replaceWith('<label for="alunoSelect'+id+'" class="active">Alunos: <label id="titulo-error" class="error" for="titulo"> * Selecione o Aluno!</label></label>');
                     }else {
                         $('label[for=alunoSelect'+id+']').replaceWith('<label for="alunoSelect'+id+'" class="active">Alunos:</label>');
+                        $(this).attr('type','submit');
                         document.getElementById('form-2-'+id).submit();
                     }
                 }

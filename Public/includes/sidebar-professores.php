@@ -14,12 +14,7 @@
         <div class="sidebar-account-settings">
             <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
                 <li class="no-padding">
-                    <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">settings</i>Configurações<!--<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>--></a>
-                    <!--<div class="collapsible-body">
-                        <ul>
-                            <li><a href="?p=usuarios">Usuarios</a></li>
-                        </ul>
-                    </div>-->
+                    <a class="collapsible-header waves-effect waves-grey" onclick="$('#editar').openModal()"><i class="material-icons">settings</i>Configurações<!--<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>--></a>
                 </li>
                 <li class="no-padding">
                     <a class="waves-effect waves-grey"><i class="material-icons">import_contacts</i>Manual</a>
@@ -38,3 +33,26 @@
         </div>
     </div>
 </aside>
+<div id="editar" class="modal modal-fixed-footer modReserva" >
+    <form method="post" id="edit">
+        <div class="modal-content">
+            <?php $tb_usuario=new \App\Models\SiscoTbUsuario(); $user=$tb_usuario->where('idtb_usuario',$_SESSION['id_usuario'])->first()?>
+            <h4 class="no-m-b">Informações Usuario Professor</h4>
+            <div class="col m12 l12">
+                <div class="input-field">
+                    <label for="nome_usuario" class="active">Nome do Usuario</label>
+                    <input  id="nome_usuario" value="<?= $user->nome_usuario?>" type="text" disabled>
+                </div>
+                <div class="input-field">
+                    <label for="email" class="active">Email do Usuario</label>
+                    <input  id="email" type="email" value="<?= $user->email_usuario?>" disabled>
+                </div>
+                <div class="input-field">
+                    <label for="senha" class="active">Senha</label>
+                    <input id="senha" type="text" value="<?= $user->senha_usuario?>" disabled>
+                </div>
+            </div>
+            <?php unset($tb_usuario);unset($user);?>
+        </div>
+    </form>
+</div>

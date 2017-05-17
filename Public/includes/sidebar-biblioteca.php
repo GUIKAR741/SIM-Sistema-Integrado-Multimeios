@@ -14,7 +14,7 @@
         <div class="sidebar-account-settings">
             <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
                 <li class="no-padding">
-                    <a class="collapsible-header waves-effect waves-grey" onclick="$('#editar').openModal()"><i class="material-icons">settings</i>Configurações<!--<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>--></a>
+                    <a class="collapsible-header waves-effect waves-grey" onclick="$('#editar').openModal()"><i class="material-icons">settings</i>Configurações</a>
                 </li>
                 <li class="no-padding">
                     <a class="waves-effect waves-grey"><i class="material-icons">import_contacts</i>Manual</a>
@@ -55,19 +55,16 @@
                     </ul>
                 </div>
             </li>
-            <!--<li class="no-padding"><a class="waves-effect waves-grey active" href="?p=acervo"><i class="material-icons">library_books</i>Acervo</a></li>
-            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=circulo"><i class="material-icons">library_books</i>Circulo</a></li>
-            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=cd-dvd"><i class="material-icons">library_books</i>CD e DVD</a></li>
-            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=tves"><i class="material-icons">library_books</i>TV Escola</a></li>
-            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=materiais"><i class="material-icons">library_books</i>Materiais</a></li>
-            <li class="no-padding"><a class="waves-effect waves-grey active" href="?p=jmf"><i class="material-icons">library_books</i>JMF</a></li>-->
+            <li class="no-padding">
+                <a class="collapsible-header waves-effect waves-grey" href="?p=graficos"><i class="material-icons">equalizer</i> Graficos</a>
+            </li>
+
         </ul>
         <div class="footer">
             <p class="copyright">© 2017 - Informatica 2015</p>
         </div>
     </div>
 </aside>
-
 <div id="editar" class="modal modal-fixed-footer modReserva" >
     <form method="post" id="edit">
         <div class="modal-content">

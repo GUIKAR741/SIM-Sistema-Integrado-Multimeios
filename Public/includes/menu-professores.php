@@ -10,7 +10,6 @@
                 <div class="header-title col s3 m3">
                     <a href="?p=home"><span class="chapter-title">SIM</span></a>
                 </div>
-
             </div>
         </nav>
     </header>

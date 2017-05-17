@@ -95,7 +95,7 @@ endif;
                                     <?php
                                     $recurso = $tb_recursos->select()->from()->all();
                                     $recursos=explode(', ',$agendamento->tb_recurso_idtb_recurso);
-                                    foreach ($recurso as $value): ?>
+                                    foreach ($recurso as $value): if ($value->status_recurso==1): ?>
                                         <p>
                                             <input <?php
                                             foreach ($recursos as $recur):
@@ -106,7 +106,7 @@ endif;
                                             ?> type="checkbox" name="recurso[]" class="filled-in" id="<?= $value->idtb_recurso ?>Recursos" value="<?= $value->idtb_recurso ?>"/>
                                             <label for="<?= $value->idtb_recurso ?>Recursos"><?= $value->nome_recurso ?></label>
                                         </p>
-                                    <?php endforeach ?>
+                                    <?php endif; endforeach ?>
                                 </div>
                             </div>
                             <div class="input-field" style="padding-bottom: 25px">
