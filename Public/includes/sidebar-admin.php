@@ -28,10 +28,10 @@
                 <a class="collapsible-header waves-effect waves-grey"><i class="material-icons">account_circle</i> Usuários<i class="nav-drop-icon material-icons">keyboard_arrow_right</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li><a class="waves-effect waves-grey active" href="?p=usuarios-admin"> Administrador</a></li>
-                        <li><a class="waves-effect waves-grey active" href="?p=usuarios-agendamento"> Agendamento</a></li>
-                        <li><a class="waves-effect waves-grey active" href="?p=usuarios-biblioteca"> Biblioteca</a></li>
-                        <li><a class="waves-effect waves-grey active" href="?p=usuarios-professor"> Professor</a></li>
+                        <li><a class="waves-effect waves-grey active" href="?p=usuarios-Administrador"> Administrador</a></li>
+                        <li><a class="waves-effect waves-grey active" href="?p=usuarios-Agendamento"> Agendamento</a></li>
+                        <li><a class="waves-effect waves-grey active" href="?p=usuarios-Biblioteca"> Biblioteca</a></li>
+                        <li><a class="waves-effect waves-grey active" href="?p=usuarios-Professor"> Professor</a></li>
                     </ul>
                 </div>
             </li>

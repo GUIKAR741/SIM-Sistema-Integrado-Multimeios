@@ -101,7 +101,7 @@
                         };
                     }
                     div_graf.append(html(j[k]['labels'],'id-'+k));
-                    console.log(val);
+//                    console.log(val);
                     suffle(val);
                     let datas= {
                         labels: [''],/*[j['labels']],*/
@@ -109,12 +109,6 @@
                     };
                     gera(document.getElementById('id-'+k),datas);
                 }
-                /*let datas2= {
-                 labels: [''],/!*[j['labels']],*!/
-                 datasets:data[1]
-                 };
-                 gera(LIDOS,datas1);
-                 gera(LEITORES,datas2);*/
             },
             error: function(data){
                 console.log(data);

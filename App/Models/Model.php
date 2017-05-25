@@ -35,14 +35,16 @@ class Model extends ModelQueryBuilder {
         $this->result=$this->conexao->lastInsertId();
         return $this->result;
     }
+
     /**
      * Atualiza os Dados no Banco de Dados
      * @param $field
      * @param $value
+     * @param string $operation
      * @return int
      */
-    public function update($field, $value){
-        $updateSql=$this->getAttributes($this)->updateSql($field);
+    public function update($field, $value, $operation='='){
+        $updateSql=$this->getAttributes($this)->updateSql($field, $operation);
         $update=$this->conexao->prepare($updateSql);
         foreach ($this->attributes as $key => $values):
             $update->bindValue(":$key",$values);
@@ -52,14 +54,16 @@ class Model extends ModelQueryBuilder {
         $this->result=$update->rowCount();
         return $this->result;
     }
+
     /**
      * Apaga os Dados no Banco de Dados
      * @param $field
      * @param $value
+     * @param string $operation
      * @return int
      */
-    public function delete($field, $value){
-        $deleteSql=$this->getAttributes($this)->deleteSql($field);
+    public function delete($field, $value, $operation='='){
+        $deleteSql=$this->getAttributes($this)->deleteSql($field, $operation);
         $delete=$this->conexao->prepare($deleteSql);
         $delete->bindValue(":$field",$value);
         $delete->execute();

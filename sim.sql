@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 04-Maio-2017 às 07:44
+-- Generation Time: 24-Maio-2017 às 21:33
 -- Versão do servidor: 5.7.9
 -- PHP Version: 5.6.16
 
@@ -45,21 +45,21 @@ CREATE TABLE IF NOT EXISTS `tb_acervo` (
   `capa` varchar(255) DEFAULT NULL,
   `sinopse` longtext,
   PRIMARY KEY (`idtb_acervo`)
-) ENGINE=MyISAM AUTO_INCREMENT=3355 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3362 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_acervo`
 --
 
 INSERT INTO `tb_acervo` (`idtb_acervo`, `data`, `titulo`, `autor`, `volume`, `exemplares`, `disponiveis`, `local`, `editora`, `ano_publicacao`, `forma_de_aquisicao`, `observacao`, `estante`, `tipo_acervo`, `capa`, `sinopse`) VALUES
-(1, '2010-03-30', '100 Jogos dramáticos (teatro)', 'Maria Clara Machado, Marta Rosman', '26', '2', '2', 'R. de Janeiro', 'Agir', '2001', 'D', 'P. Alvorada', '', 'livro', 'imagem_nao_cadastrada.png', ''),
-(2, '2010-03-30', ' Camões - Coleção conhecendo os nossos clássicos', 'Amélia Lacombe', '26', '1', '1', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', '', 'livro', NULL, ''),
-(3, '2010-03-30', 'O Jardim Perdido', 'Edgar da Rocha Miranda', NULL, '1', '1', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
+(1, '2010-03-30', '100 Jogos dramáticos (teatro)', 'Maria Clara Machado, Marta Rosman', '26', '3', '3', 'R. de Janeiro', 'Agir', '2001', 'D', 'P. Alvorada', '', 'livro', '07-05-2017-19-26-02.jpg', ''),
+(2, '2010-03-30', ' Camões - Coleção conhecendo os nossos clássicos', 'Amélia Lacombe', '26', '1', '0', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', '', 'livro', NULL, ''),
+(3, '2010-03-30', 'O Jardim Perdido', 'Edgar da Rocha Miranda', NULL, '1', '0', 'R. de Janeiro', 'Agir', '1997', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (4, '2010-03-30', 'Alfabetização de Adultos', 'Marta Durante', NULL, '2', '2', 'Porto Alegre', 'Artmed', '1998', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (5, '2010-03-30', 'Inteligências Múltiplas na sala de aula.', 'Thomas Armstrong ', NULL, '2', '2', 'São Paulo', 'Artmed', '2001', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (6, '2010-03-30', 'Bullying e desrespeito – como acabar com essa cultura na escola', 'Marie – Nathelie Beaundoin e outro', NULL, '2', '2', 'Porto Alegre', 'Artmed', '2006', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (7, '2010-03-30', 'Ciências Físicas nos ensinos fundamental e médio.', 'Jesús Lahera/Ana Fortaleza', NULL, '2', '2', 'Porto Alegre', 'Artmed', '2006', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
-(8, '2010-03-30', 'Didática da Matemática ', 'Cecília Parra (Org.)', NULL, '1', '1', 'Porto Alegre', 'Artmed', '1996', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
+(8, '2010-03-30', 'Didática da Matemática ', 'Cecília Parra (Org.)', '26', '1', '1', 'Porto Alegre', 'Artmed', '1996', 'D', 'P. Alvorada', '', 'livro', NULL, ''),
 (9, '2010-03-30', 'Didática da Matemática', 'Cecília Parra (Org.)', NULL, '2', '2', 'Porto Alegre', 'Artmed', '1996', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (10, '2010-03-30', 'Entendendo a dislexia: um novo e completo programa para todos os níveis', 'Sally Shaywnz', NULL, '2', '2', 'Porto Alegre', 'Artmed', '2006', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
 (11, '2010-03-30', 'Na bancada (Manual de Iniciação científica em laboratório)', 'Kathy Barker', NULL, '2', '2', 'Porto Alegre', 'Artmed', '2002', 'D', 'P. Alvorada', NULL, 'livro', NULL, NULL),
@@ -2826,7 +2826,7 @@ INSERT INTO `tb_acervo` (`idtb_acervo`, `data`, `titulo`, `autor`, `volume`, `ex
 (2763, '2017-02-15', 'O seminarista', 'Bernardo Guimarães. Texto condensado por Celso Leopoldo', '-', '4', '4', 'São Paulo', 'Rideel', '2000', 'D', 'CDD 869.93', '1ª Edição', 'livro', NULL, NULL),
 (2764, '2017-02-15', 'As pupilas do Senhor Reitor', 'Júlio Dinis-- Texto condensado por Celso Leopoldo', '-', '2', '2', 'São Paulo', 'Rideel', '2004', 'D', 'CDD 869.93', '1ª Edição', 'livro', NULL, NULL),
 (2765, '2017-02-15', ' O Homem ', ' Aluísio Azevedo-Texto condensado por Celso Leopoldo', '-', '1', '1', 'São Paulo', 'Rideel', '2004', NULL, 'CDD 869.93', '1ª Edição', 'livro', NULL, NULL),
-(2766, '2014-08-18', 'O PEQUENO PRÍNCIPE(MÓDULO)', 'ANTOINE DE SAINT-EXUPÉRY', NULL, '30', '30', 'SÃO PAULO', 'INST. BRAUDEL DE ECON. MUNDIAL', NULL, 'D', NULL, NULL, 'circulo', NULL, NULL),
+(2766, '2014-08-18', 'O PEQUENO PRÍNCIPE(MÓDULO)s', 'ANTOINE DE SAINT-EXUPÉRY', '26', '30', '30', 'SÃO PAULO', 'INST. BRAUDEL DE ECON. MUNDIAL', '1996', 'D', '', '', 'circulo', NULL, ''),
 (2767, '2014-08-18', 'COMPETÊNCIAS PARA A VIDA', '-', NULL, '30', '30', 'SÃO PAULO', 'INST. BRAUDEL DE ECON. MUNDIAL', NULL, 'D', NULL, NULL, 'circulo', NULL, NULL),
 (2768, '2014-08-18', 'LIVRO DE POESIAS', '-', NULL, '30', '30', 'SÃO PAULO', 'INST. BRAUDEL DE ECON. MUNDIAL', NULL, 'D', NULL, NULL, 'circulo', NULL, NULL),
 (2769, '2014-08-18', 'KOUROS', 'NIKOS KAZANTZAKIS', NULL, '30', '30', 'SÃO PAULO', 'INST. BRAUDEL DE ECON. MUNDIAL', NULL, 'D', NULL, NULL, 'circulo', NULL, NULL),
@@ -3421,35 +3421,50 @@ DROP TABLE IF EXISTS `tb_agendamento`;
 CREATE TABLE IF NOT EXISTS `tb_agendamento` (
   `idtb_agendamento` int(11) NOT NULL AUTO_INCREMENT,
   `tb_usuario_idtb_usuario` int(11) NOT NULL,
-  `tb_turma_idtb_turma` varchar(30) NOT NULL,
-  `tb_recurso_idtb_recurso` varchar(30) NOT NULL,
-  `tb_horario_idtb_horario` varchar(30) NOT NULL,
+  `tb_turma_idtb_turma` varchar(50) NOT NULL,
+  `tb_recurso_idtb_recurso` varchar(50) NOT NULL,
+  `tb_horario_idtb_horario` varchar(50) NOT NULL,
   `data` date NOT NULL,
   PRIMARY KEY (`idtb_agendamento`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_agendamento`
 --
 
 INSERT INTO `tb_agendamento` (`idtb_agendamento`, `tb_usuario_idtb_usuario`, `tb_turma_idtb_turma`, `tb_recurso_idtb_recurso`, `tb_horario_idtb_horario`, `data`) VALUES
-(1, 29, '24, 16, 22', '1, 2', '1, 3, 4, 5, 6, 7, 8, 9, 10, 11', '2017-03-23'),
-(2, 29, '14, 22, 23', '2', '3, 5, 7', '2017-03-22'),
-(3, 13, '23', '2', '1, 3, 4, 7', '2017-03-23'),
-(4, 27, '19, 15, 23', '2', '1, 3, 4, 5, 6, 7, 8, 9, 10, 11', '2017-03-23'),
-(5, 27, '14, 12', '2, 3', '7', '2017-03-24'),
-(6, 29, '14, 12, 15', '2', '1, 3, 9', '2017-03-24'),
-(7, 29, '14, 22, 23', '1', '1, 3, 7, 10', '2017-03-27'),
-(8, 29, '18', '1', '8', '2017-03-27'),
-(9, 29, '16, 22, 15', '2', '1, 3, 4', '2017-04-03'),
-(10, 29, '19, 16, 15', '1, 2', '1, 3, 4, 6, 7, 8, 10, 11', '2017-04-20'),
-(11, 29, '18, 16, 22', '1', '1, 4, 6', '2017-04-24'),
-(12, 29, '14, 12, 25', '2', '1, 4, 7', '2017-05-04'),
-(13, 29, '18, 19', '1, 2', '5, 7, 8', '2017-05-10'),
-(14, 29, '14, 22', '1, 2', '3, 5', '2017-04-24'),
-(15, 29, '14, 12, 25', '1, 3', '1, 4, 6', '2017-05-01'),
-(16, 29, '', '2', '1, 3, 5, 6, 9, 11', '2017-05-01'),
-(17, 29, '17', '1, 2, 3', '7, 8, 10', '2017-05-01');
+(1, 29, '14, 22, 17', '1', '1, 4, 6, 8, 10', '2017-05-16'),
+(2, 31, '14, 12, 15', '1, 2', '3, 5, 7, 9, 11', '2017-05-16'),
+(3, 27, '14, 12, 15', '1, 2', '1, 3, 4, 5, 6, 7, 8, 9, 10, 11', '2017-05-17'),
+(24, 31, '', '3', '1, 3, 4', '2017-05-18'),
+(25, 27, '', '1', '5', '2017-05-18'),
+(26, 31, '18, 16', '2', '7, 10', '2017-05-18'),
+(27, 13, '18, 16', '3', '3', '2017-05-16'),
+(23, 29, '19', '3', '5', '2017-05-18'),
+(22, 27, '14', '1', '3', '2017-05-18'),
+(21, 13, '19', '1', '1, 4, 6', '2017-05-18'),
+(20, 27, '14, 15', '2', '1, 4, 6, 8, 10', '2017-05-19'),
+(28, 27, '', '2, 3', '1', '2017-05-16'),
+(30, 29, '14, 16', '1', '1, 4', '2017-05-31'),
+(32, 29, '18, 16', '1, 2', '1, 3, 4, 5, 6, 7, 8, 9, 10, 11', '2017-05-22'),
+(33, 27, '18', '3', '1, 3, 4, 5, 6, 7, 8, 9, 10, 11', '2017-05-22'),
+(34, 27, '14, 12', '1, 2', '1, 3, 4, 5, 6', '2017-05-23'),
+(35, 27, '14, 22', '1, 3', '7', '2017-05-23'),
+(36, 31, '16', '1, 3', '8', '2017-05-23'),
+(37, 29, '19, 22', '1', '9, 10, 11', '2017-05-23'),
+(38, 31, '19, 12', '2', '7, 8, 9, 10, 11', '2017-05-23'),
+(39, 27, '14, 15', '3', '1, 3, 4, 5, 6, 9, 10, 11', '2017-05-23'),
+(40, 31, '14, 25, 17', '1', '1, 3, 4', '2017-05-24'),
+(41, 31, '19, 16', '1', '5', '2017-05-24'),
+(42, 29, '22', '1', '6, 7', '2017-05-24'),
+(43, 31, '19, 12', '1, 2', '8', '2017-05-24'),
+(44, 31, '14, 12', '3', '1, 3, 4, 5, 6, 7, 8, 9, 10, 11', '2017-05-24'),
+(45, 29, '16, 15', '1', '9, 10, 11', '2017-05-24'),
+(48, 31, '16', '1', '5, 6, 7, 8, 9, 10, 11', '2017-05-25'),
+(77, 13, '18', '1', '4, 5, 8, 9, 10, 11', '2017-05-26'),
+(72, 13, '26, 18, 14, 16, 12, 22, 15, 25, 17', '1, 2, 3', '4', '2017-05-25'),
+(71, 27, '26, 18, 14, 19, 16, 12, 22, 15, 25, 17', '1, 2', '1, 3', '2017-05-25'),
+(76, 27, '14, 15', '1, 2', '1, 3, 6, 7', '2017-05-26');
 
 -- --------------------------------------------------------
 
@@ -3464,7 +3479,7 @@ CREATE TABLE IF NOT EXISTS `tb_horario` (
   `inicio_horario` time NOT NULL,
   `fim_horario` time NOT NULL,
   PRIMARY KEY (`idtb_horario`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_horario`
@@ -3499,7 +3514,7 @@ CREATE TABLE IF NOT EXISTS `tb_locacao` (
   `status_devolucao` int(11) NOT NULL DEFAULT '1' COMMENT '0 Devolvido e 1 Locado',
   `status_lido` int(11) NOT NULL DEFAULT '1' COMMENT '0 lido e 1 não leu',
   PRIMARY KEY (`idtb_locacao`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_locacao`
@@ -3516,19 +3531,53 @@ INSERT INTO `tb_locacao` (`idtb_locacao`, `tb_aluno_idtb_aluno`, `tb_acervo_idtb
 (8, 430, 9, '2017-04-17', '2017-04-30', 0, 0, 0),
 (9, 441, 1, '2017-04-25', '2017-05-23', 3, 0, 0),
 (10, 396, 2526, '2017-04-20', '2017-04-27', 0, 0, 0),
-(11, 406, 1, '2017-04-28', '2017-05-05', 0, 0, 0),
 (12, 406, 2, '2017-04-28', '2017-05-05', 0, 0, 0),
 (13, 406, 1, '2017-04-28', '2017-05-05', 0, 0, 0),
-(14, 406, 1, '2017-04-28', '2017-05-05', 0, 0, 0),
+(14, 406, 2526, '2017-04-28', '2017-05-05', 0, 0, 1),
 (15, 207, 9, '2017-04-28', '2017-05-05', 0, 0, 0),
-(16, 325, 8, '2017-04-28', '2017-05-13', 2, 1, 0),
+(16, 325, 8, '2017-04-28', '2017-05-13', 2, 0, 0),
 (17, 325, 6, '2017-04-28', '2017-05-05', 0, 0, 0),
 (18, 335, 3, '2017-04-28', '2017-05-05', 0, 0, 0),
 (19, 396, 4, '2017-04-29', '2017-05-06', 0, 0, 0),
 (20, 422, 4, '2017-04-29', '2017-05-06', 0, 0, 0),
 (21, 437, 10, '2017-04-29', '2017-05-06', 0, 0, 0),
 (22, 430, 1, '2017-04-29', '2017-04-30', 0, 0, 0),
-(23, 437, 2, '2017-04-22', '2017-04-29', 0, 0, 0);
+(23, 437, 2, '2017-04-22', '2017-04-29', 0, 0, 0),
+(30, 430, 2, '2017-05-04', '2017-05-18', 1, 0, 0),
+(33, 430, 1, '2017-05-04', '2017-05-11', 0, 0, 0),
+(26, 430, 1, '2017-05-04', '2017-05-11', 0, 0, 0),
+(34, 430, 1, '2017-05-04', '2017-05-11', 0, 0, 0),
+(28, 430, 1, '2017-05-04', '2017-05-11', 0, 0, 0),
+(35, 430, 1, '2017-05-04', '2017-05-11', 0, 0, 0),
+(36, 430, 2, '2017-05-04', '2017-05-11', 0, 0, 0),
+(37, 430, 1, '2017-05-04', '2017-05-11', 0, 0, 0),
+(38, 430, 3, '2017-05-07', '2017-06-04', 3, 0, 0),
+(39, 430, 1, '2017-05-08', '2017-05-15', 0, 0, 0),
+(40, 430, 1, '2017-05-08', '2017-05-15', 0, 0, 0),
+(41, 180, 1, '2017-05-08', '2017-05-22', 1, 0, 0),
+(42, 430, 1, '2017-05-08', '2017-05-29', 1, 0, 0),
+(43, 324, 2, '2017-05-13', '2017-05-20', 0, 0, 0),
+(44, 406, 3, '2017-05-13', '2017-05-20', 0, 0, 0),
+(45, 273, 1, '2017-05-14', '2017-05-21', 0, 0, 0),
+(46, 176, 9, '2017-05-14', '2017-05-21', 0, 0, 0),
+(47, 441, 1, '2017-05-16', '2017-05-23', 0, 0, 0),
+(48, 441, 2, '2017-05-15', '2017-05-22', 0, 0, 0),
+(49, 441, 1, '2017-05-12', '2017-05-19', 0, 0, 0),
+(50, 135, 1, '2017-05-11', '2017-05-18', 0, 0, 0),
+(51, 168, 3, '2017-05-16', '2017-05-23', 0, 0, 0),
+(52, 343, 4, '2017-05-12', '2017-05-19', 0, 0, 0),
+(53, 58, 4, '2017-05-20', '2017-05-27', 0, 0, 0),
+(54, 148, 5, '2017-05-13', '2017-05-20', 0, 0, 0),
+(55, 331, 5, '2017-05-08', '2017-05-15', 0, 0, 0),
+(56, 342, 6, '2017-05-07', '2017-05-21', 1, 0, 0),
+(57, 349, 1, '2017-05-09', '2017-05-16', 0, 0, 0),
+(58, 200, 1, '2017-05-13', '2017-05-20', 0, 0, 0),
+(59, 329, 2, '2017-04-12', '2017-05-20', 3, 0, 0),
+(60, 289, 3, '2017-05-12', '2017-05-19', 0, 0, 0),
+(61, 432, 1, '2017-05-12', '2017-05-19', 0, 1, 1),
+(62, 139, 1, '2017-05-10', '2017-05-17', 0, 1, 1),
+(63, 141, 2, '2017-05-20', '2017-05-27', 0, 1, 1),
+(64, 141, 3, '2017-05-13', '2017-05-20', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -3542,7 +3591,7 @@ CREATE TABLE IF NOT EXISTS `tb_recursos` (
   `nome_recurso` varchar(20) NOT NULL,
   `status_recurso` int(11) NOT NULL,
   PRIMARY KEY (`idtb_recurso`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_recursos`
@@ -3566,16 +3615,18 @@ CREATE TABLE IF NOT EXISTS `tb_usuario` (
   `email_usuario` varchar(150) NOT NULL,
   `senha_usuario` varchar(255) NOT NULL,
   `tipo_usuario` varchar(20) NOT NULL,
+  `status_usuario` int(11) NOT NULL DEFAULT '0' COMMENT '0 Ativo 1 Inativo',
   PRIMARY KEY (`idtb_usuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `tb_usuario`
 --
 
-INSERT INTO `tb_usuario` (`idtb_usuario`, `nome_usuario`, `email_usuario`, `senha_usuario`, `tipo_usuario`) VALUES
-(1, 'Biblioteca', 'biblioteca@adm', '$2y$11$Vh5lv/pusII031nMdWDa/eMJMtK6/BtchwhZg2S6RgI7svMUk5y/G', 'Biblioteca'),
-(2, 'Agendamento', 'agendamento@adm', '$2y$11$ilBFjHXfaUqanbopioD5e.Udpa0HGK1jTd20nk1P/Hp.IyxQ.tqyO', 'Agendamento');
+INSERT INTO `tb_usuario` (`idtb_usuario`, `nome_usuario`, `email_usuario`, `senha_usuario`, `tipo_usuario`, `status_usuario`) VALUES
+(1, 'Biblioteca', 'biblioteca@adm', '$2y$11$Vh5lv/pusII031nMdWDa/eMJMtK6/BtchwhZg2S6RgI7svMUk5y/G', 'Biblioteca', 0),
+(2, 'Agendamento', 'agendamento@adm', '$2y$11$ilBFjHXfaUqanbopioD5e.Udpa0HGK1jTd20nk1P/Hp.IyxQ.tqyO', 'Agendamento', 0),
+(3, 'Administrador', 'admin@adm', '$2y$11$ilBFjHXfaUqanbopioD5e.Udpa0HGK1jTd20nk1P/Hp.IyxQ.tqyO', 'Administrador', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

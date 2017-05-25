@@ -3,15 +3,15 @@ use Carbon\Carbon;
 $tb_aluno=new \App\Models\SiscoTbAluno();
 $tb_locacao=new \App\Models\Tb_locacao();
 $tb_acervo=new \App\Models\Tb_acervo();
-if (!isset($_GET['idAluno'])):
-    echo '<script>window.location=\'?p=home\'</script>';
-endif;
-$id = strip_tags($_GET['idAluno']);
+$id = isset($_GET['idAluno'])?strip_tags($_GET['idAluno']):"";
 $aluno= $tb_aluno->select()->
 from('sisco.tb_aluno,sisco.tb_turma')->
 where('sisco.tb_aluno.tb_turma_idtb_turma','idtb_turma','=',false)->
 e('idtb_aluno',$id)->
 first();
+if (!isset($_GET['idAluno']) || $aluno==false):
+    echo '<script>window.location=\'?p=home\'</script>';
+endif;
 $curso=$tb_aluno->select()->from('sisco.tb_cursos')->where('idtb_cursos',$aluno->tb_cursos_idtb_cursos,'=',false)->first();
 $locacoes=$tb_locacao->select()->from()->where("tb_aluno_idtb_aluno",$aluno->idtb_aluno)->order("idtb_locacao",'desc')->all();
 if (isset($_POST['devolver'])):

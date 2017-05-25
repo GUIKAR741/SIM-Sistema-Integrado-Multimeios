@@ -36,10 +36,19 @@ V2.85
 Limpeza das tabelas no admin
 Replicação dos acervos
 validação no form da locação
-Geração dos jsons para os graficos
+Geração dos jsons para os graficos  
 Exportar tabelas para excel
 
 V2.9
 Correção de erros no agendamento com implementação de ajax para
 tornar sistema mais dinamico e com menos chance de erro
 Melhorias no layout do front
+
+V3.0
+Modificação nas Notificações
+Conclusão de validações em cadastros
+Cadastro e atualização de agendamentos
+Verificação de choques no agendamento
+Redirecionamentos
+Utilização de ajax no agendamento
+Ultima vesão do banco

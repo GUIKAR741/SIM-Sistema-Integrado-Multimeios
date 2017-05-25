@@ -4,49 +4,8 @@ $tb_acervo=new \App\Models\Tb_acervo();
 ?>
 <main class="mn-inner p-h-xs pad-title">
     <div class="row">
-        <div class="col s12 m12 l6">
-            <div class="col s12">
-                <div class="col s11">
-                    <div class="page-title">Manutenção Agendamento</div>
-                </div>
-                <div class="col s1">
-                    <a class="waves-effect btn-floating left-align"
-                       onclick='swal({
-                              title: "Deseja Limpar a Tabela do Agendamento?",
-                              text: "Não sera possivel Recuperar Dados",
-                              html:true,
-                              type: "input",
-                              inputType:"password",
-                              showCancelButton: true,
-                              closeOnConfirm: false,
-                              animation: "slide-from-top",
-                              inputPlaceholder: "Digite sua senha"
-                            },
-                            function(inputValue){
-                              if (inputValue === false) return false;
-
-                              if (inputValue === "") {
-                                swal.showInputError("Necessario Digitar a Senha!");
-                                return false
-                              }
-                              $.ajax({
-                                url:"ajax/limpar-agendamento.php",
-                                type: "POST",
-                                 async: true,
-                                dataType: "JSON",
-                                data:{sim:"true",senha:inputValue},
-                                success:function(data) {
-                                  swal("Tabela Limpa!", "Todos os Dados Foram Excluidos", "success");
-                                },
-                                error: function(data){
-                                    swal("Ocorreu um erro ao execução a Limpeza!","","error");
-                                }
-                              });
-                            });'
-                    ><i class="material-icons">restore</i></a>
-                </div>
-            </div>
-            <div class="col s12 m12 l12 no-p-h">
+<!--        <div class="col s12 m12 l6">-->
+            <!--<div class="col s12 m12 l12 no-p-h">
                 <div class="card">
                     <div class="card-content">
                         <div class="row no-m">
@@ -75,8 +34,8 @@ $tb_acervo=new \App\Models\Tb_acervo();
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col s12 m12 l6">
+        </div>-->
+        <div class="col s12 m12 l12">
             <div class="col s12">
                 <div class="col s11">
                     <div class="page-title">Manutenção Biblioteca</div>
@@ -163,6 +122,6 @@ $tb_acervo=new \App\Models\Tb_acervo();
                     </div>
                 </div>
             </div>
-        </div>
+<!--        </div>-->
     </div>
 </main>

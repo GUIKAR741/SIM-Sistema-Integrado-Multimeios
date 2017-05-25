@@ -41,27 +41,30 @@ trait AttributesInsertUpdate{
     private function insertSql(){
         return "INSERT INTO $this->table({$this->insertKeys()}) VALUES ({$this->insertValues()})";
     }
+
     /**
      * Retorna a Query de Update
      * @param $field
+     * @param $operation
      * @return string
      */
-    private function updateSql($field){
+    private function updateSql($field, $operation){
         $sql="UPDATE $this->table SET ";
         foreach ($this->attributes as $key => $value):
             $sql.="$key=:$key, ";
         endforeach;
         $sql=rtrim($sql,", ");
-        $sql.=" WHERE $field=:$field";
+        $sql.=" WHERE $field $operation :$field";
         return $sql;
     }
+
     /**
      * Retorna a Query de Delete
      * @param $field
-     * @return string
+     * @param $operation
      * @return string
      */
-    private function deleteSql($field){
-        return "DELETE FROM $this->table WHERE $field=:$field";
+    private function deleteSql($field, $operation){
+        return "DELETE FROM $this->table WHERE $field $operation :$field";
     }
 }

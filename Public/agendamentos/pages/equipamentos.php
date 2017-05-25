@@ -47,7 +47,7 @@ endif;
                 <a class="btn-floating btn-large waves-effect waves-light blue-grey modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
             </div>
             <div id="modal1" class="modal modal-fixed-footer modReserva" >
-                <form method="post">
+                <form method="post" id="equipa">
                     <div class="modal-content">
                         <h4 class="no-m-b">Adicionar novo Equipamento</h4>
                         <div class="col m12 l12">
@@ -67,7 +67,7 @@ endif;
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat" name="btnSave">Salvar</button>
+                        <button type="submit" class="modal-action waves-effect waves-green btn-flat" name="btnSave">Salvar</button>
                     </div>
                 </form>
             </div>
@@ -88,7 +88,7 @@ endif;
                         foreach ($equipamento as $value):
                             $id[$value->idtb_recurso]=$value->idtb_recurso;?>
                             <tr>
-                                <td class="no-m no-p-h center"><?= $value->nome_recurso?></td>
+                                <td class="no-m no-p-h center" style="text-transform: uppercase"><?= $value->nome_recurso?></td>
                                 <td class="center no-m no-p-h">
                                     <div class="switch">
                                         <label>

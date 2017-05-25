@@ -76,7 +76,7 @@
                             labels: [''],//[j[u][k]['labels']],
                             datasets:val
                         };
-                        console.log(datas);
+//                        console.log(datas);
                         gera(document.getElementById('id-'+k),datas);
                     }
                 }
