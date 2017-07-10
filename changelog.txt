@@ -57,3 +57,6 @@ V3.25
 Adição da logo como favicon
 Correção de erros
 Criação do historico diario
+
+V3.30
+Adição de arquivos
