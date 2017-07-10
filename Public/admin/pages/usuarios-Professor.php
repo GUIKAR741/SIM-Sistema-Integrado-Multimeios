@@ -1,7 +1,7 @@
 <?php
 $tb_usuario = new \App\Models\SiscoTbUsuario();
 ?>
-<main class="mn-inner p-h-xs pad-title">
+<main class="mn-inner p-h-xxs pad-title">
     <div class="row">
         <div class="col s12">
             <div class="page-title">Usuários Professores</div>
@@ -20,6 +20,7 @@ $tb_usuario = new \App\Models\SiscoTbUsuario();
                         <tbody>
                         <?php
                         $usuario=$tb_usuario->where("BINARY tipo_usuario","Professor")->all();
+                        if (count($usuario)>0):
                         foreach ($usuario as $value):?>
                             <tr>
                                 <td class="no-m no-p-h center"><?= $value->nome_usuario?></td>
@@ -61,9 +62,22 @@ $tb_usuario = new \App\Models\SiscoTbUsuario();
                                     </div>
                                 </form>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endforeach;
+                        ?>
                         </tbody>
                     </table>
+                            <?php
+                    else:?>
+                        </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="center">
+                                <i class="no-p no-m material-icons" style="font-size:125px !important;color: #ffe64c">warning</i>
+                                <h4><b>Não há Registros para Mostar</b></h4>
+                            </div>
+                        </div>
+                    <?php
+                    endif;?>
                 </div>
             </div>
         </div>

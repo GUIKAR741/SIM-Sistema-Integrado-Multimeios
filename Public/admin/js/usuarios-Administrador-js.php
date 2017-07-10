@@ -54,58 +54,59 @@
             }});
         var valida=function (texto){
             $("#edit"+texto).validate({
-            errorPlacement: function (error, element) {
+                errorPlacement: function (error, element) {
 //                element.after(error);
-                element.addClass('invalid');
-                $(element)
-                    .closest("form")
-                    .find("label[for='"+element.attr("id")+"']")
-                    .append(error);
-            },
-            rules: {
-                nome_usuario:{
-                    required:true
+                    element.addClass('invalid');
+                    $(element)
+                        .closest("form")
+                        .find("label[for='"+element.attr("id")+"']")
+                        .append(error);
                 },
-                email:{
-                    required:true,
-                    email:true
-                },
-                senha:{
-                    required:function () {
-                        return $("#senha-troca"+texto).val()==="yes";
+                rules: {
+                    nome_usuario:{
+                        required:true
                     },
-                    minlength:8
-                },
-                re_senha:{
-                    required:function () {
-                        return $("#senha-troca"+texto).val()==="yes";
+                    email:{
+                        required:true,
+                        email:true
                     },
-                    minlength:8,
-                    equalTo:"#senha"+texto
+                    senha:{
+                        required:function () {
+                            return $("#senha-troca"+texto).val()==="yes";
+                        },
+                        minlength:8
+                    },
+                    re_senha:{
+                        required:function () {
+                            return $("#senha-troca"+texto).val()==="yes";
+                        },
+                        minlength:8,
+                        equalTo:"#senha"+texto
+                    }
+                },
+                messages: {
+                    nome_usuario:{
+                        required: " * Digite o seu Nome!"
+                    },
+                    email:{
+                        required: " * Digite o seu Email!",
+                        email: " * Digite um E-mail válido!"
+                    },
+                    senha:{
+                        required: " * Digite sua Senha!",
+                        minlength:" * Deve Ter no Minimo 8 Caracteres!"
+                    },
+                    re_senha:{
+                        required: " * Confirme sua Senha!",
+                        minlength:" * Deve Ter no Minimo 8 Caracteres!",
+                        equalTo:" * Senha não Coincidem!"
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
                 }
-            },
-            messages: {
-                nome_usuario:{
-                    required: " * Digite o seu Nome!"
-                },
-                email:{
-                    required: " * Digite o seu Email!",
-                    email: " * Digite um E-mail válido!"
-                },
-//                senha:{
-                    required: " * Digite sua Senha!",
-                    minlength:" * Deve Ter no Minimo 8 Caracteres!"
-                },
-                re_senha:{
-                    required: " * Confirme sua Senha!",
-                    minlength:" * Deve Ter no Minimo 8 Caracteres!",
-                    equalTo:" * Senha não Coincidem!"
-                }
-            },
-            submitHandler: function(form) {
-                form.submit();
-            }
-        });};
+            });
+        };
         <?php foreach ($ids as $value):?>
         valida(<?= $value?>);
         <?php endforeach;?>

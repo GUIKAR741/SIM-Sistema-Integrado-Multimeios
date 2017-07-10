@@ -73,7 +73,7 @@ endif;
     <link href="assets/css/icons.css" rel="stylesheet">
     <link href="assets/plugins/material-preloader/css/materialPreloader.min.css" rel="stylesheet">
     <link href="assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css"/>
-
+    <link rel="shortcut icon" href="assets/images/images/icon.png">
 
     <!-- Theme Styles -->
     <link href="assets/css/alpha.min.css" rel="stylesheet" type="text/css"/>

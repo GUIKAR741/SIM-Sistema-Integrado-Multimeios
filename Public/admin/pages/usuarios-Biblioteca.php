@@ -8,7 +8,7 @@ if (isset($_POST['Save'])):
     $tb_usuario->senha_usuario=$pass->hash(strip_tags($_POST['senha']));
     $tb_usuario->tipo_usuario="Biblioteca";
     $id=$tb_usuario->save();
-    echo '<script>window.location=\'?p=usuarios-biblioteca&user=cadastrado\'</script>';
+    echo '<script>window.location=\'?p=usuarios-Biblioteca&user=cadastrado\'</script>';
 endif;
 if (isset($_POST['atualizar'])):
     $id=strip_tags($_POST['id']);
@@ -18,7 +18,7 @@ if (isset($_POST['atualizar'])):
         $tb_usuario->senha_usuario=$pass->hash(strip_tags($_POST['senha']));
     endif;
     $id=$tb_usuario->update("idtb_usuario",$id);
-    echo '<script>window.location=\'?p=usuarios-biblioteca&user=atualizado\'</script>';
+    echo '<script>window.location=\'?p=usuarios-Biblioteca&user=atualizado\'</script>';
 endif;
 if (isset($_GET['status'])):
     $id=strip_tags($_GET['status']);
@@ -30,12 +30,12 @@ if (isset($_GET['status'])):
         $tb_usuario->status_usuario= 0;
         $result = $tb_usuario->update('idtb_usuario', $id);
     }
-    echo '<script>window.location=\'?p=usuarios-biblioteca&user=status\'</script>';
+    echo '<script>window.location=\'?p=usuarios-Biblioteca&user=status\'</script>';
 endif;
 if (isset($_GET['delete']) && $_GET['delete']==true):
     $id = strip_tags($_GET['id']);
     $tb_usuario->delete('idtb_usuario', $id);
-    echo "<script>document.location='?p=usuarios-biblioteca&user=deletado'</script>";
+    echo "<script>document.location='?p=usuarios-Biblioteca&user=deletado'</script>";
 endif;
 if (isset($_GET['user']) && $_GET['user'] == 'cadastrado'):
     $retorno="setTimeout(function (){swal(
@@ -55,7 +55,7 @@ elseif (isset($_GET['user']) && $_GET['user'] == 'status'):
      )},1250);";
 endif;
 ?>
-<main class="mn-inner p-h-xs pad-title">
+<main class="mn-inner p-h-xxs pad-title">
     <div class="row">
         <div class="col s12">
             <div class="page-title">Usuarios da Biblioteca</div>
@@ -105,6 +105,7 @@ endif;
                         <tbody>
                         <?php
                         $usuario=$tb_usuario->where("BINARY tipo_usuario","Biblioteca")->all();
+                        if (count($usuario)>0):
                         foreach ($usuario as $value):?>
                             <tr>
                                 <td class="no-m no-p-h center"><?= $value->nome_usuario?></td>
@@ -112,7 +113,7 @@ endif;
                                     <div class="switch">
                                         <label>
                                             Desativado
-                                            <input type="checkbox" id="check" onclick="setTimeout(function(){document.location='?p=usuarios-agendamento&status=<?=$value->idtb_usuario?>'},500);" <?php if ($value->status_usuario==0) echo 'checked';?>>
+                                            <input type="checkbox" id="check" onclick="setTimeout(function(){document.location='?p=usuarios-Biblioteca&status=<?=$value->idtb_usuario?>'},500);" <?php if ($value->status_usuario==0) echo 'checked';?>>
                                             <span class="lever"></span>
                                             Ativado
                                         </label>
@@ -135,7 +136,7 @@ endif;
                                         },
                                         function(isConfirm){
                                         if (isConfirm) {
-                                        location.href='?p=usuarios-biblioteca&delete=true&id=<?= $value->idtb_usuario?>';
+                                        location.href='?p=usuarios-Biblioteca&delete=true&id=<?= $value->idtb_usuario?>';
                                         } else {
                                         swal({title:'Cancelado', type:'error',timer: 2000,showConfirmButton:false});
                                         }
@@ -147,7 +148,20 @@ endif;
                         <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <?php foreach ($usuario as $value): $ids[]=$value->idtb_usuario;?>
+                    <?php
+                    else:?>
+                        </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="center">
+                                <i class="no-p no-m material-icons" style="font-size:125px !important;color: #ffe64c">warning</i>
+                                <h4><b>Não há Registros para Mostar</b></h4>
+                            </div>
+                        </div>
+                    <?php
+                    endif;
+                    if (count($usuario)>0):
+                    foreach ($usuario as $value): $ids[]=$value->idtb_usuario;?>
                         <div id="editar<?= $value->idtb_usuario?>" class="modal modal-fixed-footer modReserva" >
                             <form method="post" id="edit<?= $value->idtb_usuario?>">
                                 <div class="modal-content">
@@ -183,7 +197,7 @@ endif;
                                 </div>
                             </form>
                         </div>
-                    <?php  endforeach;?>
+                    <?php  endforeach;endif;?>
                 </div>
             </div>
         </div>

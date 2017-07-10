@@ -85,6 +85,7 @@ endif;
                         <tbody>
                         <?php
                         $equipamento=$tb_equipamento->select()->from()->all();
+                        if (count($equipamento)>0):
                         foreach ($equipamento as $value):
                             $id[$value->idtb_recurso]=$value->idtb_recurso;?>
                             <tr>
@@ -121,9 +122,23 @@ endif;
                                     </a>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach;
+                        ?>
                         </tbody>
                     </table>
+                            <?php
+                            else:
+                            ?>
+                                </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="center">
+                                        <i class="no-p no-m material-icons" style="font-size:125px !important;color: #ffe64c">warning</i>
+                                        <h4><b>Não há Registros para Mostar</b></h4>
+                                    </div>
+                                </div>
+                                <?php
+                        endif;?>
                 </div>
             </div>
         </div>

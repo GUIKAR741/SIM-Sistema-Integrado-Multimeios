@@ -19,7 +19,7 @@ $tb_aluno = new App\Models\SiscoTbAluno();
                                         <a href=\"?p=turma&id=".$curso[$j]->idtb_turma."\" >
                                             <div class=\"card stats-card\">
                                                 <div class=\"card-content\" style=\"padding: 10px;\">
-                                                    <div class=\"col l5\">
+                                                    <div class=\"col s12 l5 center\">
                                                         <span class=\"btn-floating btn-large btn-no-shadow cyan\">
                                                             <i class=\"large material-icons\" style=\"font-size: 2.5rem\">supervisor_account</i>
                                                         </span>
@@ -27,7 +27,7 @@ $tb_aluno = new App\Models\SiscoTbAluno();
                                                             ".$curso[$j]->serie."º".$curso[$j]->nome_curso."
                                                         </span>
                                                     </div>
-                                                    <div class=\"col l4 push-l2\">
+                                                    <div class=\"col s12 l4 center push-l2\">
                                                         <p class=\"counter\" style=\"font-size: 1.64rem;text-align: center;margin-top: 10px\">
                                                             $aluno
                                                         </p>
@@ -47,26 +47,6 @@ $tb_aluno = new App\Models\SiscoTbAluno();
                     ?>
                 </div>
                 <div class="row no-m-t no-m-b" id="div-graf">
-                    <!--<div class="col s12 m12 l6">
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Livros Mais Lidos</span>
-                                <div>
-                                    <canvas id="lidos" width="600" height="400"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col s12 m12 l6">
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Alunos Mais Leitores</span>
-                                <div>
-                                    <canvas id="leitores" width="600" height="400"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
             </div>
         </div>

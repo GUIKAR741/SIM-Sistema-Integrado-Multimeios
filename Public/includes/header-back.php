@@ -16,3 +16,4 @@
     <link type="text/css" rel="stylesheet" href="../assets/plugins/materialize/css/materialize.min.css"/>
     <link href="../assets/css/icons.css" rel="stylesheet">
     <link href="../assets/plugins/material-preloader/css/materialPreloader.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/images/images/icon.png">

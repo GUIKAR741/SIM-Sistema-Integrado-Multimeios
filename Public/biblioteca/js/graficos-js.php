@@ -36,16 +36,32 @@
             });
         };
         let html=function (title_var,id_var) {
-        return '<div class="col s12 m12 l6">'+
-            '<div class="card">'+
-            '<div class="card-content">'+
-            '<span class="card-title">'+title_var+'</span>'+
-            '<div>'+
-            '<canvas id="'+id_var+'" width="600" height="400"></canvas>'+
-            '</div>'+
-        '</div>'+
-        '</div>'+
-        '</div>';
+            return '<div class="col s12 m12 l6">'+
+                '<div class="card">'+
+                '<div class="card-content">'+
+                '<span class="card-title">'+title_var+'</span>'+
+                '<div>'+
+                '<canvas id="'+id_var+'" width="600" height="400"></canvas>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>';
+        };
+        let htmlerro=function () {
+            return '<div class="col s12 m12 l8 offset-l2">'+
+                '<div class="card">'+
+                '<div class="card-content">'+
+                '<div class="row">'+
+                '<div class="col l12">'+
+                '<div class="center">' +
+                '<i class="no-p no-m material-icons" style="font-size:200px !important;color: #ffe64c">warning</i>' +
+                '<h2 class="no-p no-m"><b>Não há Graficos para Mostar</b></h2>' +
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '</div>';
         };
         let div_graf=$('#div-graf');
         $.ajax({
@@ -82,7 +98,7 @@
                 }
             },
             error: function(data){
-                console.log(data);
+                div_graf.append(htmlerro());
             }
         });
     });

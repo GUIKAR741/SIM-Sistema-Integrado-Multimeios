@@ -101,11 +101,11 @@
                 }
             });
         };
-        <?php foreach($id as $value): ?>
+        <?php if(isset($id)):foreach($id as $value): ?>
         select("<?= $value?>");
         valida("<?= "#form-1-$value"?>");
         validaManual("<?= "$value"?>");
-        <?php endforeach?>
+        <?php endforeach;endif;?>
         valida("#form-0");
     });
 </script>

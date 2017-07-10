@@ -182,11 +182,15 @@ elseif (isset($_GET['livro']) && $_GET['livro'] == 'deletado'):
 elseif (isset($_GET['livro']) && $_GET['livro'] == 'locado' && isset($_GET['idaluno'])):
     $idaluno=$_GET['idaluno'];
     $aluno=$tb_acervo->select()->from('sisco.tb_aluno')->where('idtb_aluno',$idaluno)->first();
+    $data_devo=$tb_acervo->select()->from('tb_locacao')->where('tb_aluno_idtb_aluno',$idaluno)->first();
     if ($aluno!=false):
         if (isset($_GET['disponivel'])):
             if ($_GET['disponivel']=="true"):
                 $retorno="setTimeout(function (){swal(
-        {title: \"Livro Locado Para o Aluno: ".$aluno->nome_aluno."!\",type: \"success\",timer: 3000,showConfirmButton:false}
+        {title: 'Livro Locado!',text:
+        'Aluno: <a href=\"?p=historico&idAluno=".$aluno->idtb_aluno."\" class=\"grey-text\">".$aluno->nome_aluno."</a><br>".
+                    "Devolução:".date('d/m/Y',strtotime($data_devo->data_devolucao))."'
+        ,html:true,type: \"success\",showConfirmButton:true}
      )},2000);";
             elseif ($_GET['disponivel']=="false"):
                 $retorno="setTimeout(function (){swal(
@@ -277,7 +281,7 @@ endif;
                             </div>
                             <div class="input-field">
                                 <label for="estante">Estante</label>
-                                <input placeholder="Digite" id="estante" name="estante" type="text" class="validate">
+                                <input placeholder="Digite as informaçãoes sobre a Estante" id="estante" name="estante" type="text" class="validate">
                             </div>
                             <div class="input-field">
                                 <label for="sinopse">Sinopse.</label>
@@ -356,6 +360,7 @@ endif;
                         #contar os itens mostrados
                         $iten=0;
                         #mostrar os livros
+                        if(count($livros)):
                         foreach ($livros as $value):
                             #salva os ids de cada livro
                             $id[$value->idtb_acervo]=$value->idtb_acervo;
@@ -407,13 +412,26 @@ endif;
                         </tbody>
                     </table>
                     <?php
+                    else:
+                        ?>
+                        </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="center">
+                                <i class="no-p no-m material-icons" style="font-size:125px !important;color: #ffe64c">warning</i>
+                                <h4><b>Não há Registros para Mostar</b></h4>
+                            </div>
+                        </div>
+                        <?php
+                    endif;
+                    if(count($livros)>0):
                     #repete os modais fora da tabela
                     foreach ($livros as $value):
                         ?>
                         <div id="modal1<?= $value->idtb_acervo?>" class="modal modal-fixed-footer modAcervo" >
                             <form method="post" enctype="multipart/form-data" id="form-1-<?= $value->idtb_acervo?>">
                                 <div class="modal-content">
-                                    <h4 class="no-m-b">Adicionar novo livro</h4>
+                                    <h4 class="no-m-b">Atualizar Livro</h4>
                                     <div class="col m12 l6">
                                         <input type="hidden" name="idAcervo" value="<?= $value->idtb_acervo?>">
                                         <div class="input-field">
@@ -490,7 +508,7 @@ endif;
                                         </div>
                                         <div class="input-field">
                                             <label class="active" for="estante">Estante</label>
-                                            <input placeholder="Digite" id="estante" name="estante" type="text" value="<?= $value->estante?>" class="validate">
+                                            <input placeholder="Digite as informaçãoes sobre a Estante" id="estante" name="estante" type="text" value="<?= $value->estante?>" class="validate">
                                         </div>
                                         <div class="input-field">
                                             <label class="active" for="sinopse">Sinopse.</label>
@@ -623,7 +641,8 @@ endif;
                                         <a href=""><i class="material-icons">chevron_right</i></a>
                                     </li>
                                     <?php
-                                endif ?>
+                                endif;
+                                endif?>
                             </ul>
                         </div>
                     </div>

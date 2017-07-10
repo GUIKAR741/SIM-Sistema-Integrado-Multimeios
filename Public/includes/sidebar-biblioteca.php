@@ -58,6 +58,9 @@
             <li class="no-padding">
                 <a class="collapsible-header waves-effect waves-grey" href="?p=graficos"><i class="material-icons">equalizer</i> Graficos</a>
             </li>
+            <li class="no-padding">
+                <a class="collapsible-header waves-effect waves-grey" href="?p=diario"><i class="material-icons">date_range</i> Historico</a>
+            </li>
 
         </ul>
         <div class="footer">

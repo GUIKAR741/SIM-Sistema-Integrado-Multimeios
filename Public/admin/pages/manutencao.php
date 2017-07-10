@@ -2,39 +2,8 @@
 $tb_acervo=new \App\Models\Tb_acervo();
 
 ?>
-<main class="mn-inner p-h-xs pad-title">
+<main class="mn-inner no-p-h pad-title">
     <div class="row">
-<!--        <div class="col s12 m12 l6">-->
-            <!--<div class="col s12 m12 l12 no-p-h">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="row no-m">
-
-                        </div>
-                        <table class="responsive-table striped bordered">
-                            <thead>
-                            <tr>
-                                <th class="center">Acervo</th>
-                                <th class="center">QTD de Livros/Materiais</th>
-                                <th class="center">QTD de Exemplares</th>
-
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                                <tr>
-                                    <td class="center"></td>
-                                    <td class="center"></td>
-                                    <td class="center"></td>
-
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>-->
         <div class="col s12 m12 l12">
             <div class="col s12">
                 <div class="col s11">

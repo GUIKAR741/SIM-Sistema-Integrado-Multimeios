@@ -178,6 +178,7 @@
             monthNamesShort:['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
                 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             hiddenDays:[0,6],
+            hiddenHours:[0],
             //defaultDate: '2015-12-12',
             defaultView:'agendaWeek',
             editable: false,

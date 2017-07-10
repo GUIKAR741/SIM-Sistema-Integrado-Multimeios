@@ -17,4 +17,4 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 
     <!-- Favicon-->
-    <link rel="shortcut icon" href="assets/images/images/favicon.png">
+    <link rel="shortcut icon" href="assets/images/images/icon.png">

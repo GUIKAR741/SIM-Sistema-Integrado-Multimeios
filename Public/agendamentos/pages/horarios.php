@@ -87,6 +87,7 @@ endif;
                         <tbody>
                         <?php
                         $horario = $tb_horario->select()->from()->all();
+                        if (count($horario)>0):
                         foreach ($horario as $value):
                             $idHora[]=$value->idtb_horario?>
                             <tr>
@@ -120,37 +121,52 @@ endif;
                                 </td>
                             </tr>
 
-                        <?php endforeach; ?>
+                        <?php endforeach;?>
                         </tbody>
                     </table>
                     <?php
-                    foreach ($horario as $value):?>
-                        <div id="editar1<?= $value->idtb_horario ?>" class="modal modal-fixed-footer modReserva" >
-                            <form method="post" id="hora<?= $value->idtb_horario ?>">
-                                <div class="modal-content">
-                                    <h4 class="no-m-b">Atualizar Horario</h4>
-                                    <div class="col m12 l12">
-                                        <input type="hidden" name="idtb_horario" value="<?= $value->idtb_horario ?>">
-                                        <div class="input-field">
-                                            <label for="nome_horario" class="active">Horario</label>
-                                            <input placeholder="Digite o Nome do Horario" id="nome_horario" name="nome_horario" type="text" class="validate" value="<?= $value->nome_horario ?>">
-                                        </div>
-                                        <div class="input-field">
-                                            <label class="active" for="inicio_horario">Inicio</label>
-                                            <input placeholder="Digite Nome do Autor" id="inicio_horario" name="inicio_horario" type="time" class="timepicker validate" value="<?= $value->inicio_horario ?>">
-                                        </div>
-                                        <div class="input-field">
-                                            <label class="active" for="fim_horario">Fim</label>
-                                            <input placeholder="Digite o Local" id="fim_horario" name="fim_horario" type="time" class="timepicker validate" value="<?= $value->fim_horario ?>">
+                    else:
+                        ?>
+                        </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="center">
+                                <i class="no-p no-m material-icons" style="font-size:125px !important;color: #ffe64c">warning</i>
+                                <h4><b>Não há Registros para Mostar</b></h4>
+                            </div>
+                        </div>
+                        <?php
+                    endif;
+                    if(count($horario)>0):
+                        foreach ($horario as $value):?>
+                            <div id="editar1<?= $value->idtb_horario ?>" class="modal modal-fixed-footer modReserva" >
+                                <form method="post" id="hora<?= $value->idtb_horario ?>">
+                                    <div class="modal-content">
+                                        <h4 class="no-m-b">Atualizar Horario</h4>
+                                        <div class="col m12 l12">
+                                            <input type="hidden" name="idtb_horario" value="<?= $value->idtb_horario ?>">
+                                            <div class="input-field">
+                                                <label for="nome_horario" class="active">Horario</label>
+                                                <input placeholder="Digite o Nome do Horario" id="nome_horario" name="nome_horario" type="text" class="validate" value="<?= $value->nome_horario ?>">
+                                            </div>
+                                            <div class="input-field">
+                                                <label class="active" for="inicio_horario">Inicio</label>
+                                                <input placeholder="Digite Nome do Autor" id="inicio_horario" name="inicio_horario" type="time" class="timepicker validate" value="<?= $value->inicio_horario ?>">
+                                            </div>
+                                            <div class="input-field">
+                                                <label class="active" for="fim_horario">Fim</label>
+                                                <input placeholder="Digite o Local" id="fim_horario" name="fim_horario" type="time" class="timepicker validate" value="<?= $value->fim_horario ?>">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button name="editar" type="submit" class="modal-action waves-effect waves-green btn-flat">Salvar</button>
-                                </div>
-                            </form>
-                        </div>
-                    <?php endforeach;?>
+                                    <div class="modal-footer">
+                                        <button name="editar" type="submit" class="modal-action waves-effect waves-green btn-flat">Salvar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        <?php endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>

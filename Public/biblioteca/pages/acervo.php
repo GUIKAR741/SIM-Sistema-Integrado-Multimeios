@@ -94,8 +94,8 @@ if (isset($_POST['enviarEDIT'])):
     $tb_acervo->autor=(strip_tags($_POST['autor']));
     $tb_acervo->local=(strip_tags($_POST['local']));
     $tb_acervo->editora=(strip_tags($_POST['editora']));
-    $tb_acervo->exemplares=trim(strip_tags($_POST['exemplares']));
-    $tb_acervo->disponiveis=trim(strip_tags($_POST['exemplares']));
+    $exemplares=trim(strip_tags($_POST['exemplares']));
+    $disponiveis=trim(strip_tags($_POST['exemplares']));
     $tb_acervo->volume=trim(strip_tags($_POST['volume']));
     $tb_acervo->ano_publicacao=trim(strip_tags($_POST['ano']));
     $tb_acervo->forma_de_aquisicao=(strip_tags($_POST['formadeaq']));
@@ -103,6 +103,13 @@ if (isset($_POST['enviarEDIT'])):
     $tb_acervo->estante=(strip_tags($_POST['estante']));
     $tb_acervo->sinopse=(strip_tags($_POST['sinopse']));
     $tb_acervo->tipo_acervo="livro";
+    #condição de alteração dos disponiveis
+    if (intval($exemplares)>=intval($value->exemplares)):
+        $disponiveis=intval($exemplares)-intval($value->exemplares)+intval($value->disponiveis);
+    else:
+        $tb_locacao->status_devolucao=0;
+        $tb_locacao->update('tb_acervo_idtb_acervo',$id);
+    endif;
     #campos
     #se foi enviado uma imagem para trocar
     if ($_FILES['arquivo']['error']==UPLOAD_ERR_OK):
@@ -121,6 +128,9 @@ if (isset($_POST['enviarEDIT'])):
         $tb_acervo->capa=$value->capa;
     endif;
     #atualiza as informações do livro
+    $tb_acervo->exemplares=$exemplares;
+    $tb_acervo->disponiveis=$disponiveis;
+//    dump($disponiveis);
     $tb_acervo->update('idtb_acervo',$id);
     echo '<script>window.location=\'?p=acervo&livro=atualizado\'</script>';
 endif;
@@ -146,7 +156,6 @@ if (isset($_POST['locacao'])):
     #se a quantidade disponivel for maior que 0
     $alunoSel=strip_tags($_POST['alunoSelect']);
     $aluno=$tb_acervo->select()->from('sisco.tb_aluno')->where('idtb_aluno',$alunoSel)->count();
-    dump($aluno);
     if (intval($attLivro->disponiveis)>0 && $aluno>0):
         #reduz 1 na quantidade disponivel
         $tb_acervo->disponiveis=intval($attLivro->disponiveis)-1;
@@ -182,11 +191,15 @@ elseif (isset($_GET['livro']) && $_GET['livro'] == 'deletado'):
 elseif (isset($_GET['livro']) && $_GET['livro'] == 'locado' && isset($_GET['idaluno'])):
     $idaluno=$_GET['idaluno'];
     $aluno=$tb_acervo->select()->from('sisco.tb_aluno')->where('idtb_aluno',$idaluno)->first();
+    $data_devo=$tb_acervo->select()->from('tb_locacao')->where('tb_aluno_idtb_aluno',$idaluno)->first();
     if ($aluno!=false):
         if (isset($_GET['disponivel'])):
             if ($_GET['disponivel']=="true"):
                 $retorno="setTimeout(function (){swal(
-        {title: \"Livro Locado Para o Aluno: ".$aluno->nome_aluno."!\",type: \"success\",timer: 3000,showConfirmButton:false}
+        {title: 'Livro Locado!',text:
+        'Aluno: <a href=\"?p=historico&idAluno=".$aluno->idtb_aluno."\" class=\"grey-text\">".$aluno->nome_aluno."</a><br>".
+                    "Devolução:".date('d/m/Y',strtotime($data_devo->data_devolucao))."'
+        ,html:true,type: \"success\",showConfirmButton:true}
      )},2000);";
             elseif ($_GET['disponivel']=="false"):
                 $retorno="setTimeout(function (){swal(
@@ -201,7 +214,7 @@ elseif (isset($_GET['livro']) && $_GET['livro'] == 'locado' && isset($_GET['idal
     endif;
 endif;
 ?>
-<main class="mn-inner p-h-xs pad-title" xmlns:swal>
+<main class="mn-inner p-h-xxs pad-title" xmlns:swal>
     <div class="row">
         <div class="col s12">
             <div class="page-title">Acervo de Livros</div>
@@ -277,7 +290,7 @@ endif;
                             </div>
                             <div class="input-field">
                                 <label for="estante">Estante</label>
-                                <input placeholder="Digite" id="estante" name="estante" type="text" class="validate">
+                                <input placeholder="Digite as informaçãoes sobre a Estante" id="estante" name="estante" type="text" class="validate">
                             </div>
                             <div class="input-field">
                                 <label for="sinopse">Sinopse.</label>
@@ -356,6 +369,7 @@ endif;
                         #contar os itens mostrados
                         $iten=0;
                         #mostrar os livros
+                        if(count($livros)>0):
                         foreach ($livros as $value):
                             #salva os ids de cada livro
                             $id[$value->idtb_acervo]=$value->idtb_acervo;
@@ -379,41 +393,55 @@ endif;
                                 </td>
                                 <td class="no-m center no-p-h">
                                     <a class="btn-floating btn waves-effect waves-light red" onclick="swal({
-                                    title: 'Você tem Certeza?',
-                                    text: 'não sera possivel recuperar as informações do livro',
-                                    type: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#DD6B55',
-                                    confirmButtonText: 'SIM',
-                                    cancelButtonText: 'NÃO',
-                                    closeOnConfirm: false,
-                                    closeOnCancel: false
-                                    },
-                                    function(isConfirm){
-                                    if (isConfirm) {
-                                    location.href='?p=acervo&delete=true&del=<?= $value->idtb_acervo?>';
-                                    } else {
-                                    swal({title:'Cancelado', text:'Seu Livro não foi excluido', type:'error',timer: 2000,showConfirmButton:false});
-                                    }
-                                    })"><i class="material-icons">delete_forever</i></a>
+                                            title: 'Você tem Certeza?',
+                                            text: 'não sera possivel recuperar as informações do livro',
+                                            type: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#DD6B55',
+                                            confirmButtonText: 'SIM',
+                                            cancelButtonText: 'NÃO',
+                                            closeOnConfirm: false,
+                                            closeOnCancel: false
+                                            },
+                                            function(isConfirm){
+                                            if (isConfirm) {
+                                            location.href='?p=acervo&delete=true&del=<?= $value->idtb_acervo?>';
+                                            } else {
+                                            swal({title:'Cancelado', text:'Seu Livro não foi excluido', type:'error',timer: 2000,showConfirmButton:false});
+                                            }
+                                            })"><i class="material-icons">delete_forever</i></a>
                                 </td>
                                 <?php if ($value->disponiveis>0):?>
-                                <td class="no-m center no-p-h">
-                                    <a class="btn-floating btn waves-effect waves-light cyan" onclick="$('#modal2<?= $value->idtb_acervo?>').openModal()"><i class="material-icons">book</i></a>
-                                </td>
+                                    <td class="no-m center no-p-h">
+                                        <a class="btn-floating btn waves-effect waves-light cyan" onclick="$('#modal2<?= $value->idtb_acervo?>').openModal()"><i class="material-icons">book</i></a>
+                                    </td>
                                 <?php endif;?>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach;
+                        ?>
                         </tbody>
                     </table>
                     <?php
+                    else:
+                        ?>
+                        </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="center">
+                                <i class="no-p no-m material-icons" style="font-size:125px !important;color: #ffe64c">warning</i>
+                                <h4><b>Não há Registros para Mostar</b></h4>
+                            </div>
+                        </div>
+                        <?php
+                    endif;
                     #repete os modais fora da tabela
+                    if(count($livros)>0):
                     foreach ($livros as $value):
                         ?>
                         <div id="modal1<?= $value->idtb_acervo?>" class="modal modal-fixed-footer modAcervo" >
                             <form method="post" enctype="multipart/form-data" id="form-1-<?= $value->idtb_acervo?>">
                                 <div class="modal-content">
-                                    <h4 class="no-m-b">Adicionar novo livro</h4>
+                                    <h4 class="no-m-b">Atualizar Livro</h4>
                                     <div class="col m12 l6">
                                         <input type="hidden" name="idAcervo" value="<?= $value->idtb_acervo?>">
                                         <div class="input-field">
@@ -490,7 +518,7 @@ endif;
                                         </div>
                                         <div class="input-field">
                                             <label class="active" for="estante">Estante</label>
-                                            <input placeholder="Digite" id="estante" name="estante" type="text" value="<?= $value->estante?>" class="validate">
+                                            <input placeholder="Digite as informaçãoes sobre a Estante" id="estante" name="estante" type="text" value="<?= $value->estante?>" class="validate">
                                         </div>
                                         <div class="input-field">
                                             <label class="active" for="sinopse">Sinopse.</label>
@@ -503,7 +531,7 @@ endif;
                                 </div>
                             </form>
                         </div>
-                    <?php if ($value->disponiveis>0):?>
+                        <?php if ($value->disponiveis>0):?>
                         <div id="modal2<?= $value->idtb_acervo?>" class="modal modal-fixed-footer modReserva" >
                             <form method="post" id="form-2-<?= $value->idtb_acervo?>">
                                 <div class="modal-content">
@@ -623,7 +651,8 @@ endif;
                                         <a href=""><i class="material-icons">chevron_right</i></a>
                                     </li>
                                     <?php
-                                endif ?>
+                                endif;
+                                endif; ?>
                             </ul>
                         </div>
                     </div>

@@ -52,3 +52,8 @@ Verificação de choques no agendamento
 Redirecionamentos
 Utilização de ajax no agendamento
 Ultima vesão do banco
+
+V3.25
+Adição da logo como favicon
+Correção de erros
+Criação do historico diario

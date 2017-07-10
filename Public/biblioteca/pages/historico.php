@@ -111,7 +111,9 @@ endif;
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($locacoes as $value):
+                        <?php
+                        if (count($locacoes)>0):
+                        foreach ($locacoes as $value):
                             $acervo=$tb_locacao->select()->from('tb_acervo')->where('idtb_acervo',$value->tb_acervo_idtb_acervo)->first();
                             ?>
                             <tr>
@@ -144,6 +146,18 @@ endif;
                         </tbody>
                     </table>
                     <?php
+                    else:
+                    ?>
+                    </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="center">
+                            <i class="no-p no-m material-icons" style="font-size:125px !important;color: #ffe64c">warning</i>
+                            <h4><b>Não há Registros para Mostar</b></h4>
+                        </div>
+                    </div>
+                    <?php
+                    endif;
                     $i=0;
                     foreach ($locacoes as $value):
                         ?>
