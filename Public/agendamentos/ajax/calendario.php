@@ -20,36 +20,41 @@ foreach ($agendamento as $value) {
     $professor=$tb_agendamento->select()->from('sisco.tb_usuario')->where('idtb_usuario',$value->tb_usuario_idtb_usuario)->first();
     foreach (explode(', ',$horario) as $hora):
         $hora_select=$tb_agendamento->select()->from('tb_horario')->where('idtb_horario',$hora)->first();
-        if ($value->data==$hoje):
-            $agenda[] = array(
-                'id'	=> $value->idtb_agendamento,
-                'title' => $professor->nome_usuario,
-                'start' => $value->data.'T'.$hora_select->inicio_horario,
-                'end' => $value->data.'T'.$hora_select->fim_horario,
-                'className' => 'fc-borda',
-                'color'=>$color[0],
-                'url' => "?p=agendamento&id=".$value->idtb_agendamento
-            );
-        elseif ($value->data<$hoje):
-            $agenda[] = array(
-                'id'	=> $value->idtb_agendamento,
-                'title' => $professor->nome_usuario,
-                'start' => $value->data.'T'.$hora_select->inicio_horario,
-                'end' => $value->data.'T'.$hora_select->fim_horario,
-                'className' => 'fc-borda',
-                'color'=>$color[1],
-                'url' => "?p=agendamento&id=".$value->idtb_agendamento
-            );
-        elseif ($value->data>$hoje):
-            $agenda[] = array(
-                'id'	=> $value->idtb_agendamento,
-                'title' => $professor->nome_usuario,
-                'start' => $value->data.'T'.$hora_select->inicio_horario,
-                'end' => $value->data.'T'.$hora_select->fim_horario,
-                'className' => 'fc-borda',
-                'color'=>$color[2],
-                'url' => "?p=agendamento&id=".$value->idtb_agendamento
-            );
+//        dump($hora_select);
+        if ($hora_select==false):
+            continue;
+        else:
+            if ($value->data==$hoje):
+                $agenda[] = array(
+                    'id'	=> $value->idtb_agendamento,
+                    'title' => $professor->nome_usuario,
+                    'start' => $value->data.'T'.$hora_select->inicio_horario,
+                    'end' => $value->data.'T'.$hora_select->fim_horario,
+                    'className' => 'fc-borda',
+                    'color'=>$color[0],
+                    'url' => "?p=agendamento&id=".$value->idtb_agendamento
+                );
+            elseif ($value->data<$hoje):
+                $agenda[] = array(
+                    'id'	=> $value->idtb_agendamento,
+                    'title' => $professor->nome_usuario,
+                    'start' => $value->data.'T'.$hora_select->inicio_horario,
+                    'end' => $value->data.'T'.$hora_select->fim_horario,
+                    'className' => 'fc-borda',
+                    'color'=>$color[1],
+                    'url' => "?p=agendamento&id=".$value->idtb_agendamento
+                );
+            elseif ($value->data>$hoje):
+                $agenda[] = array(
+                    'id'	=> $value->idtb_agendamento,
+                    'title' => $professor->nome_usuario,
+                    'start' => $value->data.'T'.$hora_select->inicio_horario,
+                    'end' => $value->data.'T'.$hora_select->fim_horario,
+                    'className' => 'fc-borda',
+                    'color'=>$color[2],
+                    'url' => "?p=agendamento&id=".$value->idtb_agendamento
+                );
+            endif;
         endif;
     endforeach;
 }

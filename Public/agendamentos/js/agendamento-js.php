@@ -110,9 +110,9 @@
                         text:texto, type:"success",html:true,closeOnConfirm:false},function () {
                         document.location='?p=home'
                     });
-//                    console.log(aulaCad);
-//                    console.log(aulaErro);
-//                    console.log(recurso);
+                    console.log(aulaCad);
+                    console.log(aulaErro);
+                    console.log(recurso);
                 }else if(data.log==='error') {
                     let aula = '', recurso = '';
                     for (let i = 0; i < data.aula.length; i++) {
@@ -148,7 +148,7 @@
                     swal("Ocorreu um erro ao Agendar Agendamento!", "", "error");
                 }
 //                console.log(data);
-                document.write(data.responseText);
+//                document.write(data.responseText);
             }
         })
         };

@@ -17,7 +17,7 @@
                     <a class="collapsible-header waves-effect waves-grey" onclick="$('#editar').openModal()"><i class="material-icons">settings</i>Configurações<!--<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>--></a>
                 </li>
                 <li class="no-padding">
-                    <a class="waves-effect waves-grey"><i class="material-icons">import_contacts</i>Manual</a>
+                    <a class="waves-effect waves-grey" target="_blank" href="Manual-Agendamento.pdf"><i class="material-icons">import_contacts</i>Manual</a>
                 </li>
                 <li class="divider"></li>
                 <li class="no-padding">
@@ -70,3 +70,18 @@
         </div>
     </form>
 </div>
+<?php
+#todo:atualizar a sessao ao atualiar o usuario
+$tb_usuario=new \App\Models\Tb_usuario();
+if (isset($_POST['atualizar'])):
+    $id=strip_tags($_POST['id']);
+    $tb_usuario->nome_usuario=strip_tags($_POST['nome_usuario']);
+    $tb_usuario->email_usuario=trim(strip_tags($_POST['email']));
+    if (isset($_POST['troca']) && $_POST['troca']=="yes"):
+        $tb_usuario->senha_usuario=$pass->hash(strip_tags($_POST['senha']));
+    endif;
+    $tb_usuario->update("idtb_usuario",$id);
+    echo '<script>location.href=""</script>';
+endif;
+unset($tb_usuario);
+?>

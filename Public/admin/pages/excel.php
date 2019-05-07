@@ -86,6 +86,6 @@ foreach ($tipo as $tipo_acervo):
         </html>
         <?php
     else:
-        echo '<script>window.location=\'../index.php?p=home\'</script>';
+        echo '<script>window.location=indexindex.htmlript>';
     endif;
 endforeach;?>

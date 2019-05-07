@@ -112,6 +112,7 @@
             },
             error: function(data){
                 console.log(data);
+//                document.write(data.responseText);
             }
         });
     });

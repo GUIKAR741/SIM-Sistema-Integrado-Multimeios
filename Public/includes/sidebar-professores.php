@@ -17,7 +17,7 @@
                     <a class="collapsible-header waves-effect waves-grey" onclick="$('#editar').openModal()"><i class="material-icons">settings</i>Configurações<!--<i class="nav-drop-icon material-icons">keyboard_arrow_right</i>--></a>
                 </li>
                 <li class="no-padding">
-                    <a class="waves-effect waves-grey"><i class="material-icons">import_contacts</i>Manual</a>
+                    <a class="waves-effect waves-grey" target="_blank" href="Manual-Professores.pdf"><i class="material-icons">import_contacts</i>Manual</a>
                 </li>
                 <li class="divider"></li>
                 <li class="no-padding">

@@ -14,7 +14,7 @@
         <div class="sidebar-account-settings">
             <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
                 <li class="no-padding">
-                    <a class="waves-effect waves-grey"><i class="material-icons">import_contacts</i>Manual</a>
+                    <a class="waves-effect waves-grey" target="_blank" href="Manual-Administrador.pdf"><i class="material-icons">import_contacts</i>Manual</a>
                 </li>
                 <li class="divider"></li>
                 <li class="no-padding">

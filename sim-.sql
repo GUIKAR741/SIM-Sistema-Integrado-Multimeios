@@ -1,31 +1,9 @@
--- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: 22-Jun-2017 às 07:54
--- Versão do servidor: 5.7.9
--- PHP Version: 5.6.16
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `sim`
---
 
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `tb_acervo`
 --
-
 DROP TABLE IF EXISTS `tb_acervo`;
 CREATE TABLE IF NOT EXISTS `tb_acervo` (
   `idtb_acervo` int(11) NOT NULL AUTO_INCREMENT,
@@ -3550,7 +3528,3 @@ INSERT INTO `tb_usuario` (`idtb_usuario`, `nome_usuario`, `email_usuario`, `senh
 (1, 'Biblioteca', 'biblioteca@adm', '$2y$11$Vh5lv/pusII031nMdWDa/eMJMtK6/BtchwhZg2S6RgI7svMUk5y/G', 'Biblioteca', 0),
 (2, 'Agendamento', 'agendamento@adm', '$2y$11$ilBFjHXfaUqanbopioD5e.Udpa0HGK1jTd20nk1P/Hp.IyxQ.tqyO', 'Agendamento', 0),
 (3, 'Administrador', 'admin@adm', '$2y$11$ilBFjHXfaUqanbopioD5e.Udpa0HGK1jTd20nk1P/Hp.IyxQ.tqyO', 'Administrador', 0);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

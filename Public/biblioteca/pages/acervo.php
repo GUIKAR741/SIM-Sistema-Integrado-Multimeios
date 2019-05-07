@@ -23,7 +23,7 @@ if (isset($procura) && $procura!=''):
         " or observacao LIKE '%$procura%' or data LIKE '%$procura%' ".
         " or volume LIKE '%$procura%' or exemplares LIKE '%$procura%' ".
         " or ano_publicacao LIKE '%$procura%' or estante LIKE '%$procura%' or forma_de_aquisicao ","%$procura%"
-    )->limite("$pagina,$itens")->all();
+    )->limite("$pagina,$itens")->order('idtb_acervo')->all();
     #conta quantos valores existem para pesquisa
     $livroRow=$tb_acervo->select()->from()->like(
         "tipo_acervo = 'livro' and (titulo LIKE '%$procura%' or autor LIKE '%$procura%' ".
@@ -35,7 +35,7 @@ if (isset($procura) && $procura!=''):
     $total=$livroRow;
 else:
     #selecionar todos os livros do acervo atual pela quantidade de itens por pagina
-    $livros=$tb_acervo->select()->from()->limite("$pagina,$itens")->where('tipo_acervo','livro')->all();
+    $livros=$tb_acervo->select()->from()->limite("$pagina,$itens")->where('tipo_acervo','livro')->order('idtb_acervo')->all();
     #quantidade de livros mostrados
     $livroRow=$tb_acervo->count();
     #total de livros
@@ -375,7 +375,7 @@ endif;
                             $id[$value->idtb_acervo]=$value->idtb_acervo;
                             ?>
                             <tr>
-                                <td class="no-m center no-p-h"><?= ($pagina++)+1;$iten++?></td>
+                                <td col class="no-m center no-p-h"><?= ($pagina++)+1;$iten++?></td>
                                 <td class="no-m center no-p-h"><?= $value->titulo?></td>
                                 <td class="no-m center no-p-h"><?= $value->autor?></td>
                                 <td class="no-m center no-p-h"><?= $value->local?></td>

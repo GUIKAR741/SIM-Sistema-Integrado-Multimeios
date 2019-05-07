@@ -59,16 +59,17 @@ if (isset($_POST['lidos']) && $_POST['lidos']=='true'):
         if ($qtd->idlivro!=0):
             $idslivro[$value->id]=$qtd->idlivro;
         endif;
-
     }
+    $i=0;
     arsort($idslivro);#ordena o array do maior para o menor
     $lidos['labels']="lidos";
     foreach ($idslivro as $key=>$item) {
         $info=$tb_locacao->from('tb_acervo')->where('idtb_acervo',$key)->first();
+//        dump($i);
         $lidos['datasets'][]=[
             'label'=>$info->titulo,
-            'backgroundColor'=>$cor[$i]['backgroundColor'],
-            'borderColor'=>$cor[$i++]['borderColor'],
+            'backgroundColor'=>@$cor[$i]['backgroundColor'],
+            'borderColor'=>@$cor[$i++]['borderColor'],
             'borderWidth'=> '2',
             'data'=>"$item"
         ];
@@ -138,6 +139,6 @@ foreach ($all as $value) :
     if ($value->exemplares!=$value->disponiveis):
         $tb_acervo->disponiveis=$value->exemplares;
         $tb_acervo->update("idtb_acervo",$value->idtb_acervo);
-        dump($value);
+//        dump($value);
     endif;
 endforeach;*/

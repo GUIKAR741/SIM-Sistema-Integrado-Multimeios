@@ -60,3 +60,6 @@ Criação do historico diario
 
 V3.30
 Adição de arquivos
+
+V3.4
+Alterações

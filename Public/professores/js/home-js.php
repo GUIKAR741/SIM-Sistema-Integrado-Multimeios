@@ -99,9 +99,9 @@
                         "</div>";
                     swal({title:"",
                         text:texto, type:"success",html:true});
-                    console.log(aulaCad);
-                    console.log(aulaErro);
-                    console.log(recurso);
+//                    console.log(aulaCad);
+//                    console.log(aulaErro);
+//                    console.log(recurso);
                 }else if(data.log==='error'){
                     let aula='',recurso='';
                     for(let i=0;i<data.aula.length;i++){
@@ -122,14 +122,14 @@
                         "</div>";
                     swal({title:"Equipamentos já agendados!", text:texto,html:true,type: "error"});
                 }
-                console.log(data);
+//                console.log(data);
             },
             error: function(data){
                 if (data.error === 'error') {
                     swal("Ocorreu um erro ao Agendar Agendamento!", "", "error");
                 }
 //                console.log(data);
-                document.write(data.responseText);
+//                document.write(data.responseText);
             }
         })
         };
